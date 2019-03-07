@@ -19,7 +19,7 @@ public class DeptController {
     @RequestMapping("/findAllDept")
     @ResponseBody
     public List<Dept> findAllDept() {
-        List<Dept> list = deptService.findAllDept();
+        List<Dept> list = deptService.queryAllDept();
         System.out.println(list.toString());
         return list;
     }

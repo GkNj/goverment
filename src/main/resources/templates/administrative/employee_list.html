@@ -24,24 +24,16 @@
     <link rel="shortcut icon" href="../media/image/favicon.ico"/>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript">
-        // $.ajax({
-        //     type: "post",
-        //     url: "http://localhost:8080/dept/findAllDept", //此次url改为真正需要的url
-        //     success: function (data, status) {
-        //         $.each(data, function (index, item) {
-        //             console.log(item);
-        //             $("#select").append(  //此处向select中循环绑定数据
-        //                 "<option value=" + item.id + ">" + item.name + "</option>");
-        //         });
-        //     },
-        // });
+
+        /**
+         * 得到所有部门名称放到下拉框
+         */
         window.onload = function () {
             $.ajax({
                 type: "post",
                 url: "http://localhost:8080/dept/findAllDept", //此次url改为真正需要的url
                 success: function (data, status) {
                     $.each(data, function (index, item) {
-                        console.log(item);
                         $("#select").append(  //此处向select中循环绑定数据
                             "<option value=" + item.id + ">" + item.deptName + "</option>");
                     });
@@ -55,12 +47,10 @@
                 var data = response.data;
                 var brand = data.dId.id;
                 if (brand != "") {
-                    alert(brand);
                     var s = document.getElementById("select");
                     var ops = s.options;
                     for (var i = 0; i < ops.length; i++) {
                         var tempValue = ops[i].value;
-                        alert(tempValue);
                         if (tempValue == brand) {
                             ops[i].selected = true;
                             break;

@@ -12,4 +12,6 @@ public interface DeptService {
      * @return 所有部门
      */
     List<Dept> findAllDept();
+
+    List<Dept> queryAllDept();
 }

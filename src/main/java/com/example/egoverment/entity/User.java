@@ -1,7 +1,7 @@
 package com.example.egoverment.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,7 +11,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -45,7 +44,7 @@ public class User implements Serializable, UserDetails {
     /**
      * 入职时间
      */
-    private Date startDate;
+    private String startDate;
 
     /**
      * 所属部门
@@ -104,7 +103,7 @@ public class User implements Serializable, UserDetails {
     /**
      * 出生年月
      */
-    private Date birthday;
+    private String birthday;
 
     /**
      * 工资
@@ -152,7 +151,7 @@ public class User implements Serializable, UserDetails {
     public User() {
     }
 
-    public User(String username, String password, String name, String sex, Date startDate, Dept dId, String phone, String nativePlace, String address, String graduate, String education, String position, String political, String email, String major, Date birthday, Double salary, String punchNum, String lateNum, String earlyNum, List<Role> roles) {
+    public User(String username, String password, String name, String sex, String startDate, Dept dId, String phone, String nativePlace, String address, String graduate, String education, String position, String political, String email, String major, String birthday, Double salary, String punchNum, String lateNum, String earlyNum, List<Role> roles) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -247,11 +246,11 @@ public class User implements Serializable, UserDetails {
         this.sex = sex;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
@@ -335,11 +334,11 @@ public class User implements Serializable, UserDetails {
         this.major = major;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

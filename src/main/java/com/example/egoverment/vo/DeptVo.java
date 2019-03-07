@@ -1,20 +1,9 @@
-package com.example.egoverment.entity;
+package com.example.egoverment.vo;
 
+import com.example.egoverment.entity.User;
 
+public class DeptVo {
 
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
-
-
-@Entity
-@Table(name = "dept")
-@JsonIgnoreProperties(value = {"uId","dId"})
-public class Dept {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     /**
@@ -25,19 +14,13 @@ public class Dept {
     /**
      * 部门负责人
      */
-
-
-//    @OneToOne
-//    @JoinColumn(name = "u_id", referencedColumnName = "id")
-    private  int uId;
+    private  User uId;
 
     /**
      * 更新人
      */
+    private User dId;
 
-//    @OneToOne
-//    @JoinColumn(name = "dd_id", referencedColumnName = "id")
-    private int dId;
     /**
      * 成立时间
      */
@@ -48,8 +31,16 @@ public class Dept {
      */
     private String deptUpdateTime;
 
+    public DeptVo() {
+    }
 
-    public Dept() {
+    public DeptVo(int id, String deptName, User uId, User dId, String deptStartTime, String deptUpdateTime) {
+        this.id = id;
+        this.deptName = deptName;
+        this.uId = uId;
+        this.dId = dId;
+        this.deptStartTime = deptStartTime;
+        this.deptUpdateTime = deptUpdateTime;
     }
 
     public int getId() {
@@ -68,12 +59,20 @@ public class Dept {
         this.deptName = deptName;
     }
 
-    public int getuId() {
+    public User getuId() {
         return uId;
     }
 
-    public void setuId(int uId) {
+    public void setuId(User uId) {
         this.uId = uId;
+    }
+
+    public User getdId() {
+        return dId;
+    }
+
+    public void setdId(User dId) {
+        this.dId = dId;
     }
 
     public String getDeptStartTime() {
@@ -92,31 +91,15 @@ public class Dept {
         this.deptUpdateTime = deptUpdateTime;
     }
 
-    public int getdId() {
-        return dId;
-    }
-
-    public void setdId(int dId) {
-        this.dId = dId;
-    }
-
-    public Dept(String deptName, int uId, String deptStartTime, String deptUpdateTime, int dId) {
-        this.deptName = deptName;
-        this.uId = uId;
-        this.deptStartTime = deptStartTime;
-        this.deptUpdateTime = deptUpdateTime;
-        this.dId = dId;
-    }
-
     @Override
     public String toString() {
-        return "Dept{" +
+        return "DeptVo{" +
                 "id=" + id +
                 ", deptName='" + deptName + '\'' +
                 ", uId=" + uId +
-                ", deptStartTime=" + deptStartTime +
-                ", deptUpdateTime=" + deptUpdateTime +
                 ", dId=" + dId +
+                ", deptStartTime='" + deptStartTime + '\'' +
+                ", deptUpdateTime='" + deptUpdateTime + '\'' +
                 '}';
     }
 }

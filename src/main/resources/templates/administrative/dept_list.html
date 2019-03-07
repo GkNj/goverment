@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]>
+<html lang="en" class="ie8"> <![endif]-->
+
+<!--[if IE 9]>
+<html lang="en" class="ie9"> <![endif]-->
+
+<!--[if !IE]><!-->
+<html lang="en"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Metronic | Data Tables - Advanced Tables</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <link href="../../static/media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../static/media/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../static/media/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../static/media/css/style-metro.css" rel="stylesheet" type="text/css"/>
+    <link href="../../static/media/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="../../static/media/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="../../static/media/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+    <link href="../../static/media/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/media/css/select2_metro.css"/>
+    <link rel="stylesheet" href="../../static/media/css/DT_bootstrap.css"/>
+    <!-- END PAGE LEVEL STYLES -->
+    <link rel="shortcut icon" href="../../static/media/image/favicon.ico"/>
+
+</head>
+
+
+<body class="page-header-fixed">
+
+<!-- BEGIN HEADER -->
+
+<div class="header navbar navbar-inverse navbar-fixed-top">
+
+    <!-- BEGIN TOP NAVIGATION BAR -->
+
+    <div class="navbar-inner">
+
+        <div class="container-fluid">
+
+            <!-- BEGIN LOGO -->
+
+            <a class="brand" href="../index.html">
+
+                <img src="../../static/media/image/logo.png" alt="logo"/>
+
+            </a>
+
+            <!-- END LOGO -->
+
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+
+            <a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+
+                <img src="../../static/media/image/menu-toggler.png" alt=""/>
+
+            </a>
+
+            <!-- END RESPONSIVE MENU TOGGLER -->
+
+            <!-- BEGIN TOP NAVIGATION MENU -->
+
+            <ul class="nav pull-right">
+
+                <!-- BEGIN NOTIFICATION DROPDOWN -->
+
+                <li class="dropdown" id="header_notification_bar">
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+                        <i class="icon-warning-sign"></i>
+
+                        <span class="badge">6</span>
+
+                    </a>
+
+                    <ul class="dropdown-menu extended notification">
+
+                        <li>
+
+                            <p>You have 14 new notifications</p>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+                                <span class="label label-success"><i class="icon-plus"></i></span>
+
+                                New user registered.
+
+                                <span class="time">Just now</span>
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+                                <span class="label label-important"><i class="icon-bolt"></i></span>
+
+                                Server #12 overloaded.
+
+                                <span class="time">15 mins</span>
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+                                <span class="label label-warning"><i class="icon-bell"></i></span>
+
+                                Server #2 not respoding.
+
+                                <span class="time">22 mins</span>
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+                                <span class="label label-info"><i class="icon-bullhorn"></i></span>
+
+                                Application error.
+
+                                <span class="time">40 mins</span>
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+                                <span class="label label-important"><i class="icon-bolt"></i></span>
+
+                                Database overloaded 68%.
+
+                                <span class="time">2 hrs</span>
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+                                <span class="label label-important"><i class="icon-bolt"></i></span>
+
+                                2 user IP blocked.
+
+                                <span class="time">5 hrs</span>
+
+                            </a>
+
+                        </li>
+
+                        <li class="external">
+
+                            <a href="#">See all notifications <i class="m-icon-swapright"></i></a>
+
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <!-- END NOTIFICATION DROPDOWN -->
+
+                <!-- BEGIN INBOX DROPDOWN -->
+
+                <li class="dropdown" id="header_inbox_bar">
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+                        <i class="icon-envelope"></i>
+
+                        <span class="badge">5</span>
+
+                    </a>
+
+                    <ul class="dropdown-menu extended inbox">
+
+                        <li>
+
+                            <p>You have 12 new messages</p>
+
+                        </li>
+
+                        <li>
+
+                            <a href="inbox.html?a=view">
+
+                                <span class="photo"><img src="../../static/media/image/avatar2.jpg" alt=""/></span>
+
+                                <span class="subject">
+
+								<span class="from">Lisa Wong</span>
+
+								<span class="time">Just Now</span>
+
+								</span>
+
+                                <span class="message">
+
+								Vivamus sed auctor nibh congue nibh. auctor nibh
+
+								auctor nibh...
+
+								</span>
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="inbox.html?a=view">
+
+                                <span class="photo"><img src="../../static/media/image/avatar3.jpg" alt=""/></span>
+
+                                <span class="subject">
+
+								<span class="from">Richard Doe</span>
+
+								<span class="time">16 mins</span>
+
+								</span>
+
+                                <span class="message">
+
+								Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh
+
+								auctor nibh...
+
+								</span>
+
+                            </a>
+
+                        </li>
+
+                        <li>
+                            <a href="inbox.html?a=view">
+                                <span class="photo"><img src="../../static/media/image/avatar1.jpg" alt=""/></span>
+                                <span class="subject">
+								<span class="from">Bob Nilson</span>
+								<span class="time">2 hrs</span>
+								</span>
+                                <span class="message">
+								Vivamus sed nibh auctor nibh congue nibh. auctor nibh
+								auctor nibh...
+								</span>
+                            </a>
+                        </li>
+
+                        <li class="external">
+                            <a href="inbox.html">See all messages <i class="m-icon-swapright"></i></a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <!-- END INBOX DROPDOWN -->
+
+                <!-- BEGIN TODO DROPDOWN -->
+
+                <li class="dropdown" id="header_task_bar">
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+                        <i class="icon-tasks"></i>
+
+                        <span class="badge">5</span>
+
+                    </a>
+
+                    <ul class="dropdown-menu extended tasks">
+
+                        <li>
+
+                            <p>You have 12 pending tasks</p>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+								<span class="task">
+
+								<span class="desc">New release v1.2</span>
+
+								<span class="percent">30%</span>
+
+								</span>
+
+                                <span class="progress progress-success ">
+
+								<span style="width: 30%;" class="bar"></span>
+
+								</span>
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+								<span class="task">
+
+								<span class="desc">Application deployment</span>
+
+								<span class="percent">65%</span>
+
+								</span>
+
+                                <span class="progress progress-danger progress-striped active">
+
+								<span style="width: 65%;" class="bar"></span>
+
+								</span>
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+								<span class="task">
+
+								<span class="desc">Mobile app release</span>
+
+								<span class="percent">98%</span>
+
+								</span>
+
+                                <span class="progress progress-success">
+
+								<span style="width: 98%;" class="bar"></span>
+
+								</span>
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+								<span class="task">
+
+								<span class="desc">Database migration</span>
+
+								<span class="percent">10%</span>
+
+								</span>
+
+                                <span class="progress progress-warning progress-striped">
+
+								<span style="width: 10%;" class="bar"></span>
+
+								</span>
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+								<span class="task">
+
+								<span class="desc">Web server upgrade</span>
+
+								<span class="percent">58%</span>
+
+								</span>
+
+                                <span class="progress progress-info">
+
+								<span style="width: 58%;" class="bar"></span>
+
+								</span>
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+								<span class="task">
+
+								<span class="desc">Mobile development</span>
+
+								<span class="percent">85%</span>
+
+								</span>
+
+                                <span class="progress progress-success">
+
+								<span style="width: 85%;" class="bar"></span>
+
+								</span>
+
+                            </a>
+
+                        </li>
+
+                        <li class="external">
+
+                            <a href="#">See all tasks <i class="m-icon-swapright"></i></a>
+
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <!-- END TODO DROPDOWN -->
+
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+
+                <li class="dropdown user">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img alt="" src="../../static/media/image/avatar1_small.jpg"/>
+                        <span class="username">高凯</span>
+                        <i class="icon-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../file/personFile.html"><i class="icon-user"></i> 我的信息</a></li>
+                        <li><a href="punch_lock.html"><i class="icon-calendar"></i> 打卡</a></li>
+                    </ul>
+                </li>
+
+                <!-- END USER LOGIN DROPDOWN -->
+
+            </ul>
+
+            <!-- END TOP NAVIGATION MENU -->
+
+        </div>
+
+    </div>
+
+    <!-- END TOP NAVIGATION BAR -->
+
+</div>
+
+<!-- END HEADER -->
+
+<!-- BEGIN CONTAINER -->
+
+<div class="page-container row-fluid">
+
+    <!-- BEGIN SIDEBAR -->
+
+    <div class="page-sidebar nav-collapse collapse">
+
+        <!-- BEGIN SIDEBAR MENU -->
+
+        <ul class="page-sidebar-menu">
+
+            <li>
+
+                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+
+                <div class="sidebar-toggler hidden-phone"></div>
+
+                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+
+            </li>
+
+            <li>
+
+                <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+
+                <form class="sidebar-search">
+
+                    <div class="input-box">
+                        <a href="javascript:;" class="remove"></a>
+                        <input type="text" placeholder="Search..."/>
+                        <input type="button" class="submit" value=" "/>
+                    </div>
+                </form>
+                <!-- END RESPONSIVE QUICK SEARCH FORM -->
+            </li>
+
+            <!--行政管理-->
+            <li class="active">
+                <a class="active" href="javascript:;">
+                    <i class="icon-sitemap"></i>
+                    <span class="title">行政管理</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="active">
+                        <a href="javascript:;">人事管理
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="employee_list.html">职工基本信息管理</a></li>
+                            <li class="active"><a href="dept_list.html">部门信息管理</a></li>
+                            <li><a href="employee_salary_list.html">职工工资管理</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            考勤管理
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="javascript:;">考勤规则
+                                <span class="arrow"></span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="lock_time.html">考勤时间</a></li>
+                                    <li><a href="person_ruler.html">人性化规则</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </li>
+
+
+            <!--公文管理-->
+            <li >
+                <a href="javascript:;">
+                    <i class="icon-user"></i>
+                    <span class="title">公文管理</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li >
+                        <a href="../document/official_document_list.html">
+                            公文设计</a>
+                    </li>
+                    <li>
+                        <a href="../document/official_document_upload.html">
+                            公文的上传和下载</a>
+                    </li>
+                </ul>
+            </li>
+            <!--档案管理-->
+            <li>
+                <a class="active" href="javascript:;">
+                    <i class="icon-sitemap"></i>
+                    <span class="title">档案管理</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="../file/personFile.html" class="active">个人档案
+                            <span class="arrow"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">部门档案
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="../file/exchequer_file_list.html">财政部</a></li>
+                            <li><a href="../file/city_file_list.html">城建部</a></li>
+                            <li><a href="../file/traffic_file_list.html">交通部</a></li>
+                            <li><a href="../file/news_file_list.html">新闻部</a></li>
+                            <li><a href="../file/logistics_file_list.html">后勤部</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="../file/government_file_list.html">政府档案
+                            <span class="arrow"></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!--新闻管理-->
+            <li class="">
+                <a href="javascript:;">
+                    <i class="icon-file-text"></i>
+                    <span class="title">新闻管理</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="../news/release_news.html">
+                            发布新闻</a>
+                    </li>
+                    <li>
+                        <a href="../news/news_list.html">
+                            查看新闻</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <!-- END SIDEBAR MENU -->
+
+    </div>
+
+    <!-- END SIDEBAR -->
+
+    <!-- BEGIN PAGE -->
+
+    <div class="page-content">
+
+        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+        <div id="portlet-config" class="modal hide">
+
+            <div class="modal-header">
+
+                <button data-dismiss="modal" class="close" type="button"></button>
+
+                <h3>portlet Settings</h3>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p>Here will be a configuration form</p>
+
+            </div>
+
+        </div>
+
+        <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid">
+
+                <div class="span12">
+
+                    <!-- BEGIN STYLE CUSTOMIZER -->
+
+                    <div class="color-panel hidden-phone">
+                        <div class="color-mode-icons icon-color"></div>
+                        <div class="color-mode-icons icon-color-close"></div>
+                        <div class="color-mode">
+                            <p>主题色彩</p>
+                            <ul class="inline">
+                                <li class="color-black current color-default" data-style="default"></li>
+                                <li class="color-blue" data-style="blue"></li>
+                                <li class="color-brown" data-style="brown"></li>
+                                <li class="color-purple" data-style="purple"></li>
+                                <li class="color-grey" data-style="grey"></li>
+                                <li class="color-white color-light" data-style="light"></li>
+
+                            </ul>
+
+                            <label>
+
+                                <span>布局</span>
+                                <select class="layout-option m-wrap small">
+                                    <option value="fluid" selected>流体</option>
+                                    <option value="boxed">盒状</option>
+                                </select>
+
+                            </label>
+
+                            <label>
+
+                                <span>头部</span>
+                                <select class="header-option m-wrap small">
+                                    <option value="fixed" selected>固定</option>
+                                    <option value="default">默认</option>
+                                </select>
+                            </label>
+
+                            <label>
+
+                                <span>侧边栏</span>
+                                <select class="sidebar-option m-wrap small">
+                                    <option value="fixed">固定</option>
+                                    <option value="default" selected>默认</option>
+                                </select>
+
+                            </label>
+
+                            <label>
+
+                                <span>页脚</span>
+                                <select class="footer-option m-wrap small">
+                                    <option value="fixed">固定</option>
+                                    <option value="default" selected>默认</option>
+                                </select>
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <!-- END BEGIN STYLE CUSTOMIZER -->
+
+                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                    <h3 class="page-title">
+
+                        行政管理
+                        <small>人事管理</small>
+
+                    </h3>
+
+                    <ul class="breadcrumb">
+
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="../index.html">主页</a>
+                            <i class="icon-angle-right"></i>
+                        </li>
+
+                        <li>
+
+                            <a href="#">人事管理</a>
+                            <i class="icon-angle-right"></i>
+                        </li>
+
+                        <li><a href="#">部门信息管理</a></li>
+
+                    </ul>
+
+
+                    <!-- END PAGE TITLE & BREADCRUMB-->
+
+                </div>
+
+            </div>
+
+            <!-- END PAGE HEADER-->
+
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                    <div class="portlet box green">
+                        <div class="portlet-title">
+                            <div class="caption"><i class="icon-globe"></i>部门基本信息
+                            </div>
+                            <div class="tools">
+                                <a href="javascript:;" class="reload"></a>
+                                <a href="javascript:;" class="remove"></a>
+                            </div>
+                        </div>
+                        <a href="#" data-toggle="modal" data-target="#addDept_Modal">
+                            <button type="button" class=" btn-success">添加部门</button>
+                        </a>
+                        <div class="portlet-body">
+
+                            <table class="table table-striped table-bordered table-hover table-full-width"
+                                   id="sample_1">
+
+                                <thead>
+                                <tr>
+                                    <th>部门编号</th>
+                                    <th>部门名称</th>
+                                    <th class="hidden-480">部门负责人</th>
+                                    <th class="hidden-480">成立时间</th>
+                                    <th class="hidden-480">更新时间</th>
+                                    <th class="hidden-480">更新人</th>
+                                    <th class="hidden-480">操作</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>新闻部</td>
+                                    <td class="hidden-480">宁静</td>
+                                    <td class="hidden-480">2018-11-08</td>
+                                    <td class="hidden-480">2019-2-22</td>
+                                    <td class="hidden-480">高凯</td>
+                                    <td>
+                                        <a href="#" class="btn mini purple" data-toggle="modal" data-target="#myModal">
+                                            <i class="icon-edit">更改</i>
+                                        </a>
+                                        <a href="#" class="btn mini black">
+                                            <i class="icon-trash">删除</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+
+                            <div class="modal fade" id="myModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+
+                                        <!-- 模态框头部 -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">部门详情信息</h4>
+                                            <button type="button" class="close" data-dismiss="modal"></button>
+                                        </div>
+
+                                        <!-- 模态框主体 -->
+                                        <form action="" method="post">
+                                            <div class="modal-body">
+                                                <div class="control-group">
+                                                    <label class="control-label">部门名称<span
+                                                            class="required">*</span></label>
+                                                    <div class="controls">
+                                                        <input type="text" value="新闻部" name="dept_name"
+                                                               data-required="1" class="span8 m-wrap"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <label class="control-label">部门负责人<span
+                                                            class="required">*</span></label>
+                                                    <div class="controls">
+                                                        <input name="dept_user" value="宁静" type="text"
+                                                               class="span8 m-wrap"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <label class="control-label">成立时间<span
+                                                            class="required">*</span></label>
+                                                    <div class="controls">
+                                                        <input name="dept_start_time" value="2018-11-08" type="text"
+                                                               class="span8 m-wrap"/>
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label class="control-label">更新时间<span
+                                                            class="required">*</span></label>
+                                                    <div class="controls">
+                                                        <input name="dept_update_time" value="" id="show" type="text"
+                                                               class="span8 m-wrap"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <label class="control-label">更新人<span
+                                                            class="required">*</span></label>
+                                                    <div class="controls">
+                                                        <input name="phone" type="text" class="span8 m-wrap"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- 模态框底部 -->
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-success">保存</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    关闭
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="addDept_Modal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+
+                                        <!-- 模态框头部 -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">部门信息</h4>
+                                            <button type="button" class="close" data-dismiss="modal"></button>
+                                        </div>
+
+                                        <!-- 模态框主体 -->
+                                        <form action="" method="post">
+                                            <div class="modal-body">
+                                                <div class="control-group">
+                                                    <label class="control-label">部门名称<span
+                                                            class="required">*</span></label>
+                                                    <div class="controls">
+                                                        <input type="text" name="dept_name" data-required="1"
+                                                               class="span8 m-wrap"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <label class="control-label">部门负责人<span
+                                                            class="required">*</span></label>
+                                                    <div class="controls">
+                                                        <input name="dept_user" type="text" class="span8 m-wrap"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <label class="control-label">成立时间<span
+                                                            class="required">*</span></label>
+                                                    <div class="controls">
+                                                        <input name="dept_start_time" id="addShow" type="text"
+                                                               class="span8 m-wrap"/>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <!-- 模态框底部 -->
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-success">添加</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    关闭
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="../../static/media/js/jquery-1.10.1.min.js" type="text/javascript"></script>
+<script src="../../static/media/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<script src="../../static/media/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+<script src="../../static/media/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../static/media/js/excanvas.min.js"></script>
+<script src="../../static/media/js/respond.min.js"></script>
+<script src="../../static/media/js/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../static/media/js/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../../static/media/js/jquery.cookie.min.js" type="text/javascript"></script>
+<script src="../../static/media/js/jquery.uniform.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../../static/media/js/select2.min.js"></script>
+<script type="text/javascript" src="../../static/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../static/media/js/DT_bootstrap.js"></script>
+<script src="../../static/media/js/app.js"></script>
+<script src="../../static/media/js/table-advanced.js"></script>
+
+<script>
+    jQuery(document).ready(function () {
+        App.init();
+        TableAdvanced.init();
+    });
+
+
+    window.onload = function () {
+
+    }
+
+    function today() {//构建方法
+        var today = new Date();//new 出当前时间
+        var h = today.getFullYear();//获取年
+        var m = today.getMonth() + 1;//获取月
+        var d = today.getDate();//获取日
+        var H = today.getHours();//获取时
+        var M = today.getMinutes();//获取分
+        return h + "-" + m + "-" + d + " " + H + ":" + M; //返回 年-月-日 时:分:秒
+    }
+
+    document.getElementById("show").value = today();
+    document.getElementById("addShow").value = today();
+
+</script>
+</body>
+
+</html>

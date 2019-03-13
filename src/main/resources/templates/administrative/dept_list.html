@@ -8,7 +8,10 @@
 
 <!--[if !IE]><!-->
 <html lang="en"> <!--<![endif]-->
-
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
 <!-- BEGIN HEAD -->
 
 <head>
@@ -17,19 +20,62 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta content="" name="description"/>
     <meta content="" name="author"/>
-    <link href="../../static/media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/style-metro.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/style.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/style-responsive.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
-    <link href="../../static/media/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="../../static/media/css/select2_metro.css"/>
-    <link rel="stylesheet" href="../../static/media/css/DT_bootstrap.css"/>
+    <script src="../media/js/jquery-1.10.1.min.js" type="text/javascript"></script>
+    <link href="../media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/style-metro.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+    <link href="../media/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="../media/css/select2_metro.css"/>
+    <link rel="stylesheet" href="../media/css/DT_bootstrap.css"/>
     <!-- END PAGE LEVEL STYLES -->
-    <link rel="shortcut icon" href="../../static/media/image/favicon.ico"/>
+    <link rel="shortcut icon" href="../media/image/favicon.ico"/>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+    <script type="text/javascript">
+
+
+        /**
+         * 获取没有职位的用户
+         */
+        window.onload = function () {
+            $.ajax({
+                type: "post",
+                url: "http://localhost:8080/user/findByPosition", //此次url改为真正需要的url
+                success: function (data, status) {
+                    $.each(data, function (index, item) {
+                        $("#select").append(  //此处向select中循环绑定数据
+                            "<option value=" + item.id + ">" + item.name + "</option>");
+                        $("#selectt").append(  //此处向select中循环绑定数据
+                            "<option value=" + item.id + ">" + item.name + "</option>");
+                    });
+                },
+            });
+
+        };
+
+        function FindDept(id) {
+            axios.get('http://localhost:8080/dept/findOneDept?id=' + id, {}).then(function (response) {
+                var data = response.data;
+                // alert(data[0].deptName)
+                $("#id").val(data[0].id);
+                $("#id").attr("value", data[0].id);
+                $("#deptName").val(data[0].deptName);
+                $("#deptName").attr("value", data[0].deptName);
+                $("#startDate").val(data[0].deptStartTime);
+                $("#startDate").attr("value", data[0].deptStartTime);
+                $("#uId").val(data[0].uId.name);
+                $("#uId").attr("value", data[0].uId.name);
+                $("#select").append(  //此处向select中循环绑定数据
+                    "<option selected value=" + data[0].id+ ">" + data[0].uId.name + "</option>");
+
+            })
+        }
+
+    </script>
 </head>
 
 
@@ -49,7 +95,7 @@
 
             <a class="brand" href="../index.html">
 
-                <img src="../../static/media/image/logo.png" alt="logo"/>
+                <img src="../media/image/logo.png" alt="logo"/>
 
             </a>
 
@@ -59,7 +105,7 @@
 
             <a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
 
-                <img src="../../static/media/image/menu-toggler.png" alt=""/>
+                <img src="../media/image/menu-toggler.png" alt=""/>
 
             </a>
 
@@ -209,7 +255,7 @@
 
                             <a href="inbox.html?a=view">
 
-                                <span class="photo"><img src="../../static/media/image/avatar2.jpg" alt=""/></span>
+                                <span class="photo"><img src="../media/image/avatar2.jpg" alt=""/></span>
 
                                 <span class="subject">
 
@@ -235,7 +281,7 @@
 
                             <a href="inbox.html?a=view">
 
-                                <span class="photo"><img src="../../static/media/image/avatar3.jpg" alt=""/></span>
+                                <span class="photo"><img src="../media/image/avatar3.jpg" alt=""/></span>
 
                                 <span class="subject">
 
@@ -259,7 +305,7 @@
 
                         <li>
                             <a href="inbox.html?a=view">
-                                <span class="photo"><img src="../../static/media/image/avatar1.jpg" alt=""/></span>
+                                <span class="photo"><img src="../media/image/avatar1.jpg" alt=""/></span>
                                 <span class="subject">
 								<span class="from">Bob Nilson</span>
 								<span class="time">2 hrs</span>
@@ -449,13 +495,14 @@
 
                 <li class="dropdown user">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img alt="" src="../../static/media/image/avatar1_small.jpg"/>
+                        <img alt="" src="../media/image/avatar1_small.jpg"/>
                         <span class="username">高凯</span>
                         <i class="icon-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="../file/personFile.html"><i class="icon-user"></i> 我的信息</a></li>
-                        <li><a href="punch_lock.html"><i class="icon-calendar"></i> 打卡</a></li>
+                        <li><a th:href="@{../file/personFile.html}"><i class="icon-user"></i> 我的信息</a></li>
+                        <li><a th:href="@{punch_lock.html}"><i class="icon-calendar"></i> 打卡</a></li>
+                        <li><a th:href="@{/logout}"><i class="icon-calendar"></i> 退出</a></li>
                     </ul>
                 </li>
 
@@ -525,8 +572,8 @@
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="employee_list.html">职工基本信息管理</a></li>
-                            <li class="active"><a href="dept_list.html">部门信息管理</a></li>
+                            <li><a th:href="@{/user/findAllUser}">职工基本信息管理</a></li>
+                            <li class="active"><a th:href="@{findDept}">部门信息管理</a></li>
                             <li><a href="employee_salary_list.html">职工工资管理</a></li>
                         </ul>
                     </li>
@@ -551,14 +598,14 @@
 
 
             <!--公文管理-->
-            <li >
+            <li>
                 <a href="javascript:;">
                     <i class="icon-user"></i>
                     <span class="title">公文管理</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li >
+                    <li>
                         <a href="../document/official_document_list.html">
                             公文设计</a>
                     </li>
@@ -794,20 +841,24 @@
                                 </thead>
 
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>新闻部</td>
-                                    <td class="hidden-480">宁静</td>
-                                    <td class="hidden-480">2018-11-08</td>
-                                    <td class="hidden-480">2019-2-22</td>
-                                    <td class="hidden-480">高凯</td>
+                                <tr th:each="dept:${list}">
+                                    <td th:text="${dept.id}">1</td>
+                                    <td th:text="${dept.deptName}">新闻部</td>
+
+                                    <td th:text="${dept.uId} == null?'该部门还没有负责人，请尽快添加！':${dept.uId.name}"
+                                        class="hidden-480">宁静
+                                    </td>
+                                    <td th:text="${dept.deptStartTime}" class="hidden-480">2018-11-08</td>
+                                    <td th:text="${dept.deptUpdateTime}" class="hidden-480">2019-2-22</td>
+                                    <td th:text="${dept.dId}== null?'没有更新人':${dept.dId.name}" class="hidden-480">高凯</td>
                                     <td>
-                                        <a href="#" class="btn mini purple" data-toggle="modal" data-target="#myModal">
+                                        <a href="javascript:void(0)" th:onclick="'FindDept('+${dept.id}+')'" class="btn mini purple"
+                                           data-toggle="modal" data-target="#myModal">
                                             <i class="icon-edit">更改</i>
                                         </a>
-                                        <a href="#" class="btn mini black">
-                                            <i class="icon-trash">删除</i>
-                                        </a>
+                                        <!--<a  th:onclick="'javascript:deleteDept('+${dept.id}+')'" class="btn mini black" >-->
+                                            <!--<i class="icon-trash">删除</i>-->
+                                        <!--</a>-->
                                     </td>
                                 </tr>
                                 </tbody>
@@ -825,14 +876,22 @@
                                         </div>
 
                                         <!-- 模态框主体 -->
-                                        <form action="" method="post">
+                                        <form th:action="@{/dept/updateDept}" method="post">
                                             <div class="modal-body">
+                                                <div class="control-group">
+                                                    <label class="control-label">部门编号<span
+                                                            class="required">*</span></label>
+                                                    <div class="controls">
+                                                        <input type="text" value="" name="id" id="id"
+                                                               data-required="1" class="span8 m-wrap"/>
+                                                    </div>
+                                                </div>
                                                 <div class="control-group">
                                                     <label class="control-label">部门名称<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <input type="text" value="新闻部" name="dept_name"
-                                                               data-required="1" class="span8 m-wrap"/>
+                                                        <input type="text" value="" name="dept_name"
+                                                               id="deptName" data-required="1" class="span8 m-wrap"/>
                                                     </div>
                                                 </div>
 
@@ -840,16 +899,24 @@
                                                     <label class="control-label">部门负责人<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <input name="dept_user" value="宁静" type="text"
-                                                               class="span8 m-wrap"/>
+                                                        <select class="span8 m-wrap" name="uId" id="select">
+                                                        </select>
                                                     </div>
                                                 </div>
+                                                <!--<div class="control-group">-->
+                                                    <!--<label class="control-label">部门负责人<span-->
+                                                            <!--class="required">*</span></label>-->
+                                                    <!--<div class="controls">-->
+                                                        <!--<input name="uId" value="" id="uId" type="text"-->
+                                                               <!--class="span8 m-wrap"/>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
 
                                                 <div class="control-group">
                                                     <label class="control-label">成立时间<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <input name="dept_start_time" value="2018-11-08" type="text"
+                                                        <input name="deptStartTime" id="startDate" value="" type="text"
                                                                class="span8 m-wrap"/>
                                                     </div>
                                                 </div>
@@ -857,7 +924,7 @@
                                                     <label class="control-label">更新时间<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <input name="dept_update_time" value="" id="show" type="text"
+                                                        <input name="deptUpdateTime" value="" id="show" type="text"
                                                                class="span8 m-wrap"/>
                                                     </div>
                                                 </div>
@@ -866,7 +933,9 @@
                                                     <label class="control-label">更新人<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <input name="phone" type="text" class="span8 m-wrap"/>
+                                                        <input name="dId"
+                                                               th:value="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}"
+                                                               type="text" class="span8 m-wrap"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -893,7 +962,7 @@
                                         </div>
 
                                         <!-- 模态框主体 -->
-                                        <form action="" method="post">
+                                        <form th:action="@{/dept/addDept}" method="post">
                                             <div class="modal-body">
                                                 <div class="control-group">
                                                     <label class="control-label">部门名称<span
@@ -908,7 +977,8 @@
                                                     <label class="control-label">部门负责人<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <input name="dept_user" type="text" class="span8 m-wrap"/>
+                                                        <select class="span8 m-wrap" name="uId" id="selectt">
+                                                        </select>
                                                     </div>
                                                 </div>
 
@@ -948,32 +1018,29 @@
 
 </div>
 
-<script src="../../static/media/js/jquery-1.10.1.min.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
-<script src="../../static/media/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="../../static/media/js/excanvas.min.js"></script>
-<script src="../../static/media/js/respond.min.js"></script>
-<script src="../../static/media/js/jquery.slimscroll.min.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery.blockui.min.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery.cookie.min.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery.uniform.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="../../static/media/js/select2.min.js"></script>
-<script type="text/javascript" src="../../static/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../../static/media/js/DT_bootstrap.js"></script>
-<script src="../../static/media/js/app.js"></script>
-<script src="../../static/media/js/table-advanced.js"></script>
+<script src="../media/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<script src="../media/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+<script src="../media/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../media/js/excanvas.min.js"></script>
+<script src="../media/js/respond.min.js"></script>
+<script src="../media/js/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../media/js/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../media/js/jquery.cookie.min.js" type="text/javascript"></script>
+<script src="../media/js/jquery.uniform.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../media/js/select2.min.js"></script>
+<script type="text/javascript" src="../media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../media/js/DT_bootstrap.js"></script>
+<script src="../media/js/app.js"></script>
+<script src="../media/js/table-advanced.js"></script>
 
-<script>
+
+<script th:inline="javascript">
     jQuery(document).ready(function () {
         App.init();
         TableAdvanced.init();
     });
 
 
-    window.onload = function () {
-
-    }
 
     function today() {//构建方法
         var today = new Date();//new 出当前时间
@@ -983,11 +1050,28 @@
         var H = today.getHours();//获取时
         var M = today.getMinutes();//获取分
         return h + "-" + m + "-" + d + " " + H + ":" + M; //返回 年-月-日 时:分:秒
-    }
+    };
 
     document.getElementById("show").value = today();
     document.getElementById("addShow").value = today();
 
+
+    // function deleteDept(id) {
+    //     console.log("id is ", id)
+    //     axios.get('http://localhost:8080/dept/deleteDept', {
+    //         params: {
+    //             'id': id
+    //         }
+    //     })
+    //         .then(function (response) {
+    //             console.log(response);
+    //             location.reload()
+    //         })
+    //         .catch(function (error) {
+    //
+    //             console.log(error);
+    //         });
+    // }
 </script>
 </body>
 

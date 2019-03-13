@@ -2,7 +2,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 >
 <head>
     <meta charset="utf-8"/>
@@ -22,8 +21,8 @@
     <link rel="stylesheet" href="../media/css/DT_bootstrap.css"/>
     <!-- END PAGE LEVEL STYLES -->
     <link rel="shortcut icon" href="../media/image/favicon.ico"/>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript">
+
 
         /**
          * 得到所有部门名称放到下拉框
@@ -36,35 +35,35 @@
                     $.each(data, function (index, item) {
                         $("#select").append(  //此处向select中循环绑定数据
                             "<option value=" + item.id + ">" + item.deptName + "</option>");
+                        $("#selectt").append(  //此处向select中循环绑定数据
+                            "<option value=" + item.id + ">" + item.deptName + "</option>");
                     });
                 },
             });
+            $.ajax({
+                type: "post",
+                url: "http://localhost:8080/user/findAllRole", //此次url改为真正需要的url
+                success: function (data, status) {
+                    $.each(data, function (index, item) {
+                        $("#add_position").append(  //此处向select中循环绑定数据
+                            "<option value=" + item.name + ">" + item.introduction + "</option>");
+                    });
+                },
+            });
+            /**
+             * 获取当前时间
+             * @returns {string}
+             */
+            var nowDate = new Date();
+            var str = nowDate.getFullYear() + "-" + (nowDate.getMonth() + 1) + "-" + nowDate.getDate() + " " + nowDate.getHours() + ":" + nowDate.getMinutes() + ":" + nowDate.getSeconds();
+            var startDate = document.getElementById("show")
+            startDate.value = str;
+            console.log("create ", startDate.value);
         };
 
 
-        function FindUsers(id) {
-            axios.get('http://localhost:8080/user/findUser?id=' + id, {}).then(function (response) {
-                var data = response.data;
-                var brand = data.dId.id;
-                if (brand != "") {
-                    var s = document.getElementById("select");
-                    var ops = s.options;
-                    for (var i = 0; i < ops.length; i++) {
-                        var tempValue = ops[i].value;
-                        if (tempValue == brand) {
-                            ops[i].selected = true;
-                            break;
-                        }
-                    }
-                }
-                $("#name").val(data.name);
-                $("#name").attr("value", data.name);
-                $("#startTime").val(data.startDate);
-                $("#startTime").attr("value", data.startDate);
-                $("#phone").val(data.phone);
-                $("#phone").attr("value", data.phone);
-            })
-        }
+
+
     </script>
 </head>
 
@@ -506,6 +505,7 @@
                     <ul class="dropdown-menu">
                         <li><a th:href="@{../file/personFile.html}"><i class="icon-user"></i> 我的信息</a></li>
                         <li><a th:href="@{punch_lock.html}"><i class="icon-calendar"></i> 打卡</a></li>
+                        <li><a th:href="@{/logout}"><i class="icon-calendar"></i> 退出</a></li>
                     </ul>
                 </li>
 
@@ -575,8 +575,8 @@
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="active"><a href="employee_list.html">职工基本信息管理</a></li>
-                            <li><a href="dept_list.html">部门信息管理</a></li>
+                            <li class="active"><a th:href="@{findAllUser}">职工基本信息管理</a></li>
+                            <li><a th:href="@{/dept/findDept}">部门信息管理</a></li>
                             <li><a href="employee_salary_list.html">职工工资管理</a></li>
                         </ul>
                     </li>
@@ -848,14 +848,14 @@
                                     <td th:text="${user.name}">高凯</td>
                                     <td th:text="${user.sex}" class="hidden-480">男</td>
                                     <td th:text="${user.startDate}" class="hidden-480">2018-11-08</td>
-                                    <td th:text="${user.dId.deptName}" class="hidden-480">智慧城市产品研发部</td>
+                                    <td th:text="${user.dept.deptName}" class="hidden-480">智慧城市产品研发部</td>
                                     <td th:text="${user.phone}" class="hidden-480">18334702976</td>
                                     <td>
-                                        <a href="javascript:void(0)" th:onclick="'FindUsers(\''+${user.id}+'\',)'"
+                                        <a th:onclick="'FindUsers('+${user.id}+')'"
                                            class="btn mini purple" data-toggle="modal" data-target="#myModal">
                                             <i class="icon-edit">更改</i>
                                         </a>
-                                        <a href="#" class="btn mini black">
+                                        <a th:onclick="'javascript:deleteUser('+${user.id}+')'" class="btn mini black">
                                             <i class="icon-trash">删除</i>
                                         </a>
                                     </td>
@@ -863,7 +863,7 @@
                                 </tbody>
 
                             </table>
-
+                            <!--更新员工模态框-->
                             <div class="modal fade" id="myModal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -875,13 +875,21 @@
                                         </div>
 
                                         <!-- 模态框主体 -->
-                                        <form action="" method="post">
+                                        <form th:action="@{/user/updateUser}" method="post">
                                             <div class="modal-body">
+                                                <div class="control-group">
+                                                    <label class="control-label">编号<span
+                                                            class="required">*</span></label>
+                                                    <div class="controls">
+                                                        <input type="text" id="id" name="id"
+                                                               class="span8 m-wrap"/>
+                                                    </div>
+                                                </div>
                                                 <div class="control-group">
                                                     <label class="control-label">姓名<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <input type="text" id="name" name="name" data-required="1"
+                                                        <input type="text" id="name" name="name"
                                                                class="span8 m-wrap"/>
                                                     </div>
                                                 </div>
@@ -890,7 +898,7 @@
                                                     <label class="control-label">入职时间<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <input name="start_time" id="startTime" type="text"
+                                                        <input name="startDate" disabled id="startTime" type="text"
                                                                class="span8 m-wrap"/>
                                                     </div>
                                                 </div>
@@ -908,8 +916,7 @@
                                                     <label class="control-label">所属部门<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <select class="span8 m-wrap" name="id" id="select">
-                                                            <option value="id"></option>
+                                                        <select class="span8 m-wrap" name="dId" id="select">
                                                         </select>
                                                     </div>
                                                 </div>
@@ -926,6 +933,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--添加员工模态框-->
                             <div class="modal fade" id="addEmployee_Modal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -937,7 +945,7 @@
                                         </div>
 
                                         <!-- 模态框主体 -->
-                                        <form action="" method="post">
+                                        <form th:action="@{/user/addUser}" method="post">
                                             <div class="modal-body">
                                                 <div class="control-group">
                                                     <label class="control-label">姓名<span
@@ -949,10 +957,34 @@
                                                 </div>
 
                                                 <div class="control-group">
+                                                    <label class="control-label">用户名<span
+                                                            class="required">*</span></label>
+                                                    <div class="controls">
+                                                        <input id="add_username" type="text" name="username"
+                                                               data-required="1"
+                                                               onblur="checkUsername(this.value)"
+                                                               required="required"
+                                                               aria-required="true"
+                                                               aria-invalid="true"
+                                                               class="span8 m-wrap"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <label class="control-label">密码<span
+                                                            class="required">*</span></label>
+                                                    <div class="controls">
+                                                        <input type="password" name="password" data-required="1"
+                                                               class="span8 m-wrap"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
                                                     <label class="control-label">入职时间<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <input name="start_time" type="text9" class="span8 m-wrap"/>
+                                                        <input value="" id="show" name="startDate" type="text"
+                                                               class="span8 m-wrap"/>
                                                     </div>
                                                 </div>
 
@@ -968,9 +1000,29 @@
                                                     <label class="control-label">所属部门<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <select class="span8 m-wrap"
-                                                        >
-                                                            <option value="">Select...</option>
+                                                        <select class="span8 m-wrap" name="did" id="selectt">
+                                                            <option value="id">--请选择--</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <label class="control-label">职位<span
+                                                            class="required">*</span></label>
+                                                    <div class="controls">
+                                                        <select name="position" id="add_position" class="span8 m-wrap">
+                                                            <option value="name">--请选择--</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <label class="control-label">性别<span
+                                                            class="required">*</span></label>
+                                                    <div class="controls">
+                                                        <select class="span8 m-wrap" name="sex">
+                                                            <option value="男">男</option>
+                                                            <option value="女">女</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -1016,11 +1068,96 @@
 <script type="text/javascript" src="../media/js/DT_bootstrap.js"></script>
 <script src="../media/js/app.js"></script>
 <script src="../media/js/table-advanced.js"></script>
+<!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"-->
+<!--integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"-->
+<!--crossorigin="anonymous">-->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
     jQuery(document).ready(function () {
         App.init();
         TableAdvanced.init();
     });
+</script>
+
+<script th:inline="javascript">
+
+    function checkUsername(username) {
+        var addUserNameInput = document.getElementById("add_username")
+        var u = username
+        console.log("u is ", u)
+        axios.get('http://localhost:8080/user/checkUsername', {
+            params: {
+                'username': u
+            }
+        })
+            .then(function (response) {
+                console.log(response);
+                if (response.data == '200') {
+                    addUserNameInput.classList.remove("error")
+                } else {
+                    alert(1);
+                    addUserNameInput.placeholder = "名称重复，请重新输入"
+                    addUserNameInput.value = ""
+                    addUserNameInput.classList.add("error")
+                }
+            })
+            .catch(function (error) {
+
+                console.log(error);
+            });
+    }
+
+    function FindUsers(id) {
+        axios.get('http://localhost:8080/user/findUser?id=' + id, {}).then(function (response) {
+            var data = response.data;
+            console.log(data);
+            var brand = data.dept.id;
+            if (brand != "") {
+                var s = document.getElementById("select");
+                var ops = s.options;
+                for (var i = 0; i < ops.length; i++) {
+                    var tempValue = ops[i].value;
+                    if (tempValue == brand) {
+                        ops[i].selected = true;
+                        break;
+                    }
+                }
+            }
+            $("#id").val(data.id);
+            $("#id").attr("value", data.id);
+            $("#name").val(data.name);
+            $("#name").attr("value", data.name);
+            $("#startTime").val(data.startDate);
+            $("#startTime").attr("value", data.startDate);
+            $("#phone").val(data.phone);
+            $("#phone").attr("value", data.phone);
+        })
+    }
+
+
+    /**
+     * 删除员工
+     * @param id
+     */
+    function deleteUser(id) {
+        console.log("id is ", id)
+        axios.get('http://localhost:8080/user/deleteUser', {
+            params: {
+                'id': id
+            }
+        })
+            .then(function (response) {
+                alert('确定删除该用户?');
+                console.log(response);
+                location.reload()
+            })
+            .catch(function (error) {
+
+                console.log(error);
+            });
+    }
+
+
 </script>
 </body>
 

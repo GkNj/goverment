@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "dept")
-@JsonIgnoreProperties(value = {"uId","dId"})
+@JsonIgnoreProperties
 public class Dept {
 
     @Id
@@ -26,17 +26,12 @@ public class Dept {
      * 部门负责人
      */
 
-
-//    @OneToOne
-//    @JoinColumn(name = "u_id", referencedColumnName = "id")
-    private  int uId;
+    private  Integer uId;
 
     /**
      * 更新人
      */
 
-//    @OneToOne
-//    @JoinColumn(name = "dd_id", referencedColumnName = "id")
     private int dId;
     /**
      * 成立时间

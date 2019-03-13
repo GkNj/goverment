@@ -474,7 +474,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="file/personFile.html"><i class="icon-user"></i> 我的信息</a></li>
-                        <li><a href="administrative/punch_lock.html"><i class="icon-calendar"></i> 打卡</a></li>
+                        <li><a th:href="@{administrative/punch_lock.html}"><i class="icon-calendar"></i> 打卡</a></li>
                         <li><a th:href="@{/logout}"><i class="icon-calendar"></i> 退出</a></li>
                     </ul>
                 </li>
@@ -547,8 +547,8 @@
                         </a>
                         <ul class="sub-menu">
                             <li><a th:href="@{user/findAllUser}">职工基本信息管理</a></li>
-                            <li><a href="administrative/dept_list.html">部门信息管理</a></li>
-                            <li><a href="administrative/employee_salary_list.html">职工工资管理</a></li>
+                            <li><a th:href="@{dept/findDept}">部门信息管理</a></li>
+                            <li><a th:href="@{user/findUserBySalary}">职工工资管理</a></li>
                         </ul>
                     </li>
                     <li>
@@ -560,8 +560,8 @@
                             <li><a href="javascript:;">考勤规则
                                 <span class="arrow"></span></a>
                                 <ul class="sub-menu">
-                                    <li><a href="administrative/lock_time.html">考勤时间</a></li>
-                                    <li><a href="administrative/person_ruler.html">人性化规则</a></li>
+                                    <li><a th:href="@{administrative/lock_time.html}">考勤时间</a></li>
+                                    <li><a th:href="@{administrative/person_ruler.html}">人性化规则</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -634,7 +634,7 @@
                             发布新闻</a>
                     </li>
                     <li>
-                        <a href="news/news_list.html">
+                        <a th:href="@{news/findAllNews}">
                             查看新闻</a>
                     </li>
                 </ul>

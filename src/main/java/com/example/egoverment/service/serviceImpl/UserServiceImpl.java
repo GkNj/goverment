@@ -2,6 +2,8 @@ package com.example.egoverment.service.serviceImpl;
 
 import com.example.egoverment.entity.Role;
 import com.example.egoverment.entity.User;
+import com.example.egoverment.entity.UserAndRole;
+import com.example.egoverment.repository.UserAndRoleRepository;
 import com.example.egoverment.repository.UserRepository;
 import com.example.egoverment.service.UserService;
 import org.slf4j.Logger;
@@ -10,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,6 +29,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserAndRoleRepository userAndRoleRepository;
+
     /**
      * 加载用户密码判断数据库密码和输入密码是否正确
      *
@@ -35,13 +42,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findUserByUsername(username).get(0);
-        System.out.println(user.toString());
+//        System.out.println("登陆的信息"+user.toString());
+//        System.out.println(user.toString());
         return user;
     }
 
 
+    @Transactional
     @Override
     public User saveUser(User user, Role role) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encode = encoder.encode(user.getPassword().trim());
+        user.setPassword(encode);
+        User save = userRepository.save(user);
+        UserAndRole userAndRole=new UserAndRole();
+        userAndRole.setRoleId(role.getId());
+        userAndRole.setUserId(Long.valueOf(save.getId()));
+        userAndRoleRepository.save(userAndRole);
         return null;
     }
 
@@ -57,18 +74,33 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return user;
     }
 
+    @Transactional
     @Override
-    public int deleteUser(User user) {
-        return 0;
+    public int deleteUser(int id) {
+        int i = userRepository.deleteUserById(id);
+        return i;
     }
 
     @Override
     public String checkUsername(String username) {
-        return null;
+        String result = null;
+        List<User> user = userRepository.findUserByUsername(username);
+        if (user.size() == 0) {
+            result = "200";
+        } else {
+            result = "201";
+        }
+        System.out.println(result);
+        return result;
     }
 
     @Override
-    public int updateUser(User user) {
-        return 0;
+    public User updateUser(User user) {
+        return  userRepository.save(user);
+    }
+
+    @Override
+    public List<User> findUserByUsername(String username) {
+        return userRepository.findUserByUsername(username);
     }
 }

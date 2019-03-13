@@ -1,7 +1,6 @@
 package com.example.egoverment.entity;
 
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
-@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler","dept"})
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "fieldHandler"})
 public class User implements Serializable, UserDetails {
 
     @Id
@@ -49,7 +48,6 @@ public class User implements Serializable, UserDetails {
     /**
      * 所属部门
      */
-//    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "d_id", referencedColumnName = "id")
     private Dept dept;
@@ -138,43 +136,6 @@ public class User implements Serializable, UserDetails {
     private List<Role> roles;
 
 
-
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
-    public User() {
-    }
-
-    public User(String username, String password, String name, String sex, String startDate, Dept dId, String phone, String nativePlace, String address, String graduate, String education, String position, String political, String email, String major, String birthday, Double salary, String punchNum, String lateNum, String earlyNum, List<Role> roles) {
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.sex = sex;
-        this.startDate = startDate;
-        this.dept = dept;
-        this.phone = phone;
-        this.nativePlace = nativePlace;
-        this.address = address;
-        this.graduate = graduate;
-        this.education = education;
-        this.position = position;
-        this.political = political;
-        this.email = email;
-        this.major = major;
-        this.birthday = birthday;
-        this.salary = salary;
-        this.punchNum = punchNum;
-        this.lateNum = lateNum;
-        this.earlyNum = earlyNum;
-        this.roles = roles;
-    }
-
     public int getId() {
         return id;
     }
@@ -183,45 +144,12 @@ public class User implements Serializable, UserDetails {
         this.id = id;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        List<Role> roles = getRoles();
-        for (Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
-        }
-        authorities.forEach(System.out::println);
-        return authorities;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -254,11 +182,11 @@ public class User implements Serializable, UserDetails {
         this.startDate = startDate;
     }
 
-    public Dept getdId() {
+    public Dept getDept() {
         return dept;
     }
 
-    public void setdId(Dept dId) {
+    public void setDept(Dept dept) {
         this.dept = dept;
     }
 
@@ -374,6 +302,76 @@ public class User implements Serializable, UserDetails {
         this.earlyNum = earlyNum;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        List<Role> roles = getRoles();
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+        }
+        authorities.forEach(System.out::println);
+        return authorities;
+    }
+
+    public User(String username, String password, String name, String sex, String startDate, Dept dept, String phone, String nativePlace, String address, String graduate, String education, String position, String political, String email, String major, String birthday, Double salary, String punchNum, String lateNum, String earlyNum, List<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.sex = sex;
+        this.startDate = startDate;
+        this.dept = dept;
+        this.phone = phone;
+        this.nativePlace = nativePlace;
+        this.address = address;
+        this.graduate = graduate;
+        this.education = education;
+        this.position = position;
+        this.political = political;
+        this.email = email;
+        this.major = major;
+        this.birthday = birthday;
+        this.salary = salary;
+        this.punchNum = punchNum;
+        this.lateNum = lateNum;
+        this.earlyNum = earlyNum;
+        this.roles = roles;
+    }
+
+    public User() {
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -382,8 +380,8 @@ public class User implements Serializable, UserDetails {
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", sex='" + sex + '\'' +
-                ", startDate=" + startDate +
-//                ", dept=" + dept +
+                ", startDate='" + startDate + '\'' +
+                ", dept=" + dept +
                 ", phone='" + phone + '\'' +
                 ", nativePlace='" + nativePlace + '\'' +
                 ", address='" + address + '\'' +
@@ -393,7 +391,7 @@ public class User implements Serializable, UserDetails {
                 ", political='" + political + '\'' +
                 ", email='" + email + '\'' +
                 ", major='" + major + '\'' +
-                ", birthday=" + birthday +
+                ", birthday='" + birthday + '\'' +
                 ", salary=" + salary +
                 ", punchNum='" + punchNum + '\'' +
                 ", lateNum='" + lateNum + '\'' +

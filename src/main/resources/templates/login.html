@@ -195,14 +195,11 @@ $(function(){
 <body>
 <div id="tab">
   <ul class="tab_menu">
-    <!--<li class="selected">学生登录</li>-->
-    <!--&lt;!&ndash;<li>导师登录</li>&ndash;&gt;-->
-    <!--&lt;!&ndash;<li>教务登录</li>&ndash;&gt;-->
     <p>
         <h2>政府创新性政务信息平台</h2></p>
   </ul>
   <div class="tab_box"> 
-    <!-- 学生登录开始 -->
+
     <div>
       <div class="stu_error_box"></div>
       <form th:action="@{/login}" method="post" class="stu_login_error">
@@ -220,7 +217,7 @@ $(function(){
           <input type="text" id="stu_code_hide" name="code"  value="输入验证码" nullmsg="验证码不能为空！" datatype="*4-4" errormsg="验证码有4位数！" sucmsg="验证码验证通过！"/>
           <img th:src="@{login/images/captcha.jpg}" title="点击更换" alt="验证码占位图"/> </div>
         <div id="remember">
-          <input type="checkbox" name="remember">
+          <input type="checkbox" name="rememb3-er">
           <label>记住密码</label>
         </div>
         <div id="login">

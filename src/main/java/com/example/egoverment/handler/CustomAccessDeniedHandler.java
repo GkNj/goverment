@@ -30,7 +30,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(".............");
         if (auth != null) {
             logger.info(auth.getName() + "登录", request.getRequestURI());
         }

@@ -16,29 +16,29 @@ public interface UserService {
      * @param role 角色
      * @return
      */
-    public User saveUser(User user, Role role);
+    User saveUser(User user, Role role);
 
     /**
      * 获取所有用户
      *
      * @return 所有用户
      */
-    public List<User> findAllUsers();
+    List<User> findAllUsers();
 
     /**
      * 获取单个用户
      *
      * @return 用户
      */
-    public  User findUser(int id);
+    User findUser(int id);
 
     /**
      * 删除用户
      *
-     * @param user 用户
+     * @param id 用户ID
      * @return
      */
-    public int deleteUser(User user);
+    int deleteUser(int id);
 
     /**
      * 检查是否重名
@@ -54,5 +54,13 @@ public interface UserService {
      * @param user 用户
      * @return
      */
-    int updateUser(User user);
+    User updateUser(User user);
+
+    /**
+     * 通过用户名查找用户
+     *
+     * @param username
+     * @return
+     */
+    List<User> findUserByUsername(String username);
 }

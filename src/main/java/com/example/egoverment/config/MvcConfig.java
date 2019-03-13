@@ -10,7 +10,11 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
 
     public void addViewControllers(ViewControllerRegistry registry){
-        registry.addViewController("");
+        registry.addViewController("/administrative/punch_lock.html");
+        registry.addViewController("/administrative/person_ruler.html");
+        registry.addViewController("/administrative/lock_time.html");
+        registry.addViewController("/news/release_news.html");
+        registry.addViewController("/news/news_list.html");
 
         registry.addRedirectViewController("/index","templates/index.html");
     }

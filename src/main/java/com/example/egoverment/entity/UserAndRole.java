@@ -17,6 +17,10 @@ public class UserAndRole {
     @Column(name = "ur_role_id")
     private Long roleId;
 
+    public UserAndRole() {
+
+    }
+
     @Override
     public String toString() {
         return "UserAndRole{" +

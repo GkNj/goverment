@@ -4877,7 +4877,7 @@ vjs.BigPlayButton.prototype.onClick = function(){
   this.player_.play();
 };
 /**
- * @fileoverview Media Technology controller - Base class for media playback
+ * @fileoverview Media Technology Controller - Base class for media playback
  * technology controllers like Flash and HTML5
  */
 
@@ -5063,11 +5063,11 @@ for (var i = vjs.media.ApiMethods.length - 1; i >= 0; i--) {
   vjs.MediaTechController.prototype[vjs.media.ApiMethods[i]] = createMethod(methodName);
 }
 /**
- * @fileoverview HTML5 Media controller - Wrapper for HTML5 Media API
+ * @fileoverview HTML5 Media Controller - Wrapper for HTML5 Media API
  */
 
 /**
- * HTML5 Media controller - Wrapper for HTML5 Media API
+ * HTML5 Media Controller - Wrapper for HTML5 Media API
  * @param {vjs.Player|Object} player
  * @param {Object=} options
  * @param {Function=} ready
@@ -5362,7 +5362,7 @@ if (vjs.IS_OLD_ANDROID) {
  */
 
 /**
- * Flash Media controller - Wrapper for fallback SWF API
+ * Flash Media Controller - Wrapper for fallback SWF API
  *
  * @param {vjs.Player} player
  * @param {Object=} options

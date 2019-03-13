@@ -556,14 +556,14 @@
             </li>
 
             <!--公文管理-->
-            <li >
+            <li>
                 <a href="javascript:;">
                     <i class="icon-user"></i>
                     <span class="title">公文管理</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li >
+                    <li>
                         <a href="../document/official_document_design.html">
                             公文设计</a>
                     </li>
@@ -781,20 +781,20 @@
                 <div class="portlet-body">
                     <form th:action="@{/news/pubNews}" method="post">
                         标题:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="title" style="width: 1000px">
-                    <!-- 加载编辑器的容器 -->
-                    <script id="container" name="content" >
+                        <!-- 加载编辑器的容器 -->
+                        <script id="container" name="content" type="text/plain">
 
-                    </script>
-                        <button type="submit" class="btn btn-success" style="float:right;"  onclick="confirm('确认发布？')">发布</button>
+                        </script>
+                        <button  type="submit" style="float: right" onclick="confirm('确定发布？')">发布</button>
                     </form>
-                    <!-- 配置文件 -->
-                    <script type="text/javascript" src="../uedtior/ueditor.config.js"></script>
-                    <!-- 编辑器源码文件 -->
-                    <script type="text/javascript" src="../uedtior/ueditor.all.js"></script>
-                    <!-- 实例化编辑器 -->
-                    <script type="text/javascript">
-                        var ue = UE.getEditor('container');
-                    </script>
+                        <!-- 配置文件 -->
+                        <script type="text/javascript" src="../uedtior/ueditor.config.js"></script>
+                        <!-- 编辑器源码文件 -->
+                        <script type="text/javascript" src="../uedtior/ueditor.all.js"></script>
+                        <!-- 实例化编辑器 -->
+                        <script type="text/javascript">
+                            var editor = UE.getEditor('container');
+                        </script>
 
                 </div>
 

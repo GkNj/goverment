@@ -41,7 +41,6 @@ public class NewsController {
         news.setPubDate(format);
         String substring = news.getContent().substring(3, news.getContent().length() - 4);
         news.setContent(substring);
-        System.out.println(substring);
         newsService.save(news);
         return "redirect:/news/findAllNews";
     }

@@ -54,7 +54,6 @@
                 }
             })
                 .then(function (response) {
-                    alert('确定删除?')
                     console.log(response);
                     location.reload();
                 })
@@ -812,7 +811,7 @@
                                 <a href="" th:onclick="'findNews('+${news.id}+')'" class="btn yellow mini"
                                    data-toggle="modal" data-target="#myModal"><i
                                         class="icon-pencil"></i>编辑</a>
-                                <a  onclick=""  th:onclick="'deleteNewsById('+${news.id}+')'" class="btn red mini"><i
+                                <a  onclick=" confirm('确定删除?');"  th:onclick="'deleteNewsById('+${news.id}+')'" class="btn red mini"><i
                                         class="icon-remove"></i> 删除</a>
                             </div>
                         </div>

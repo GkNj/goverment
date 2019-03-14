@@ -6,7 +6,9 @@
 <!--[if !IE]><!-->
 <html lang="en" class="no-js"> <!--<![endif]-->
 <!-- BEGIN HEAD -->
-
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="utf-8"/>
     <title>Metronic | Admin Dashboard Template</title>
@@ -14,27 +16,65 @@
     <meta content="" name="description"/>
     <meta content="" name="author"/>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <script src="../media/js/jquery-1.10.1.min.js" type="text/javascript"></script>
+    <link href="../media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/style-metro.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+    <link href="../media/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/daterangepicker.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/fullcalendar.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/jqvmap.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link href="../media/css/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link rel="shortcut icon" href="../media/image/favicon.ico"/>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-    <link href="../../static/media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/style-metro.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/style.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/style-responsive.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
-    <link href="../../static/media/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript">
 
-    <!-- END GLOBAL MANDATORY STYLES -->
+        function editorUser(id) {
+            axios.get('http://localhost:8080/user/findUser?id=' + id, {
+            }).then(function (response){
+                var data = response.data;
+                console.log(data)
+                $("#id").val(data.id);
+                $("#id").attr("value", data.id);
+                $("#name").val(data.name);
+                $("#name").attr("value", data.name);
+                $("#dept").val(data.dept.deptName);
+                $("#dept").attr("value", data.dept.deptName);
+                $("#startDate").val(data.startDate);
+                $("#startDate").attr("value", data.startDate);
+                $("#position").val(data.position);
+                $("#position").attr("value", data.position);
+                $("#phone").val(data.phone);
+                $("#phone").attr("value", data.phone);
+                $("#sex").val(data.sex);
+                $("#sex").attr("value", data.sex);
+                $("#nativePlace").val(data.nativePlace);
+                $("#nativePlace").attr("value", data.nativePlace);
+                $("#address").val(data.address);
+                $("#address").attr("value", data.address);
+                $("#education").val(data.education);
+                $("#education").attr("value", data.education);
+                $("#email").val(data.email);
+                $("#email").attr("value", data.email);
+                $("#political").val(data.political);
+                $("#political").attr("value", data.political);
+                $("#graduate").val(data.graduate);
+                $("#graduate").attr("value", data.graduate);
+                $("#birthday").val(data.birthday);
+                $("#birthday").attr("value", data.birthday);
+                $("#major").val(data.major);
+                $("#major").attr("value", data.major);
+            })
+        };
 
-    <!-- BEGIN PAGE LEVEL STYLES -->
-    <link href="../../static/media/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/daterangepicker.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/fullcalendar.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/jqvmap.css" rel="stylesheet" type="text/css" media="screen"/>
-    <link href="../../static/media/css/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
-    <!-- END PAGE LEVEL STYLES -->
-    <link rel="shortcut icon" href="../../static/media/image/favicon.ico"/>
 
+    </script>
 </head>
 
 <!-- END HEAD -->
@@ -61,13 +101,10 @@
 
             </a>
 
-            <!-- END LOGO -->
-
-            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
 
             <a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
 
-                <img src="../../static/media/image/menu-toggler.png" alt=""/>
+                <img src="../media/image/menu-toggler.png" alt=""/>
 
             </a>
 
@@ -217,7 +254,7 @@
 
                             <a href="inbox.html?a=view">
 
-                                <span class="photo"><img src="../../static/media/image/avatar2.jpg" alt=""/></span>
+                                <span class="photo"><img src="../media/image/avatar2.jpg" alt=""/></span>
 
                                 <span class="subject">
 
@@ -243,7 +280,7 @@
 
                             <a href="inbox.html?a=view">
 
-                                <span class="photo"><img src="../../static/media/image/avatar3.jpg" alt=""/></span>
+                                <span class="photo"><img src="../media/image/avatar3.jpg" alt=""/></span>
 
                                 <span class="subject">
 
@@ -269,7 +306,7 @@
 
                             <a href="inbox.html?a=view">
 
-                                <span class="photo"><img src="../../static/media/image/avatar1.jpg" alt=""/></span>
+                                <span class="photo"><img src="../media/image/avatar1.jpg" alt=""/></span>
 
                                 <span class="subject">
 
@@ -471,7 +508,7 @@
 
                 <li class="dropdown user">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img alt="" src="../../static/media/image/AI.jpg" style="width: 30px;height: 30px"/>
+                        <img alt="" src="../media/image/AI.jpg" style="width: 30px;height: 30px"/>
                         <span class="username">高凯</span>
                         <i class="icon-angle-down"></i>
                     </a>
@@ -543,7 +580,7 @@
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li >
+                    <li>
                         <a href="javascript:;">人事管理
                             <span class="arrow"></span>
                         </a>
@@ -562,8 +599,8 @@
                             <li><a href="javascript:;">考勤规则
                                 <span class="arrow"></span></a>
                                 <ul class="sub-menu">
-                                    <li ><a href="../administrative/lock_time.html">考勤时间</a></li>
-                                    <li ><a href="../administrative/person_ruler.html">人性化规则</a></li>
+                                    <li><a href="../administrative/lock_time.html">考勤时间</a></li>
+                                    <li><a href="../administrative/person_ruler.html">人性化规则</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -573,14 +610,14 @@
             </li>
 
             <!--公文管理-->
-            <li >
+            <li>
                 <a href="javascript:;">
                     <i class="icon-user"></i>
                     <span class="title">公文管理</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li >
+                    <li>
                         <a href="../document/official_document_design.html">
                             公文设计</a>
                     </li>
@@ -758,49 +795,59 @@
                         <li><a href="#">个人信息</a></li>
                     </ul>
 
-                    <button type="button" class="btn-info" style="float: right" data-toggle="modal"
+                    <button th:each="user:${user}" type="button" th:onclick="'javascript:editorUser('+${user.id}+')'"
+                            class="btn-info" style="float: right"
+                            data-toggle="modal"
                             data-target="#editPersonInfoModal">编辑
                     </button>
-                    <table class="table   table-bordered table-hover table-full-width">
+                    <table th:each="u:${user}" class="table   table-bordered table-hover table-full-width">
+                        <div th:if="${u.id eq null || u.name eq null || u.sex eq null||
+                                      u.nativePlace eq null || u.address eq null
+                                      ||u.phone eq null ||u.graduate eq null ||
+                                      u.startDate eq null ||u.education eq null ||
+                                      u.political eq null ||u.email eq null ||
+                                      u.major eq null ||u.birthday eq null}">
+                            <tr><h3><strong>请补充个人信息!</strong></h3></tr>
+                        </div>
                         <tr>
                             <td style="text-align: center;background-color: beige">职工编号</td>
-                            <td style="text-align: center">1</td>
+                            <td th:text="${u.id}" style="text-align: center">1</td>
                             <td style="text-align: center;background-color: beige">姓名</td>
-                            <td style="text-align: center">高凯</td>
+                            <td th:text="${u.name}" style="text-align: center">高凯</td>
                             <td style="text-align: center;background-color: beige">性别</td>
-                            <td style="text-align: center">男</td>
+                            <td th:text="${u.sex}" style="text-align: center">男</td>
                         </tr>
                         <tr>
                             <td style="text-align: center;background-color: beige">籍贯</td>
-                            <td style="text-align: center">山西运城</td>
+                            <td th:text="${u.nativePlace}" style="text-align: center">山西运城</td>
                             <td style="text-align: center;background-color: beige">家庭地址</td>
-                            <td style="text-align: center">山西运城</td>
+                            <td th:text="${u.address}" style="text-align: center">山西运城</td>
                             <td style="text-align: center;background-color: beige">联系方式</td>
-                            <td style="text-align: center">1111111111111</td>
+                            <td th:text="${u.phone}" style="text-align: center">1111111111111</td>
                         </tr>
                         <tr>
                             <td style="text-align: center;background-color: beige">毕业院校</td>
-                            <td style="text-align: center">中北大学</td>
+                            <td th:text="${u.graduate}" style="text-align: center">中北大学</td>
                             <td style="text-align: center;background-color: beige">入职时间</td>
-                            <td style="text-align: center">2018-11-8</td>
+                            <td th:text="${u.startDate}" style="text-align: center">2018-11-8</td>
                             <td style="text-align: center;background-color: beige">学历</td>
-                            <td style="text-align: center">本科</td>
+                            <td th:text="${u.education}" style="text-align: center">本科</td>
                         </tr>
                         <tr>
                             <td style="text-align: center;background-color: beige">所在部门</td>
-                            <td style="text-align: center">智慧城市产品研发部</td>
+                            <td th:text="${u.dept.deptName}" style="text-align: center">智慧城市产品研发部</td>
                             <td style="text-align: center;background-color: beige">职位</td>
-                            <td style="text-align: center">java开发</td>
+                            <td th:text="${u.position}" style="text-align: center">java开发</td>
                             <td style="text-align: center;background-color: beige">政治面貌</td>
-                            <td style="text-align: center">团员</td>
+                            <td th:text="${u.political}" style="text-align: center">团员</td>
                         </tr>
                         <tr>
                             <td style="text-align: center;background-color: beige">电子邮件</td>
-                            <td style="text-align: center">846558172@qq.com</td>
+                            <td th:text="${u.email}" style="text-align: center">846558172@qq.com</td>
                             <td style="text-align: center;background-color: beige">专业</td>
-                            <td style="text-align: center">软件工程</td>
+                            <td th:text="${u.major}" style="text-align: center">软件工程</td>
                             <td style="text-align: center;background-color: beige">出生年月</td>
-                            <td style="text-align: center">1996.1.6</td>
+                            <td th:text="${u.birthday}" style="text-align: center">1996.1.6</td>
                         </tr>
                     </table>
 
@@ -816,61 +863,64 @@
                             </div>
 
                             <!-- 模态框主体 -->
-                            <form action="" method="post">
+                            <form th:action="@{/user/editorUser}" method="post">
                                 <div class="modal-body">
                                     <div class="control-group">
                                         <label class="control-label">职工编号</label>
                                         <div class="controls">
-                                            <input type="text" name="num" value="1" disabled data-required="1"
+                                            <input type="text" name="id" id="id" value="" readonly data-required="1"
                                                    class="span8 m-wrap"/>
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">姓名</label>
                                         <div class="controls">
-                                            <input type="text" name="name" value="高凯" disabled data-required="1"
+                                            <input type="text" name="name" id="name" value="" disabled
+                                                   data-required="1"
                                                    class="span8 m-wrap"/>
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">性别</label>
                                         <div class="controls">
-                                            <input type="text" name="sex" value="男" disabled data-required="1"
+                                            <input type="text" name="sex" id="sex" value="" disabled data-required="1"
                                                    class="span8 m-wrap"/>
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">籍贯</label>
                                         <div class="controls">
-                                            <input type="text" name="name" value="山西运城" data-required="1"
+                                            <input type="text" name="nativePlace" id="nativePlace" value="" data-required="1"
                                                    class="span8 m-wrap"/>
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">家庭地址</label>
                                         <div class="controls">
-                                            <input type="text" name="address" value="山西省运城市盐湖区" data-required="1"
+                                            <input type="text"  id="address" name="address" value="" data-required="1"
                                                    class="span8 m-wrap"/>
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">联系方式</label>
                                         <div class="controls">
-                                            <input type="text" name="phone" value="111111111111" data-required="1"
+                                            <input type="text" name="phone" id="phone" value="111111111111"
+                                                   data-required="1"
                                                    class="span8 m-wrap"/>
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">毕业院校</label>
                                         <div class="controls">
-                                            <input type="text" name="graduate" value="中北大学" data-required="1"
+                                            <input type="text" name="graduate" id="graduate" value="" data-required="1"
                                                    class="span8 m-wrap"/>
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">入职时间</label>
                                         <div class="controls">
-                                            <input name="start_time" value="2018-11-08" disabled type="text"
+                                            <input name="startDate" id="startDate" value="2018-11-08" disabled
+                                                   type="text"
                                                    class="span8 m-wrap"/>
                                         </div>
                                     </div>
@@ -878,48 +928,48 @@
                                     <div class="control-group">
                                         <label class="control-label">学历</label>
                                         <div class="controls">
-                                            <input name="education" value="本科" type="text" class="span8 m-wrap"/>
+                                            <input name="education" value="" id="education" type="text" class="span8 m-wrap"/>
                                         </div>
                                     </div>
 
                                     <div class="control-group">
                                         <label class="control-label">所属部门</label>
                                         <div class="controls">
-                                            <input name="dept" value="智慧城市产品研发部" disabled type="text"
+                                            <input name="dept" id="dept" value="智慧城市产品研发部" disabled type="text"
                                                    class="span8 m-wrap"/>
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">职位</label>
                                         <div class="controls">
-                                            <input name="position" value="java开发工程师" disabled type="text"
+                                            <input name="position" id="position" value="" disabled type="text"
                                                    class="span8 m-wrap"/>
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">政治面貌</label>
                                         <div class="controls">
-                                            <input name="political" value="团员" disabled type="text"
+                                            <input name="political" value="" id="political" type="text"
                                                    class="span8 m-wrap"/>
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">电子邮件</label>
                                         <div class="controls">
-                                            <input name="email" value="846558172@qq.com" type="text"
+                                            <input name="email" value=""  id="email" type="text"
                                                    class="span8 m-wrap"/>
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">专业</label>
                                         <div class="controls">
-                                            <input name="major" value="软件工程" type="text" class="span8 m-wrap"/>
+                                            <input name="major" id="major" value="" type="text" class="span8 m-wrap"/>
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">出生年月</label>
                                         <div class="controls">
-                                            <input name="birthday" value="1996.1.6" disabled type="text"
+                                            <input name="birthday"  id="birthday" value="" type="text"
                                                    class="span8 m-wrap"/>
                                         </div>
                                     </div>
@@ -974,80 +1024,55 @@
 
 </div>
 
-<!-- END FOOTER -->
 
-<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 
-<!-- BEGIN CORE PLUGINS -->
+<script src="../media/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<script src="../media/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+<script src="../media/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../media/js/excanvas.min.js"></script>
+<script src="../media/js/respond.min.js"></script>
+<script src="../media/js/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../media/js/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../media/js/jquery.cookie.min.js" type="text/javascript"></script>
+<script src="../media/js/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="../media/js/jquery.vmap.js" type="text/javascript"></script>
+<script src="../media/js/jquery.vmap.russia.js" type="text/javascript"></script>
+<script src="../media/js/jquery.vmap.world.js" type="text/javascript"></script>
+<script src="../media/js/jquery.vmap.europe.js" type="text/javascript"></script>
+<script src="../media/js/jquery.vmap.germany.js" type="text/javascript"></script>
+<script src="../media/js/jquery.vmap.usa.js" type="text/javascript"></script>
+<script src="../media/js/jquery.vmap.sampledata.js" type="text/javascript"></script>
+<script src="../media/js/jquery.flot.js" type="text/javascript"></script>
+<script src="../media/js/jquery.flot.resize.js" type="text/javascript"></script>
+<script src="../media/js/jquery.pulsate.min.js" type="text/javascript"></script>
+<script src="../media/js/date.js" type="text/javascript"></script>
+<script src="../media/js/daterangepicker.js" type="text/javascript"></script>
+<script src="../media/js/jquery.gritter.js" type="text/javascript"></script>
+<script src="../media/js/fullcalendar.min.js" type="text/javascript"></script>
+<script src="../media/js/jquery.easy-pie-chart.js" type="text/javascript"></script>
+<script src="../media/js/jquery.sparkline.min.js" type="text/javascript"></script>
+<script src="../media/js/app.js" type="text/javascript"></script>
+<script src="../media/js/index.js" type="text/javascript"></script>
 
-<script src="../../static/media/js/jquery-1.10.1.min.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-<!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-<script src="../../static/media/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
-<script src="../../static/media/js/bootstrap.min.js" type="text/javascript"></script>
-<!--[if lt IE 9]>
-<script src="../../static/media/js/excanvas.min.js"></script>
-<script src="../../static/media/js/respond.min.js"></script>
-<![endif]-->
-<script src="../../static/media/js/jquery.slimscroll.min.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery.blockui.min.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery.cookie.min.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery.uniform.min.js" type="text/javascript"></script>
-<!-- END CORE PLUGINS -->
-<!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="../../static/media/js/jquery.vmap.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery.vmap.russia.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery.vmap.world.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery.vmap.europe.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery.vmap.germany.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery.vmap.usa.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery.vmap.sampledata.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery.flot.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery.flot.resize.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery.pulsate.min.js" type="text/javascript"></script>
-<script src="../../static/media/js/date.js" type="text/javascript"></script>
-<script src="../../static/media/js/daterangepicker.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery.gritter.js" type="text/javascript"></script>
-<script src="../../static/media/js/fullcalendar.min.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery.easy-pie-chart.js" type="text/javascript"></script>
-<script src="../../static/media/js/jquery.sparkline.min.js" type="text/javascript"></script>
-<!-- END PAGE LEVEL PLUGINS -->
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="../../static/media/js/app.js" type="text/javascript"></script>
-<script src="../../static/media/js/index.js" type="text/javascript"></script>
-<!-- END PAGE LEVEL SCRIPTS -->
 
 <script>
 
     jQuery(document).ready(function () {
-
         App.init(); // initlayout and core plugins
-
         Index.init();
-
         Index.initJQVMAP(); // init index page's custom scripts
-
         Index.initCalendar(); // init index page's custom scripts
-
         Index.initCharts(); // init index page's custom scripts
-
         Index.initChat();
-
         Index.initMiniCharts();
-
         Index.initDashboardDaterange();
-
         Index.initIntro();
-
     });
 
 </script>
 
-<!-- END JAVASCRIPTS -->
-
 
 </body>
 
-<!-- END BODY -->
 
 </html>

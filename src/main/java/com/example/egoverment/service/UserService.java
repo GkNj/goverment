@@ -63,4 +63,12 @@ public interface UserService {
      * @return
      */
     List<User> findUserByUsername(String username);
+
+    /**
+     * 通过id查询User
+     *
+     * @param id
+     * @return
+     */
+    User findUserById(int id);
 }

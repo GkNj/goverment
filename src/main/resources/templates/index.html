@@ -34,9 +34,9 @@
           crossorigin="anonymous">
 
 
-<!-- END HEAD -->
+    <!-- END HEAD -->
 
-<!-- BEGIN BODY -->
+    <!-- BEGIN BODY -->
 
 <body class="page-header-fixed">
 
@@ -469,13 +469,13 @@
                 <li class="dropdown user">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img alt="" th:src="@{media/image/avatar1_small.jpg}"/>
-                        <span class="username">高凯</span>
+                        <span class="username"th:value="${session.SPRING_SECURITY_CONTEXT.authentication.principal.name}"></span>
                         <i class="icon-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="file/personFile.html"><i class="icon-user"></i> 我的信息</a></li>
                         <li><a th:href="@{administrative/punch_lock.html}"><i class="icon-calendar"></i> 打卡</a></li>
-                        <li><a th:href="@{/logout}"><i class="icon-calendar"></i> 退出</a></li>
+                        <li><a th:href="@{/logout}"><i class="icon-off"></i> 退出</a></li>
                     </ul>
                 </li>
 
@@ -597,7 +597,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a href="file/personFile.html">个人档案
+                        <a th:href="@{user/findLoginUser}">个人档案
                             <span class="arrow"></span>
                         </a>
                     </li>

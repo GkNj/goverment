@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>403</title>
+
+    <link href="../403/css/bootstrap.min.css?v=3.4.0" rel="stylesheet">
+    <link href="../403/font-awesome/css/font-awesome.css?v=4.3.0" rel="stylesheet">
+
+    <link href="../403/css/animate.css" rel="stylesheet">
+    <link href="../403/css/style.css?v=2.2.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+
+<div class="middle-box text-center animated fadeInDown">
+    <h1>403</h1>
+    <h3 class="font-bold">你的权限不够！</h3>
+
+    <div class="error-desc">
+        你的权限不够，无法继续访问！
+        <form class="form-inline m-t" role="form">
+            <div>
+                <a th:href="@{/login}">返回登录页</a>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="请输入您需要查找的内容 …">
+            </div>
+            <button type="submit" class="btn btn-primary">搜索</button>
+        </form>
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="../403/js/jquery-2.1.1.min.js"></script>
+<script src="../403/js/bootstrap.min.js?v=3.4.0"></script>
+
+</body>
+
+</html>

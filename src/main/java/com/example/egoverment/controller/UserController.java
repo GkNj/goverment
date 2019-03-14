@@ -10,7 +10,9 @@ import com.example.egoverment.repository.RoleRepository;
 import com.example.egoverment.repository.UserRepository;
 import com.example.egoverment.service.serviceImpl.DeptServiceImpl;
 import com.example.egoverment.service.serviceImpl.UserServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +56,24 @@ public class UserController {
     }
 
     /**
+     * 查询当前登录用户
+     *
+     * @return
+     */
+    @RequestMapping("/findLoginUser")
+    public String findLoginUser(ModelMap map) {
+        User user = (User) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        String position = user.getPosition();
+        Role role = roleRepository.findRoleByName(position);
+        String introduction = role.getIntroduction();
+        user.setPosition(introduction);
+        map.addAttribute("user", user);
+        return "file/personFile";
+    }
+
+    /**
      * 查询单个职员
      *
      * @param request
@@ -64,6 +84,10 @@ public class UserController {
     public User findUser(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
         User user = userService.findUser(id);
+        String position = user.getPosition();
+        Role role = roleRepository.findRoleByName(position);
+        String introduction = role.getIntroduction();
+        user.setPosition(introduction);
         return user;
     }
 
@@ -89,6 +113,39 @@ public class UserController {
         user.setDept(dept);
         userService.saveUser(user, role);
         return "redirect:/user/findAllUser";
+    }
+
+    /**
+     * 补充用户信息
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping("/editorUser")
+    public String editorUser(HttpServletRequest request) {
+        String id = request.getParameter("id");
+        String phone = request.getParameter("phone");
+        String nativePlace = request.getParameter("nativePlace");
+        String address = request.getParameter("address");
+        String graduate = request.getParameter("graduate");
+        String education = request.getParameter("education");
+        String political = request.getParameter("political");
+        String email = request.getParameter("email");
+        String major = request.getParameter("major");
+        String birthday = request.getParameter("birthday");
+        User user = userService.findUserById(Integer.parseInt(id));
+        user.setId(Integer.parseInt(id));
+        user.setPhone(phone);
+        user.setNativePlace(nativePlace);
+        user.setAddress(address);
+        user.setGraduate(graduate);
+        user.setEducation(education);
+        user.setEmail(email);
+        user.setPolitical(political);
+        user.setMajor(major);
+        user.setBirthday(birthday);
+        userService.updateUser(user);
+        return "redirect:/user/findLoginUser";
     }
 
     /**
@@ -187,7 +244,7 @@ public class UserController {
     }
 
     @RequestMapping("/findUserBySalary")
-    public String findUserBySalary(ModelMap modelMap){
+    public String findUserBySalary(ModelMap modelMap) {
         List<User> users = userService.findAllUsers();
         modelMap.addAttribute("list", users);
         System.out.println(users.toString());
@@ -195,19 +252,82 @@ public class UserController {
     }
 
     @RequestMapping("/saveSalary")
-    public String saveSalary(HttpServletRequest request){
+    public String saveSalary(HttpServletRequest request) {
         String salary = request.getParameter("salary");
         System.out.println(salary);
         String id = request.getParameter("id");
-        System.out.println("啊啊啊啊啊"+id);
+        System.out.println("啊啊啊啊啊" + id);
         User user = userService.findUser(Integer.parseInt(id));
         user.setSalary(Double.valueOf(salary));
         userRepository.save(user);
         return "redirect:/user/findUserBySalary";
     }
 
+    /**
+     * 处理上班打卡
+     *
+     * @return
+     */
     @RequestMapping("/clockIn")
-    public String clockIn(){
+    public String clockIn(HttpServletRequest request) {
+        String latetime = request.getParameter("latetime");
+        User user = (User) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        String username = user.getUsername();
+        List<User> user1 = userService.findUserByUsername(username);
+        String punchNum = user1.get(0).getPunchNum();
+        if (punchNum == null) {
+            punchNum = "1";
+            user1.get(0).setPunchNum(punchNum);
+        } else {
+            int punch = Integer.parseInt(punchNum);
+            punch++;
+            user1.get(0).setPunchNum(String.valueOf(punch));
+            System.out.println(punch);
+        }
+        userService.updateUser(user1.get(0));
+        if (Integer.parseInt(latetime) > 0) {
+            String lateNum = user1.get(0).getLateNum();
+            if (lateNum == null) {
+                lateNum = "1";
+                user1.get(0).setLateNum(lateNum);
+            } else {
+                int num = Integer.parseInt(lateNum);
+                num++;
+                System.out.println(num);
+                user1.get(0).setLateNum(String.valueOf(num));
+            }
+            userService.updateUser(user1.get(0));
+        }
+        return "forward:/administrative/punch_lock.html";
+    }
+
+    /**
+     * 处理下班打卡
+     *
+     * @return
+     */
+    @RequestMapping("/clockOut")
+    public String clockOut(HttpServletRequest request) {
+        String outlocktime = request.getParameter("outlocktime");
+        User user = (User) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        String username = user.getUsername();
+        List<User> user1 = userService.findUserByUsername(username);
+        if (Integer.parseInt(outlocktime) > 0) {
+            String earlyNum = user1.get(0).getEarlyNum();
+            if (earlyNum == null) {
+                earlyNum = "1";
+                user1.get(0).setEarlyNum(earlyNum);
+            } else {
+                int num = Integer.parseInt(earlyNum);
+                num++;
+                user1.get(0).setEarlyNum(String.valueOf(num));
+            }
+            userService.updateUser(user1.get(0));
+        }
         return "forward:/administrative/punch_lock.html";
     }
 }

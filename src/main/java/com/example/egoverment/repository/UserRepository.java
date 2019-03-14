@@ -19,6 +19,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      */
     List<User> findUserByUsername(String username);
 
+
     /**
      * 查早不是部门经理的user
      *
@@ -33,7 +34,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @param id
      * @return
      */
-
     User findUserById(int id);
 
     int deleteUserById(int id);

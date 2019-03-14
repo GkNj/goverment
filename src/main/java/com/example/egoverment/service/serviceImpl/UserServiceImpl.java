@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         String encode = encoder.encode(user.getPassword().trim());
         user.setPassword(encode);
         User save = userRepository.save(user);
-        UserAndRole userAndRole=new UserAndRole();
+        UserAndRole userAndRole = new UserAndRole();
         userAndRole.setRoleId(role.getId());
         userAndRole.setUserId(Long.valueOf(save.getId()));
         userAndRoleRepository.save(userAndRole);
@@ -96,11 +96,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User updateUser(User user) {
-        return  userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
     public List<User> findUserByUsername(String username) {
         return userRepository.findUserByUsername(username);
+    }
+
+    @Override
+    public User findUserById(int id) {
+        return userRepository.findUserById(id);
     }
 }

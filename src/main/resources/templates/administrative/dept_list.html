@@ -58,7 +58,9 @@
         };
 
         function FindDept(id) {
-            axios.get('http://localhost:8080/dept/findOneDept?id=' + id, {}).then(function (response) {
+            axios.get('http://localhost:8080/dept/findOneDept?id=' + id, {
+
+            }).then(function (response) {
                 var data = response.data;
                 // alert(data[0].deptName)
                 $("#id").val(data[0].id);
@@ -70,7 +72,7 @@
                 $("#uId").val(data[0].uId.name);
                 $("#uId").attr("value", data[0].uId.name);
                 $("#select").append(  //此处向select中循环绑定数据
-                    "<option selected value=" + data[0].id+ ">" + data[0].uId.name + "</option>");
+                    "<option selected value=" + data[0].id + ">" + data[0].uId.name + "</option>");
 
             })
         }
@@ -852,12 +854,13 @@
                                     <td th:text="${dept.deptUpdateTime}" class="hidden-480">2019-2-22</td>
                                     <td th:text="${dept.dId}== null?'没有更新人':${dept.dId.name}" class="hidden-480">高凯</td>
                                     <td>
-                                        <a href="javascript:void(0)" th:onclick="'FindDept('+${dept.id}+')'" class="btn mini purple"
+                                        <a href="javascript:void(0)" th:onclick="'FindDept('+${dept.id}+')'"
+                                           class="btn mini purple"
                                            data-toggle="modal" data-target="#myModal">
                                             <i class="icon-edit">更改</i>
                                         </a>
                                         <!--<a  th:onclick="'javascript:deleteDept('+${dept.id}+')'" class="btn mini black" >-->
-                                            <!--<i class="icon-trash">删除</i>-->
+                                        <!--<i class="icon-trash">删除</i>-->
                                         <!--</a>-->
                                     </td>
                                 </tr>
@@ -904,12 +907,12 @@
                                                     </div>
                                                 </div>
                                                 <!--<div class="control-group">-->
-                                                    <!--<label class="control-label">部门负责人<span-->
-                                                            <!--class="required">*</span></label>-->
-                                                    <!--<div class="controls">-->
-                                                        <!--<input name="uId" value="" id="uId" type="text"-->
-                                                               <!--class="span8 m-wrap"/>-->
-                                                    <!--</div>-->
+                                                <!--<label class="control-label">部门负责人<span-->
+                                                <!--class="required">*</span></label>-->
+                                                <!--<div class="controls">-->
+                                                <!--<input name="uId" value="" id="uId" type="text"-->
+                                                <!--class="span8 m-wrap"/>-->
+                                                <!--</div>-->
                                                 <!--</div>-->
 
                                                 <div class="control-group">
@@ -1039,7 +1042,6 @@
         App.init();
         TableAdvanced.init();
     });
-
 
 
     function today() {//构建方法

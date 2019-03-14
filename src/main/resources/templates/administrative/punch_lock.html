@@ -36,6 +36,7 @@
     <link href="../media/css/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
     <!-- END PAGE LEVEL STYLES -->
     <link rel="shortcut icon" href="../media/image/favicon.ico"/>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
 
@@ -575,14 +576,14 @@
             </li>
 
             <!--公文管理-->
-            <li >
+            <li>
                 <a href="javascript:;">
                     <i class="icon-user"></i>
                     <span class="title">公文管理</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li >
+                    <li>
                         <a href="../document/official_document_design.html">
                             公文设计</a>
                     </li>
@@ -759,9 +760,8 @@
                 </div>
             </strong>
             <div id="clockIn" style="text-align: center;margin-top: 30px;">
-                <button style="background-color: #0b94ea;color:white;width: 200px;height: 200px;border-radius: 50% !important;border: none"
-                >
-                    <div><a th:href="@{/user/clockIn}" onclick="clockIn();confirm('上班打卡成功')"   style="color: white;text-decoration: none">上班打卡</a>
+                <button style="background-color: #0b94ea;color:white;width: 200px;height: 200px;border-radius: 50% !important;border: none">
+                    <div><a th:onclick="'clockIn()'" style="color: white;text-decoration: none">上班打卡</a>
                     </div>
                     <div id="punch"></div>
                 </button>
@@ -776,7 +776,7 @@
             </strong>
             <div id="clockOut" style="text-align: center;margin-top: 30px; visibility: hidden">
                 <button style="background-color: #0b94ea;color:white;width: 200px;height: 200px;border-radius: 50% !important;border: none">
-                    <div><a href="#" onclick="clockOut();confirm('下班打卡成功')" style="text-decoration: none;color: white">下班打卡</a>
+                    <div><a href="#" th:onclick="'clockOut()'" style="text-decoration: none;color: white">下班打卡</a>
                     </div>
                     <div id="lock"></div>
                 </button>
@@ -861,7 +861,32 @@
     window.onload = function () {
         var punch = document.getElementById("punch");
         var lock = document.getElementById("lock");
+        var index = sessionStorage.getItem("a");
+        var b = sessionStorage.getItem("b");
+        var latetime = sessionStorage.getItem("latetime");
+        var hours = sessionStorage.getItem("hours");
+        var hours2 = sessionStorage.getItem("hours2");
+        var minutes = sessionStorage.getItem("minutes");
+        var minutes2 = sessionStorage.getItem("minutes2");
+        var outlocktime = sessionStorage.getItem("outlocktime");
+        if (index) {
+            document.getElementById("clockIn").style.visibility = "hidden";
+            document.getElementById("clockOut").style.visibility = "visible";
+            if (latetime > 0) {
+                document.getElementById("intime").innerHTML = '打卡时间' + sessionStorage.getItem("intime") + ',' + '迟到' + hours + '小时' + minutes + '分钟';
+            } else {
+                document.getElementById("intime").innerHTML = '打卡时间' + sessionStorage.getItem("intime");
+            }
 
+        }
+        if (b) {
+            document.getElementById("clockOut").style.visibility = "hidden";
+            if (outlocktime > 0) {
+                document.getElementById("outtime").innerHTML = '打卡时间' + sessionStorage.getItem("outtime") + ',' + '早退' + hours2 + '小时' + minutes2 + '分钟';
+            } else {
+                document.getElementById("outtime").innerHTML = '打卡时间' + sessionStorage.getItem("outtime");
+            }
+        }
         setInterval(function () {
             var time = new Date();   // 程序计时的月从0开始取值后+1
             var t = time.getHours() + ":"
@@ -871,20 +896,28 @@
         }, 1000);
 
     };
-
     function clockIn() {
-
+        sessionStorage.setItem("a", false);
+        alert('上班打卡成功');
         document.getElementById("clockIn").style.visibility = "hidden";
         var punch = document.getElementById("punch");
         intime = punch.innerHTML;
         intime1 = punch.innerHTML;
         intime1 = new Date();
+        /**
+         * 计算迟到时间
+         * @type {number}
+         */
         var lockdate = intime1.getTime();
         var latetime = lockdate - new Date(new Date().toLocaleString().split(' ')[0] + ' 08:00:00').getTime();
         var hours = Math.floor(latetime / (3600 * 1000));
         var level = latetime % (3600 * 1000);
         var minutes = Math.floor(level / (60 * 1000));
         sessionStorage.setItem("intime", intime);
+        sessionStorage.setItem("latetime", latetime);
+        sessionStorage.setItem("hours", hours);
+        sessionStorage.setItem("level", level);
+        sessionStorage.setItem("minutes", minutes);
         if (latetime > 0) {
             document.getElementById("intime").innerHTML = '打卡时间' + sessionStorage.getItem("intime") + ',' + '迟到' + hours + '小时' + minutes + '分钟';
         } else {
@@ -892,9 +925,22 @@
         }
         document.getElementById("clockOut").style.visibility = "visible";
 
+        axios.get('http://localhost:8080/user/clockIn', {
+            params: {
+                'latetime': latetime
+            }
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
     }
 
     function clockOut() {
+        sessionStorage.setItem("b", false);
+        alert('下班打卡成功');
         var lock = document.getElementById("lock");
         outtime = lock.innerHTML;
         outtime1 = lock.innerHTML;
@@ -905,6 +951,9 @@
         var level = outlocktime % (3600 * 1000);
         var minutes = Math.floor(level / (60 * 1000));
         sessionStorage.setItem("outtime", outtime);
+        sessionStorage.setItem("hours2", hours);
+        sessionStorage.setItem("minutes2", minutes);
+        sessionStorage.setItem("outlocktime", outlocktime);
         if (outlocktime > 0) {
             document.getElementById("outtime").innerHTML = '打卡时间' + sessionStorage.getItem("outtime") + ',' + '早退' + hours + '小时' + minutes + '分钟';
         } else {
@@ -912,6 +961,17 @@
         }
         document.getElementById("clockOut").style.visibility = "hidden";
 
+        axios.get('http://localhost:8080/user/clockOut', {
+            params: {
+                'outlocktime': outlocktime
+            }
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
     }
 </script>
 

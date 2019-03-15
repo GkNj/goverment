@@ -8,7 +8,10 @@
 
 <!--[if !IE]><!-->
 <html lang="en"> <!--<![endif]-->
-
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
 <!-- BEGIN HEAD -->
 
 <head>
@@ -17,18 +20,18 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta content="" name="description"/>
     <meta content="" name="author"/>
-    <link href="../../static/media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/style-metro.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/style.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/style-responsive.css" rel="stylesheet" type="text/css"/>
-    <link href="../../static/media/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
-    <link href="../../static/media/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="../../static/media/css/select2_metro.css"/>
-    <link rel="stylesheet" href="../../static/media/css/DT_bootstrap.css"/>
+    <link href="../media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/style-metro.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="../media/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+    <link href="../media/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="../media/css/select2_metro.css"/>
+    <link rel="stylesheet" href="../media/css/DT_bootstrap.css"/>
     <!-- END PAGE LEVEL STYLES -->
-    <link rel="shortcut icon" href="../../static/media/image/favicon.ico"/>
+    <link rel="shortcut icon" href="../media/image/favicon.ico"/>
 
 </head>
 
@@ -49,7 +52,7 @@
 
             <a class="brand" href="../index.html">
 
-                <img src="../../static/media/image/logo.png" alt="logo"/>
+                <img src="../media/image/logo.png" alt="logo"/>
 
             </a>
 
@@ -59,7 +62,7 @@
 
             <a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
 
-                <img src="../../static/media/image/menu-toggler.png" alt=""/>
+                <img src="../media/image/menu-toggler.png" alt=""/>
 
             </a>
 
@@ -209,7 +212,7 @@
 
                             <a href="inbox.html?a=view">
 
-                                <span class="photo"><img src="../../static/media/image/avatar2.jpg" alt=""/></span>
+                                <span class="photo"><img src="../media/image/avatar2.jpg" alt=""/></span>
 
                                 <span class="subject">
 
@@ -235,7 +238,7 @@
 
                             <a href="inbox.html?a=view">
 
-                                <span class="photo"><img src="../../static/media/image/avatar3.jpg" alt=""/></span>
+                                <span class="photo"><img src="../media/image/avatar3.jpg" alt=""/></span>
 
                                 <span class="subject">
 
@@ -261,7 +264,7 @@
 
                             <a href="inbox.html?a=view">
 
-                                <span class="photo"><img src="../../static/media/image/avatar1.jpg" alt=""/></span>
+                                <span class="photo"><img src="../media/image/avatar1.jpg" alt=""/></span>
 
                                 <span class="subject">
 
@@ -463,7 +466,7 @@
 
                 <li class="dropdown user">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img alt="" src="../../static/media/image/avatar1_small.jpg"/>
+                        <img alt="" src="../media/image/avatar1_small.jpg"/>
                         <span class="username">高凯</span>
                         <i class="icon-angle-down"></i>
                     </a>
@@ -553,8 +556,8 @@
                             <li><a href="javascript:;">考勤规则
                                 <span class="arrow"></span></a>
                                 <ul class="sub-menu">
-                                    <li ><a href="../administrative/lock_time.html">考勤时间</a></li>
-                                    <li ><a href="../administrative/person_ruler.html">人性化规则</a></li>
+                                    <li><a href="../administrative/lock_time.html">考勤时间</a></li>
+                                    <li><a href="../administrative/person_ruler.html">人性化规则</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -564,14 +567,14 @@
             </li>
 
             <!--公文管理-->
-            <li >
+            <li>
                 <a href="javascript:;">
                     <i class="icon-user"></i>
                     <span class="title">公文管理</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li >
+                    <li>
                         <a href="../document/official_document_design.html">
                             公文设计</a>
                     </li>
@@ -793,8 +796,9 @@
 
                     <div class="clearfix">
 
-                        <form action="" method="post" enctype="multipart/form-data">
-                            <input type="file" multiple>
+                        <form th:action="@{/file/uploadFile(fileType='后勤部')}" method="post"
+                              enctype="multipart/form-data">
+                            <input type="file" name="file">
                             <input type="submit" value="上传">
                         </form>
                     </div>
@@ -810,12 +814,15 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="odd gradeX">
-                            <td>男厕所维修通知</td>
-                            <td class="hidden-480">后勤部</td>
-                            <td class="hidden-480">王博艺</td>
-                            <td class="center hidden-480">txt</td>
-                            <td><span class="btn btn-success">预览</span></td>
+                        <tr class="odd gradeX" th:each="file:${list}">
+                            <td th:text="${file.fileName}">金融危机</td>
+                            <td th:text="${file.fileType}" class="hidden-480">财政部</td>
+                            <td th:text="${file.userId.name}" class="hidden-480">高凯</td>
+                            <td th:text="${file.extension}" class="center hidden-480">txt</td>
+                            <td>
+                                <button class="btn btn-success">预览</button>
+                                <a th:href="@{/file/deleteFileById(fileType='后勤部',id=${file.id})}" class="btn btn-danger"><i class=" icon-remove-sign">删除</i></a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

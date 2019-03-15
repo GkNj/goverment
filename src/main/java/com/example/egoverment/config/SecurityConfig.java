@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         //定制请求的授权规则
-        http.authorizeRequests().antMatchers("/", "/index").hasAnyRole("ROOT","MUC")
+        http.authorizeRequests().antMatchers("/", "/index").hasAnyRole("ROOT","MUC","MOF")
         ;
 
 

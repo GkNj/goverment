@@ -598,7 +598,7 @@
                 <ul class="sub-menu">
                     <li>
                         <a th:href="@{user/findLoginUser}">个人档案
-                            <span class="arrow"></span>
+
                         </a>
                     </li>
                     <li>
@@ -606,15 +606,15 @@
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="file/exchequer_file_list.html">财政部</a></li>
-                            <li><a href="file/city_file_list.html">城建部</a></li>
-                            <li><a href="file/traffic_file_list.html">交通部</a></li>
-                            <li><a href="file/news_file_list.html">新闻部</a></li>
-                            <li><a href="file/logistics_file_list.html">后勤部</a></li>
+                            <li><a th:href="@{/file/findFile(fileType='财政部')}">财政部</a></li>
+                            <li><a th:href="@{/file/findFile(fileType='城建部')}">城建部</a></li>
+                            <li><a th:href="@{/file/findFile(fileType='交通部')}">交通部</a></li>
+                            <li><a th:href="@{/file/findFile(fileType='新闻部')}">新闻部</a></li>
+                            <li><a th:href="@{/file/findFile(fileType='后勤部')}">后勤部</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="file/government_file_list.html">政府档案
+                        <a th:href="@{/file/findFile(fileType='政府')}">政府档案
                             <span class="arrow"></span>
                         </a>
                     </li>

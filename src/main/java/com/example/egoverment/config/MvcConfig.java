@@ -15,6 +15,12 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/administrative/lock_time.html");
         registry.addViewController("/news/release_news.html");
         registry.addViewController("/news/news_list.html");
+        registry.addViewController("/file/exchequer_file_list.html");
+        registry.addViewController("/file/city_file_list.html");
+        registry.addViewController("/file/logistics_file_list.html");
+        registry.addViewController("/file/news_file_list.html");
+        registry.addViewController("/file/traffic_file_list.html");
+        registry.addViewController("/file/government_file_list.html");
 
         registry.addRedirectViewController("/index","templates/index.html");
     }

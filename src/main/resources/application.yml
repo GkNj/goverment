@@ -20,6 +20,13 @@ spring:
     mode: HTML
     cache: false
 
+
   devtools:
     restart:
       enabled: true
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 200MB

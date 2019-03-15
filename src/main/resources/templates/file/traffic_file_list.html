@@ -8,7 +8,10 @@
 
 <!--[if !IE]><!-->
 <html lang="en"> <!--<![endif]-->
-
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
 <!-- BEGIN HEAD -->
 
 <head>
@@ -553,8 +556,8 @@
                             <li><a href="javascript:;">考勤规则
                                 <span class="arrow"></span></a>
                                 <ul class="sub-menu">
-                                    <li ><a href="../administrative/lock_time.html">考勤时间</a></li>
-                                    <li ><a href="../administrative/person_ruler.html">人性化规则</a></li>
+                                    <li><a href="../administrative/lock_time.html">考勤时间</a></li>
+                                    <li><a href="../administrative/person_ruler.html">人性化规则</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -564,14 +567,14 @@
             </li>
 
             <!--公文管理-->
-            <li >
+            <li>
                 <a href="javascript:;">
                     <i class="icon-user"></i>
                     <span class="title">公文管理</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li >
+                    <li>
                         <a href="../document/official_document_design.html">
                             公文设计</a>
                     </li>
@@ -795,8 +798,9 @@
 
                     <div class="clearfix">
 
-                        <form action="" method="post" enctype="multipart/form-data">
-                            <input type="file" multiple>
+                        <form th:action="@{/file/uploadFile(fileType='交通部')}" method="post"
+                              enctype="multipart/form-data">
+                            <input type="file" name="file">
                             <input type="submit" value="上传">
                         </form>
                     </div>
@@ -812,12 +816,15 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="odd gradeX">
-                            <td>滨河东路交通路况</td>
-                            <td class="hidden-480"><a href="mailto:shuxer@gmail.com">交通部</a></td>
-                            <td class="hidden-480">宁静</td>
-                            <td class="center hidden-480">txt</td>
-                            <td><span class="btn btn-success">预览</span></td>
+                        <tr class="odd gradeX" th:each="file:${list}">
+                            <td th:text="${file.fileName}">金融危机</td>
+                            <td th:text="${file.fileType}" class="hidden-480">财政部</td>
+                            <td th:text="${file.userId.name}" class="hidden-480">高凯</td>
+                            <td th:text="${file.extension}" class="center hidden-480">txt</td>
+                            <td>
+                                <button class="btn btn-success">预览</button>
+                                <a th:href="@{/file/deleteFileById(fileType='交通部',id=${file.id})}" class="btn btn-danger"><i class=" icon-remove-sign">删除</i></a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

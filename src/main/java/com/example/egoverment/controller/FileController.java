@@ -71,10 +71,10 @@ public class FileController {
         uploadFile.setFileType(fileType);
         uploadFile.setUserId(id);
         String filePath = "E:\\uploadFile\\temp";
-        uploadFile.setPath(filePath);
         System.out.println(uploadFile.toString());
-        uploadFileService.saveFile(uploadFile);
         File dest = new File(filePath + "/" + fileName);
+        uploadFile.setPath(String.valueOf(dest));
+        uploadFileService.saveFile(uploadFile);
         if (!dest.getParentFile().exists()) {
             dest.getParentFile().mkdirs();
         }

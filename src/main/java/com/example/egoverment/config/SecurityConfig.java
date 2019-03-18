@@ -1,5 +1,6 @@
 package com.example.egoverment.config;
 
+import com.example.egoverment.filter.KaptchaAuthenticationFilter;
 import com.example.egoverment.handler.CustomAccessDeniedHandler;
 import com.example.egoverment.service.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,20 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -36,11 +50,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().disable();
         http.csrf().disable();
 
+
+        //ROOT 管理员 HR 人力资源顾问 MOF 财政部经理  MUD 城建部经理 MOR 交通部经理
+        //MON新闻部经理 MOL后勤部经理 MOI新闻部职员 MFS财政部职员  MUC城建部职员 MCS 交通部职员 LS后勤部职员
         //定制请求的授权规则
-        http.authorizeRequests().antMatchers("/", "/index").hasAnyRole("ROOT","MUC","MOF")
+        http.authorizeRequests()
+                .antMatchers("/", "/index").hasAnyRole("ROOT", "HR", "MOF", "MUD", "MUR", "MUN", "MOL", "MOI", "MFS", "MUC", "MCS", "LS")
+                .antMatchers("/user/findLoginUser", "/user/findUser", "/user/editorUser").permitAll()
+                .antMatchers("/user/clockOut", "/user/clockIn", "/user/saveSalary", "/user/findUserBySalary",
+                        "/user/findByPosition", "/user/findAllRole", "/user/checkUsername", "/user/deleteUser", "/user/updateUser", "/user/addUser").hasAnyRole("ROOT", "HR")
+                .antMatchers("/document/official_document_design.html").hasAnyRole("ROOT", "HR", "MOF", "MUD", "MUR", "MUN", "MOL", "MOI", "MFS", "MUC", "MCS", "LS")
+                .antMatchers("/document/official_document_upload.html").hasAnyRole("ROOT", "HR", "MOF", "MUD", "MUR", "MUN", "MOL", "MOI", "MFS", "MUC", "MCS", "LS")
         ;
 
 
+        http.addFilterBefore(new KaptchaAuthenticationFilter("/login", "/login?error"), UsernamePasswordAuthenticationFilter.class);
         //开启自动配置的登录功能
         http.formLogin()
                 .loginPage("/login")
@@ -74,10 +98,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-//    @Bean
-//    public static NoOpPasswordEncoder passwordEncoder() {
-//        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
-//    }
 
     /**
      * 不拦截资源
@@ -101,4 +121,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService);
     }
+
 }

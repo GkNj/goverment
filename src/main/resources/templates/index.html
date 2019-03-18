@@ -87,37 +87,22 @@
                     </a>
 
                     <ul class="dropdown-menu extended notification">
-
                         <li>
-
                             <p>You have 14 new notifications</p>
-
                         </li>
 
                         <li>
-
                             <a href="#">
-
                                 <span class="label label-success"><i class="icon-plus"></i></span>
-
                                 New user registered.
-
                                 <span class="time">Just now</span>
-
                             </a>
-
                         </li>
-
                         <li>
-
                             <a href="#">
-
                                 <span class="label label-important"><i class="icon-bolt"></i></span>
-
                                 Server #12 overloaded.
-
                                 <span class="time">15 mins</span>
-
                             </a>
 
                         </li>
@@ -125,11 +110,8 @@
                         <li>
 
                             <a href="#">
-
                                 <span class="label label-warning"><i class="icon-bell"></i></span>
-
                                 Server #2 not respoding.
-
                                 <span class="time">22 mins</span>
 
                             </a>
@@ -469,7 +451,8 @@
                 <li class="dropdown user">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img alt="" th:src="@{media/image/avatar1_small.jpg}"/>
-                        <span class="username"th:value="${session.SPRING_SECURITY_CONTEXT.authentication.principal.name}"></span>
+                        <span class="username"
+                              th:value="${session.SPRING_SECURITY_CONTEXT.authentication.principal.name}"></span>
                         <i class="icon-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu">
@@ -510,11 +493,8 @@
 
             <li>
 
-                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-
-                <div class="sidebar-toggler hidden-phone"></div>
-
-                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                <div class="sidebar-toggler hidden-phone">
+                </div>
 
             </li>
 
@@ -534,10 +514,12 @@
             </li>
 
             <!--行政管理-->
-            <li>
+
+            <li sec:authorize="hasAnyRole('ROLE_ROOT')">
                 <a class="active" href="javascript:;">
                     <i class="icon-sitemap"></i>
                     <span class="title">行政管理</span>
+
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
@@ -583,7 +565,7 @@
                             公文设计</a>
                     </li>
                     <li>
-                        <a href="document/official_document_upload.html">
+                        <a th:href="@{/document/findDocument}">
                             公文的上传和下载</a>
                     </li>
                 </ul>
@@ -606,14 +588,14 @@
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a th:href="@{/file/findFile(fileType='财政部')}">财政部</a></li>
-                            <li><a th:href="@{/file/findFile(fileType='城建部')}">城建部</a></li>
-                            <li><a th:href="@{/file/findFile(fileType='交通部')}">交通部</a></li>
-                            <li><a th:href="@{/file/findFile(fileType='新闻部')}">新闻部</a></li>
-                            <li><a th:href="@{/file/findFile(fileType='后勤部')}">后勤部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','MOF')"><a th:href="@{/file/findFile(fileType='财政部')}">财政部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','MUD')"><a th:href="@{/file/findFile(fileType='城建部')}">城建部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','MOR')"><a th:href="@{/file/findFile(fileType='交通部')}">交通部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','MON')"><a th:href="@{/file/findFile(fileType='新闻部')}">新闻部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','MOL')"><a th:href="@{/file/findFile(fileType='后勤部')}">后勤部</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT')">
                         <a th:href="@{/file/findFile(fileType='政府')}">政府档案
                             <span class="arrow"></span>
                         </a>

@@ -254,9 +254,7 @@ public class UserController {
     @RequestMapping("/saveSalary")
     public String saveSalary(HttpServletRequest request) {
         String salary = request.getParameter("salary");
-        System.out.println(salary);
         String id = request.getParameter("id");
-        System.out.println("啊啊啊啊啊" + id);
         User user = userService.findUser(Integer.parseInt(id));
         user.setSalary(Double.valueOf(salary));
         userRepository.save(user);

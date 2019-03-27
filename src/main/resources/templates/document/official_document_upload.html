@@ -454,14 +454,17 @@
                 <!-- BEGIN USER LOGIN DROPDOWN -->
 
                 <li class="dropdown user">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img alt="" src="../media/image/avatar1_small.jpg"/>
-                        <span class="username">高凯</span>
+                    <a  class="dropdown-toggle" data-toggle="dropdown">
+                        <img alt="" style="width: 29px;height:29px;" th:src="${session.SPRING_SECURITY_CONTEXT.authentication.principal.image}==null?@{media/image/avatar1_small.jpg}:${session.SPRING_SECURITY_CONTEXT.authentication.principal.image}"/>
+                        <!--<img src="E:/uploadFile/image/xiaohuangren.jpg" alt="">-->
+                        <span th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.name}"></span>
                         <i class="icon-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="../file/personFile.html"><i class="icon-user"></i> 我的信息</a></li>
-                        <li><a href="../administrative/punch_lock.html"><i class="icon-calendar"></i> 打卡</a></li>
+                        <li><a th:href="@{findLoginUser}"><i class="icon-user"></i> 我的信息</a></li>
+                        <li><a th:href="@{/administrative/changeImage.html}"><i class="icon-github"></i> 更换头像</a></li>
+                        <li><a th:href="@{/administrative/punch_lock.html}"><i class="icon-calendar"></i> 打卡</a></li>
+                        <li><a th:href="@{/logout}"><i class="icon-off"></i> 退出</a></li>
                     </ul>
                 </li>
 
@@ -495,11 +498,8 @@
 
             <li>
 
-                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-
-                <div class="sidebar-toggler hidden-phone"></div>
-
-                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                <div class="sidebar-toggler hidden-phone">
+                </div>
 
             </li>
 
@@ -519,10 +519,12 @@
             </li>
 
             <!--行政管理-->
-            <li>
+
+            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_HR')">
                 <a class="active" href="javascript:;">
                     <i class="icon-sitemap"></i>
                     <span class="title">行政管理</span>
+
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
@@ -531,12 +533,12 @@
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="../administrative/employee_list.html">职工基本信息管理</a></li>
-                            <li><a href="../administrative/dept_list.html">部门信息管理</a></li>
-                            <li><a href="../administrative/employee_salary_list.html">职工工资管理</a></li>
+                            <li><a th:href="@{findAllUser}">职工基本信息管理</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT')"><a th:href="@{findDept}">部门信息管理</a></li>
+                            <li><a th:href="@{findUserBySalary}">职工工资管理</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT')">
                         <a href="javascript:;">
                             考勤管理
                             <span class="arrow"></span>
@@ -545,8 +547,8 @@
                             <li><a href="javascript:;">考勤规则
                                 <span class="arrow"></span></a>
                                 <ul class="sub-menu">
-                                    <li><a href="../administrative/lock_time.html">考勤时间</a></li>
-                                    <li><a href="../administrative/person_ruler.html">人性化规则</a></li>
+                                    <li><a th:href="@{administrative/lock_time.html}">考勤时间</a></li>
+                                    <li><a th:href="@{administrative/person_ruler.html}">人性化规则</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -556,25 +558,25 @@
             </li>
 
             <!--公文管理-->
-            <li class="active">
+            <li class="active" sec:authorize="hasAnyRole('ROLE_ROOT', 'ROLE_HR', 'ROLE_MOF', 'ROLE_MUD', 'ROLE_MUR','ROLE_MUN','ROLE_MOL','ROLE_MOI','ROLE_MFS','ROLE_MUC','ROLE_MCS','ROLE_LS')">
                 <a href="javascript:;">
                     <i class="icon-user"></i>
                     <span class="title">公文管理</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li>
-                        <a href="official_document_design.html">
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MON','ROLE_MOI')">
+                        <a th:href="@{/findDocumentTemplate}">
                             公文设计</a>
                     </li>
-                    <li class="active">
-                        <a href="official_document_upload.html">
+                    <li class="active" sec:authorize="hasAnyRole('ROLE_ROOT','MOF','ROLE_MUD','ROLE_MOR','ROLE_MON','ROLE_MOL')">
+                        <a th:href="@{/findDocument}">
                             公文的上传和下载</a>
                     </li>
                 </ul>
             </li>
             <!--档案管理-->
-            <li >
+            <li>
                 <a class="active" href="javascript:;">
                     <i class="icon-sitemap"></i>
                     <span class="title">档案管理</span>
@@ -582,24 +584,23 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a href="../file/personFile.html" >个人档案
-                            <span class="arrow"></span>
+                        <a th:href="@{findLoginUser}">个人档案
                         </a>
                     </li>
-                    <li>
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT','MOF','ROLE_MUD','ROLE_MOR','ROLE_MON','ROLE_MOL')">
                         <a href="javascript:;">部门档案
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="../file/exchequer_file_list.html">财政部</a></li>
-                            <li><a href="../file/city_file_list.html">城建部</a></li>
-                            <li><a href="../file/traffic_file_list.html">交通部</a></li>
-                            <li><a href="../file/news_file_list.html">新闻部</a></li>
-                            <li><a href="../file/logistics_file_list.html">后勤部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MOF')"><a th:href="@{findFile(fileType='财政部')}">财政部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MUD')"><a th:href="@{findFile(fileType='城建部')}">城建部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MOR')"><a th:href="@{findFile(fileType='交通部')}">交通部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MON')"><a th:href="@{findFile(fileType='新闻部')}">新闻部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MOL')"><a th:href="@{findFile(fileType='后勤部')}">后勤部</a></li>
                         </ul>
                     </li>
-                    <li >
-                        <a href="../file/government_file_list.html">政府档案
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT')">
+                        <a th:href="@{findFile(fileType='政府')}">政府档案
                             <span class="arrow"></span>
                         </a>
                     </li>
@@ -607,19 +608,19 @@
             </li>
 
             <!--新闻管理-->
-            <li class="">
+            <li >
                 <a href="javascript:;">
                     <i class="icon-file-text"></i>
                     <span class="title">新闻管理</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li>
-                        <a href="../news/release_news.html">
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MON','ROLE_MOI')">
+                        <a href="news/release_news.html">
                             发布新闻</a>
                     </li>
-                    <li>
-                        <a href="../news/news_list.html">
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT', 'ROLE_HR', 'ROLE_MOF', 'ROLE_MUD', 'ROLE_MUR','ROLE_MUN','ROLE_MOL','ROLE_MOI','ROLE_MFS','ROLE_MUC','ROLE_MCS','ROLE_LS')" >
+                        <a th:href="@{findAllNews}">
                             查看新闻</a>
                     </li>
                 </ul>
@@ -732,8 +733,8 @@
                     <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                     <h3 class="page-title">
 
-                        政府档案
-                        <small>政府</small>
+                        公文管理
+                        <small>公文上传和下载</small>
 
                     </h3>
 
@@ -741,13 +742,13 @@
 
                         <li>
                             <i class="icon-home"></i>
-                            <a href="../index.html">主页</a>
+                            <a th:href="@{index.html}">主页</a>
                             <i class="icon-angle-right"></i>
                         </li>
 
                         <li>
 
-                            <a href="../file/government_file_list.html">政府档案</a>
+                            <a href="#">公文管理</a>
 
                         </li>
 
@@ -769,7 +770,7 @@
 
                 <div class="portlet-title">
 
-                    <div class="caption"><i class="icon-globe"></i>档案列表</div>
+                    <div class="caption"><i class="icon-globe"></i>公文列表</div>
 
                     <div class="tools">
 
@@ -789,7 +790,7 @@
 
                     <div class="clearfix">
 
-                        <form th:action="@{/document/uploadDocument}" method="post" enctype="multipart/form-data">
+                        <form th:action="@{uploadDocument}" method="post" enctype="multipart/form-data">
                             <input type="file" name="file">
                             <input type="submit" value="上传">
                         </form>
@@ -807,10 +808,11 @@
                         <tbody>
                         <tr class="odd gradeX" th:each="list:${list}">
                             <td th:text="${list.documentName}">税务局通知</td>
-                            <td th:text="${list.userId.name}"class="hidden-480">高凯</td>
-                            <td th:text="${list.extension}"class="center hidden-480">txt</td>
-                            <td><a  th:href="@{/document/download(documentName=${list.documentName},path=${list.path})}" class="btn btn-success"><i class=" icon-download-alt">下载</i></a>
-                                </td>
+                            <td th:text="${list.userId.name}" class="hidden-480">高凯</td>
+                            <td th:text="${list.extension}" class="center hidden-480">txt</td>
+                            <td><a th:href="@{download(documentName=${list.documentName},path=${list.path})}"
+                                   class="btn btn-success"><i class=" icon-download-alt">下载</i></a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -821,6 +823,25 @@
             </div>
 
         </div>
+
+    </div>
+
+</div>
+<div class="footer">
+
+    <div class="footer-inner">
+
+        2019 &copy; gk by nuc.edu.cn from <a href="http://www.nuc.edu.cn/" title="中北大学" target="_blank">中北大学</a>
+
+    </div>
+
+    <div class="footer-tools">
+
+			<span class="go-top">
+
+			<i class="icon-angle-up"></i>
+
+			</span>
 
     </div>
 

@@ -15,9 +15,9 @@ public interface DocumentService {
     Document saveDocument(Document document);
 
     /**
-     * 查找所有公文
+     * 根据类型查找所有公文
      *
      * @return
      */
-    List<Document> findAllDocument();
+    List<Document> findAllDocumentByType(String type);
 }

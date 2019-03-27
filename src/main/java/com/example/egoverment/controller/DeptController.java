@@ -20,7 +20,7 @@ import java.util.List;
 import static javafx.scene.input.KeyCode.L;
 
 @Controller
-@RequestMapping("/dept")
+@RequestMapping()
 public class DeptController {
 
     @Autowired
@@ -65,7 +65,7 @@ public class DeptController {
         UserAndRole userAndRole = userAndRoleRepository.findByUserId(Long.valueOf(uId));
         userAndRole.setRoleId(Long.valueOf(roles.get(0).getId()));
         userAndRoleRepository.save(userAndRole);
-        return "redirect:/dept/findDept";
+        return "redirect:/findDept";
     }
 
     /**
@@ -127,8 +127,8 @@ public class DeptController {
         UserAndRole userAndRole = userAndRoleRepository.findByUserId(Long.valueOf(uId));
         userAndRole.setRoleId(Long.valueOf(roles.get(0).getId()));
         userAndRoleRepository.save(userAndRole);
-        System.out.println("角色是" + roles.toString());
-        return "redirect:/dept/findDept";
+//        System.out.println("角色是" + roles.toString());
+        return "redirect:/findDept";
     }
 
     @RequestMapping("/deleteDept")
@@ -136,6 +136,6 @@ public class DeptController {
         String id = request.getParameter("id");
 
         deptService.deleteDept(Integer.parseInt(id));
-        return "redirect:/dept/findDept";
+        return "redirect:/findDept";
     }
 }

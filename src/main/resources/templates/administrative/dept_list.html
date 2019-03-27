@@ -44,7 +44,7 @@
         window.onload = function () {
             $.ajax({
                 type: "post",
-                url: "http://localhost:8080/user/findByPosition", //此次url改为真正需要的url
+                url: "http://localhost:8080/findByPosition", //此次url改为真正需要的url
                 success: function (data, status) {
                     $.each(data, function (index, item) {
                         $("#select").append(  //此处向select中循环绑定数据
@@ -58,7 +58,7 @@
         };
 
         function FindDept(id) {
-            axios.get('http://localhost:8080/dept/findOneDept?id=' + id, {
+            axios.get('http://localhost:8080/findOneDept?id=' + id, {
 
             }).then(function (response) {
                 var data = response.data;
@@ -496,15 +496,17 @@
                 <!-- BEGIN USER LOGIN DROPDOWN -->
 
                 <li class="dropdown user">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img alt="" src="../media/image/avatar1_small.jpg"/>
-                        <span class="username">高凯</span>
+                    <a  class="dropdown-toggle" data-toggle="dropdown">
+                        <img alt="" style="width: 29px;height:29px;" th:src="${session.SPRING_SECURITY_CONTEXT.authentication.principal.image}==null?@{media/image/avatar1_small.jpg}:${session.SPRING_SECURITY_CONTEXT.authentication.principal.image}"/>
+                        <!--<img src="E:/uploadFile/image/xiaohuangren.jpg" alt="">-->
+                        <span th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.name}"></span>
                         <i class="icon-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="@{../file/personFile.html}"><i class="icon-user"></i> 我的信息</a></li>
-                        <li><a th:href="@{punch_lock.html}"><i class="icon-calendar"></i> 打卡</a></li>
-                        <li><a th:href="@{/logout}"><i class="icon-calendar"></i> 退出</a></li>
+                        <li><a th:href="@{/findLoginUser}"><i class="icon-user"></i> 我的信息</a></li>
+                        <li><a th:href="@{/administrative/changeImage.html}"><i class="icon-github"></i> 更换头像</a></li>
+                        <li><a th:href="@{/administrative/punch_lock.html}"><i class="icon-calendar"></i> 打卡</a></li>
+                        <li><a th:href="@{/logout}"><i class="icon-off"></i> 退出</a></li>
                     </ul>
                 </li>
 
@@ -538,11 +540,8 @@
 
             <li>
 
-                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-
-                <div class="sidebar-toggler hidden-phone"></div>
-
-                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                <div class="sidebar-toggler hidden-phone">
+                </div>
 
             </li>
 
@@ -562,7 +561,8 @@
             </li>
 
             <!--行政管理-->
-            <li class="active">
+
+            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_HR')" class="active">
                 <a class="active" href="javascript:;">
                     <i class="icon-sitemap"></i>
                     <span class="title">行政管理</span>
@@ -574,12 +574,12 @@
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a th:href="@{/user/findAllUser}">职工基本信息管理</a></li>
-                            <li class="active"><a th:href="@{findDept}">部门信息管理</a></li>
-                            <li><a href="employee_salary_list.html">职工工资管理</a></li>
+                            <li><a th:href="@{/findAllUser}">职工基本信息管理</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT')" class="active"><a th:href="@{/findDept}">部门信息管理</a></li>
+                            <li><a th:href="@{/findUserBySalary}">职工工资管理</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT')">
                         <a href="javascript:;">
                             考勤管理
                             <span class="arrow"></span>
@@ -588,8 +588,8 @@
                             <li><a href="javascript:;">考勤规则
                                 <span class="arrow"></span></a>
                                 <ul class="sub-menu">
-                                    <li><a href="lock_time.html">考勤时间</a></li>
-                                    <li><a href="person_ruler.html">人性化规则</a></li>
+                                    <li><a th:href="@{administrative/lock_time.html}">考勤时间</a></li>
+                                    <li><a th:href="@{administrative/person_ruler.html}">人性化规则</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -598,21 +598,20 @@
                 </ul>
             </li>
 
-
             <!--公文管理-->
-            <li>
+            <li sec:authorize="hasAnyRole('ROLE_ROOT', 'ROLE_HR', 'ROLE_MOF', 'ROLE_MUD', 'ROLE_MUR','ROLE_MUN','ROLE_MOL','ROLE_MOI','ROLE_MFS','ROLE_MUC','ROLE_MCS','ROLE_LS')">
                 <a href="javascript:;">
                     <i class="icon-user"></i>
                     <span class="title">公文管理</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li>
-                        <a href="../document/official_document_list.html">
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MON','ROLE_MOI')">
+                        <a th:href="@{/findDocumentTemplate}">
                             公文设计</a>
                     </li>
-                    <li>
-                        <a href="../document/official_document_upload.html">
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT','MOF','ROLE_MUD','ROLE_MOR','ROLE_MON','ROLE_MOL')">
+                        <a th:href="@{/findDocument}">
                             公文的上传和下载</a>
                     </li>
                 </ul>
@@ -626,24 +625,23 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a href="../file/personFile.html" class="active">个人档案
-                            <span class="arrow"></span>
+                        <a th:href="@{/findLoginUser}">个人档案
                         </a>
                     </li>
-                    <li>
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT','MOF','ROLE_MUD','ROLE_MOR','ROLE_MON','ROLE_MOL')">
                         <a href="javascript:;">部门档案
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="../file/exchequer_file_list.html">财政部</a></li>
-                            <li><a href="../file/city_file_list.html">城建部</a></li>
-                            <li><a href="../file/traffic_file_list.html">交通部</a></li>
-                            <li><a href="../file/news_file_list.html">新闻部</a></li>
-                            <li><a href="../file/logistics_file_list.html">后勤部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MOF')"><a th:href="@{/findFile(fileType='财政部')}">财政部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MUD')"><a th:href="@{/findFile(fileType='城建部')}">城建部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MOR')"><a th:href="@{/findFile(fileType='交通部')}">交通部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MON')"><a th:href="@{/findFile(fileType='新闻部')}">新闻部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MOL')"><a th:href="@{/findFile(fileType='后勤部')}">后勤部</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="../file/government_file_list.html">政府档案
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT')">
+                        <a th:href="@{/findFile(fileType='政府')}">政府档案
                             <span class="arrow"></span>
                         </a>
                     </li>
@@ -651,19 +649,19 @@
             </li>
 
             <!--新闻管理-->
-            <li class="">
+            <li >
                 <a href="javascript:;">
                     <i class="icon-file-text"></i>
                     <span class="title">新闻管理</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li>
-                        <a href="../news/release_news.html">
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MON','ROLE_MOI')">
+                        <a href="news/release_news.html">
                             发布新闻</a>
                     </li>
-                    <li>
-                        <a href="../news/news_list.html">
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT', 'ROLE_HR', 'ROLE_MOF', 'ROLE_MUD', 'ROLE_MUR','ROLE_MUN','ROLE_MOL','ROLE_MOI','ROLE_MFS','ROLE_MUC','ROLE_MCS','ROLE_LS')" >
+                        <a th:href="@{/findAllNews}">
                             查看新闻</a>
                     </li>
                 </ul>
@@ -785,7 +783,7 @@
 
                         <li>
                             <i class="icon-home"></i>
-                            <a href="../index.html">主页</a>
+                            <a th:href="@{/index}">主页</a>
                             <i class="icon-angle-right"></i>
                         </li>
 
@@ -965,7 +963,7 @@
                                         </div>
 
                                         <!-- 模态框主体 -->
-                                        <form th:action="@{/dept/addDept}" method="post">
+                                        <form th:action="@{addDept}" method="post">
                                             <div class="modal-body">
                                                 <div class="control-group">
                                                     <label class="control-label">部门名称<span
@@ -1016,6 +1014,25 @@
             </div>
 
         </div>
+
+    </div>
+
+</div>
+<div class="footer">
+
+    <div class="footer-inner">
+
+        2019 &copy; gk by nuc.edu.cn from <a href="http://www.nuc.edu.cn/" title="中北大学" target="_blank">中北大学</a>
+
+    </div>
+
+    <div class="footer-tools">
+
+			<span class="go-top">
+
+			<i class="icon-angle-up"></i>
+
+			</span>
 
     </div>
 

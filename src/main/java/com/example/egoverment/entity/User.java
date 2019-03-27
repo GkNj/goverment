@@ -124,6 +124,11 @@ public class User implements Serializable, UserDetails {
      */
     private String earlyNum;
 
+    /**
+     * 用户头像
+     */
+    private String image;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
@@ -136,6 +141,14 @@ public class User implements Serializable, UserDetails {
     )
     private List<Role> roles;
 
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public int getId() {
         return id;
@@ -346,7 +359,7 @@ public class User implements Serializable, UserDetails {
         return authorities;
     }
 
-    public User(String username, String password, String name, String sex, String startDate, Dept dept, String phone, String nativePlace, String address, String graduate, String education, String position, String political, String email, String major, String birthday, Double salary, String punchNum, String lateNum, String earlyNum, List<Role> roles) {
+    public User(String username, String password, String name, String sex, String startDate, Dept dept, String phone, String nativePlace, String address, String graduate, String education, String position, String political, String email, String major, String birthday, Double salary, String punchNum, String lateNum, String earlyNum, String image, List<Role> roles) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -367,6 +380,7 @@ public class User implements Serializable, UserDetails {
         this.punchNum = punchNum;
         this.lateNum = lateNum;
         this.earlyNum = earlyNum;
+        this.image = image;
         this.roles = roles;
     }
 
@@ -397,6 +411,7 @@ public class User implements Serializable, UserDetails {
                 ", punchNum='" + punchNum + '\'' +
                 ", lateNum='" + lateNum + '\'' +
                 ", earlyNum='" + earlyNum + '\'' +
+                ", image='" + image + '\'' +
                 ", roles=" + roles +
                 '}';
     }

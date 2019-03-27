@@ -2,7 +2,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>政府创新性政务信息平台用户登录</title>
@@ -11,6 +11,7 @@
     <script type="text/javascript" th:src="@{login/js/jquery-1.8.2.min.js}"></script>
     <script type="text/javascript" th:src="@{login/js/jquery1.42.min.js}"></script>
     <script type="text/javascript" th:src="@{login/js/jquery.SuperSlide.js}"></script>
+
     <!--<script type="text/javascript" th:src="@{login/js/Validform_v5.3.2_min.js}"></script>-->
     <script type="text/javascript">
         $(document).ready(function () {
@@ -51,25 +52,9 @@
                     $(this).val('输入验证码');
                 }
             });
-            $(".stu_login_error").Validform({
-                tiptype: function (msg, o, cssctl) {
-                    var objtip = $(".stu_error_box");
-                    cssctl(objtip, o.type);
-                    objtip.text(msg);
-                },
-                ajaxPost: true
-            });
-
 
         });
-        $(".sec_login_error").Validform({
-            tiptype: function (msg, o, cssctl) {
-                var objtip = $(".sec_error_box");
-                cssctl(objtip, o.type);
-                objtip.text(msg);
-            },
-            ajaxPost: true
-        });
+
 
     </script>
     <script type="text/javascript">
@@ -105,10 +90,13 @@
             $(".screenbg ul img").css("width", width + "px");
         });
 
-        $(document).on('click', '.changeCaptcha', function () {
-            var url = "/getKaptchaImage";
-            $("#captcha").attr("src", url);
-        })
+        /**
+         * 切换验证码
+         */
+        function change() {
+            var url = 'http://localhost:8080/getKaptchaImage';
+            $(".captcha").attr("src", url);
+        }
     </script>
 </head>
 
@@ -137,11 +125,12 @@
                 <div id="code">
                     <label>验证码：</label>
                     <input type="text" id="stu_code_hide" name="kaptcha" value="输入验证码" nullmsg="验证码不能为空！"/>
-                    <img th:src="@{/getKaptchaImage}" id="captcha" class="captcha changeCaptcha pull-left margin-r-5" alt="验证码"/>
-                    <a href="javascript:void(0)" class="changeCaptcha">换一张</a>
+                    <img th:src="@{/getKaptchaImage}" style="position: relative;margin-bottom:-15px;"
+                         id="captcha" class="captcha  " alt="验证码"/><br/>
+                    <a href="javascript:void(0)"  style="color: grey;position:relative;text-decoration: none;margin-left: 200px" id="change" th:onclick="'change()'" class="changeCaptcha">换一张</a>
                 </div>
                 <div id="remember">
-                    <input type="checkbox" name="rememberMe">
+                    <input type="checkbox" name="remember-me">
                     <label>记住密码</label>
                 </div>
                 <div id="login">
@@ -155,7 +144,7 @@
 <div class="bottom">©2019 Leting <a href="javascript:;" target="_blank">关于</a> <span>京ICP证030173号</span> More Templates
     <a href="http://www.cssmoban.com/" target="_blank" title="政府">政府</a> - Collect from <a
             href="http://www.cssmoban.com/" title="中北大学" target="_blank">中北大学</a><img width="13" height="16"
-                                                                                      src="images/copy_rignt_24.png"/>
+                                                                                      th:src="@{login/images/copy_rignt_24.png}"/>
 </div>
 <div class="screenbg">
     <ul>

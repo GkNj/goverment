@@ -7,7 +7,10 @@
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 
 <!-- BEGIN HEAD -->
-
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
 <head>
 
 	<meta charset="utf-8" />
@@ -76,7 +79,7 @@
 
 		<p>
 
-			<a href="index.html">Return home</a>
+			<a th:href="@{/index}">Return home</a>
 
 			<br>
 

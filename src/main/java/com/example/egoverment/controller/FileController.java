@@ -3,10 +3,10 @@ package com.example.egoverment.controller;
 import com.example.egoverment.entity.UploadFile;
 import com.example.egoverment.entity.User;
 import com.example.egoverment.service.serviceImpl.UploadFileServiceImpl;
+import com.example.egoverment.service.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,20 +17,25 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
+
 
 @Controller
-@RequestMapping("/file")
+@RequestMapping()
 public class FileController {
 
     @Autowired
     private UploadFileServiceImpl uploadFileService;
+
+    @Autowired
+    private UserServiceImpl userService;
+
 
     @RequestMapping("/findFile")
     @ResponseBody
     public ModelAndView findFile(ModelAndView mv, HttpServletRequest request) {
         String fileType = request.getParameter("fileType");
         List<UploadFile> files = uploadFileService.findFileByFileType(fileType);
+        System.out.println(files.toString());
         mv.addObject("list", files);
         System.out.println(files.toString());
         if (fileType.equals("财政部")) {
@@ -47,6 +52,9 @@ public class FileController {
         }
         if (fileType.equals("后勤部")) {
             mv.setViewName("file/logistics_file_list");
+        }
+        if (fileType.equals("政府")) {
+            mv.setViewName("file/government_file_list");
         }
         return mv;
     }
@@ -84,18 +92,44 @@ public class FileController {
             e.printStackTrace();
         }
         mv.addObject("fileType", fileType);
-        mv.setViewName("redirect:/file/findFile");
+        mv.setViewName("redirect:/findFile");
         return mv;
     }
 
+    @RequestMapping("/uploadImage")
+    public ModelAndView uploadImage(@RequestParam("file") MultipartFile file, ModelAndView mv) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int id = user.getId();
+        User user1 = userService.findUserById(id);
+        String imageName = file.getOriginalFilename();
+        String filePath = "E:\\e-goverment\\src\\main\\resources\\static\\login\\images";
+        File dest = new File(filePath + "/" + imageName);
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+        try {
+            file.transferTo(dest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String path = String.valueOf(dest).substring(41);
+        user1.setImage(path);
+        user.setImage(path);
+        userService.updateUser(user1);
+        mv.setViewName("redirect:/index");
+        return mv;
+    }
+
+
     @RequestMapping("/deleteFileById")
-    public ModelAndView deleteFileById(HttpServletRequest request, ModelAndView mv){
+    public ModelAndView deleteFileById(HttpServletRequest request, ModelAndView mv) {
         String id = request.getParameter("id");
         String fileType = request.getParameter("fileType");
         System.out.println(fileType);
         uploadFileService.deleteFile(Integer.parseInt(id));
         mv.addObject("fileType", fileType);
-        mv.setViewName("redirect:/file/findFile");
+        mv.setViewName("redirect:/findFile");
         return mv;
     }
 }

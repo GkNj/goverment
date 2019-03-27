@@ -55,12 +55,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //MON新闻部经理 MOL后勤部经理 MOI新闻部职员 MFS财政部职员  MUC城建部职员 MCS 交通部职员 LS后勤部职员
         //定制请求的授权规则
         http.authorizeRequests()
-                .antMatchers("/", "/index").hasAnyRole("ROOT", "HR", "MOF", "MUD", "MUR", "MUN", "MOL", "MOI", "MFS", "MUC", "MCS", "LS")
-                .antMatchers("/user/findLoginUser", "/user/findUser", "/user/editorUser").permitAll()
-                .antMatchers("/user/clockOut", "/user/clockIn", "/user/saveSalary", "/user/findUserBySalary",
-                        "/user/findByPosition", "/user/findAllRole", "/user/checkUsername", "/user/deleteUser", "/user/updateUser", "/user/addUser").hasAnyRole("ROOT", "HR")
+                .antMatchers("/", "/index", "/findAllNews").hasAnyRole("ROOT", "HR", "MOF", "MUD", "MUR", "MUN", "MOL", "MOI", "MFS", "MUC", "MCS", "LS")
+                .antMatchers("findLoginUser", "findUser", "/user/editorUser", "/administrative/lock_time.html", "/administrative/person_ruler.html").permitAll()
+                .antMatchers("/clockOut", "/clockIn", "/saveSalary", "/findUserBySalary",
+                        "/findByPosition", "/findAllRole", "/checkUsername", "/deleteUser", "/updateUser", "/addUser").hasAnyRole("ROOT", "HR")
                 .antMatchers("/document/official_document_design.html").hasAnyRole("ROOT", "HR", "MOF", "MUD", "MUR", "MUN", "MOL", "MOI", "MFS", "MUC", "MCS", "LS")
                 .antMatchers("/document/official_document_upload.html").hasAnyRole("ROOT", "HR", "MOF", "MUD", "MUR", "MUN", "MOL", "MOI", "MFS", "MUC", "MCS", "LS")
+                .antMatchers("/pubNews", "/findNewsById", "/updateNews", "/deleteNewsById").hasAnyRole("ROOT", "MON", "MOI")
+                .antMatchers("/findDept").hasAnyRole("ROOT", "HR")
+                .antMatchers("/addDept","/findAllDept","/administrative/person_ruler.html","/administrative/lock_time.html").hasAnyRole("ROOT")
         ;
 
 

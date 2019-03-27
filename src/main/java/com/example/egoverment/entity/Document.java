@@ -28,6 +28,10 @@ public class Document {
     private String path;
 
     /**
+     * 公文类型(模板，正式公文)
+     */
+    private String type;
+    /**
      * 公文后缀
      */
     private String extension;
@@ -35,10 +39,11 @@ public class Document {
     public Document() {
     }
 
-    public Document(String documentName, int userId, String path, String extension) {
+    public Document(String documentName, int userId, String path, String type, String extension) {
         this.documentName = documentName;
         this.userId = userId;
         this.path = path;
+        this.type = type;
         this.extension = extension;
     }
 
@@ -82,6 +87,14 @@ public class Document {
         this.extension = extension;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "Document{" +
@@ -89,6 +102,7 @@ public class Document {
                 ", documentName='" + documentName + '\'' +
                 ", userId=" + userId +
                 ", path='" + path + '\'' +
+                ", type='" + type + '\'' +
                 ", extension='" + extension + '\'' +
                 '}';
     }

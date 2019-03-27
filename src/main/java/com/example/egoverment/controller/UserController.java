@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping()
 public class UserController {
 
     @Autowired
@@ -70,7 +70,7 @@ public class UserController {
         String introduction = role.getIntroduction();
         user.setPosition(introduction);
         map.addAttribute("user", user);
-        return "file/personFile";
+        return "/file/personFile";
     }
 
     /**
@@ -112,7 +112,7 @@ public class UserController {
         dept.setId(Integer.parseInt(did));
         user.setDept(dept);
         userService.saveUser(user, role);
-        return "redirect:/user/findAllUser";
+        return "redirect:/findAllUser";
     }
 
     /**
@@ -145,7 +145,7 @@ public class UserController {
         user.setMajor(major);
         user.setBirthday(birthday);
         userService.updateUser(user);
-        return "redirect:/user/findLoginUser";
+        return "redirect:/findLoginUser";
     }
 
     /**
@@ -167,7 +167,7 @@ public class UserController {
         dept.setId(Integer.parseInt(dId));
         user.setDept(dept);
         userService.updateUser(user);
-        return "redirect:/user/findAllUser";
+        return "redirect:/findAllUser";
     }
 
     /**
@@ -197,7 +197,7 @@ public class UserController {
         }
         System.out.println("id" + id);
         int i = userService.deleteUser(Integer.parseInt(id));
-        return "redirect:/user/findAllUser";
+        return "redirect:/findAllUser";
     }
 
     /**
@@ -258,7 +258,7 @@ public class UserController {
         User user = userService.findUser(Integer.parseInt(id));
         user.setSalary(Double.valueOf(salary));
         userRepository.save(user);
-        return "redirect:/user/findUserBySalary";
+        return "redirect:/findUserBySalary";
     }
 
     /**

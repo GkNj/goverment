@@ -41,8 +41,8 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public List<Document> findAllDocument() {
-        List<Document> list = documentRepository.findAll();
+    public List<Document> findAllDocumentByType(String type) {
+        List<Document> list = documentRepository.findAllByType(type);
         List list1 = connectQuery(list);
         return list1;
     }

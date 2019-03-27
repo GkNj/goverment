@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("/news")
+@RequestMapping()
 public class NewsController {
 
     @Autowired
@@ -42,7 +42,7 @@ public class NewsController {
         String substring = news.getContent().substring(3, news.getContent().length() - 4);
         news.setContent(substring);
         newsService.save(news);
-        return "redirect:/news/findAllNews";
+        return "redirect:/findAllNews";
     }
 
     /**
@@ -86,7 +86,7 @@ public class NewsController {
         news1.setTitle(news.getTitle());
         news1.setContent(news.getContent());
         newsService.save(news1);
-        return "redirect:/news/findAllNews";
+        return "redirect:/findAllNews";
     }
 
     /**
@@ -99,6 +99,6 @@ public class NewsController {
     public String deleteNewsById(HttpServletRequest request) {
         String id = request.getParameter("id");
         newsService.deleteNewsById(Integer.parseInt(id));
-        return "redirect:/news/findAllNews";
+        return "redirect:/findAllNews";
     }
 }

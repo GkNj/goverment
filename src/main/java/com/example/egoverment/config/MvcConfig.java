@@ -2,6 +2,7 @@ package com.example.egoverment.config;
 
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -24,8 +25,15 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/document/official_document_design.html");
         registry.addViewController("/document/official_document_list.html");
         registry.addViewController("/document/official_document_upload.html");
+        registry.addViewController("/changeImage.html");
 
 
         registry.addRedirectViewController("/index","templates/index.html");
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**").addResourceLocations("/static/login/images");
+
     }
 }

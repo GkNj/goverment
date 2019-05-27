@@ -15,4 +15,6 @@ public interface DocumentRepository extends JpaRepository<Document, Integer> {
      * @return
      */
     List<Document> findAllByType(String type);
+
 }
+

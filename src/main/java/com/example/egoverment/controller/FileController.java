@@ -15,8 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 
 @Controller
@@ -78,10 +79,10 @@ public class FileController {
         uploadFile.setExtension(extension);
         uploadFile.setFileType(fileType);
         uploadFile.setUserId(id);
-        String filePath = "E:\\uploadFile\\temp";
+        String filePath = "E:\\uploadFile\\temp\\demo";
         System.out.println(uploadFile.toString());
         File dest = new File(filePath + "/" + fileName);
-        uploadFile.setPath(String.valueOf(dest));
+        uploadFile.setPath(fileName);
         uploadFileService.saveFile(uploadFile);
         if (!dest.getParentFile().exists()) {
             dest.getParentFile().mkdirs();
@@ -97,28 +98,55 @@ public class FileController {
     }
 
     @RequestMapping("/uploadImage")
-    public ModelAndView uploadImage(@RequestParam("file") MultipartFile file, ModelAndView mv) {
+    @ResponseBody
+    public int uploadImage(@RequestParam("file") String file, ModelAndView mv) {
+        String base64Data = file.split(",")[1];
+        /**
+         * 2.解码成字节数组
+         */
+        Base64.Decoder decoder = Base64.getDecoder();
+        byte[] bytes = decoder.decode(base64Data);
+        /**
+         * 3.字节流转文件
+         */
+        FileOutputStream fos = null;
+        UUID uuid = UUID.randomUUID();
+        String filePath = "E:\\e-goverment\\src\\main\\resources\\static\\login\\images" + uuid;
+        try {
+            fos = new FileOutputStream(filePath);
+            fos.write(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int id = user.getId();
         User user1 = userService.findUserById(id);
-        String imageName = file.getOriginalFilename();
-        String filePath = "E:\\e-goverment\\src\\main\\resources\\static\\login\\images";
-        File dest = new File(filePath + "/" + imageName);
-        if (!dest.getParentFile().exists()) {
-            dest.getParentFile().mkdirs();
-        }
-        try {
-            file.transferTo(dest);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        String filePath = "E:\\e-goverment\\src\\main\\resources\\static\\login\\images";
+//        File dest = new File(filePath);
+//        if (!dest.getParentFile().exists()) {
+//            dest.getParentFile().mkdirs();
+//        }
+//        try {
+//
+//            fos.transferTo(dest);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
-        String path = String.valueOf(dest).substring(41);
+        String path = filePath.substring(41);
         user1.setImage(path);
         user.setImage(path);
         userService.updateUser(user1);
         mv.setViewName("redirect:/index");
-        return mv;
+        return 1;
     }
 
 
@@ -131,5 +159,23 @@ public class FileController {
         mv.addObject("fileType", fileType);
         mv.setViewName("redirect:/findFile");
         return mv;
+    }
+
+    @RequestMapping("/findFileGroupByType")
+    @ResponseBody
+    public List findFileGroupByType() {
+        List list1 = new ArrayList();
+        List list2 = new ArrayList();
+        List list3 = new ArrayList();
+        List list = uploadFileService.findFileGroupByType();
+
+        for (int i = 0; i < list.size(); i++) {
+            Object[] o = (Object[]) list.get(i);
+            list1.add(o[0]);
+            list2.add(o[1]);
+        }
+        list3.add(list1);
+        list3.add(list2);
+        return list3;
     }
 }

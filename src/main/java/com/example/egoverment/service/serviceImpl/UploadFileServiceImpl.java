@@ -59,5 +59,10 @@ public class UploadFileServiceImpl implements UploadFileService {
         return list;
     }
 
+    @Override
+    public List findFileGroupByType() {
+        return fileRepository.findFileGroupByType();
+    }
+
 
 }

@@ -107,7 +107,7 @@ public class User implements Serializable, UserDetails {
     /**
      * 工资
      */
-    private Double salary;
+    private String salary;
 
     /**
      * 打卡次数
@@ -284,11 +284,11 @@ public class User implements Serializable, UserDetails {
         this.birthday = birthday;
     }
 
-    public Double getSalary() {
+    public String getSalary() {
         return salary;
     }
 
-    public void setSalary(Double salary) {
+    public void setSalary(String salary) {
         this.salary = salary;
     }
 
@@ -359,7 +359,7 @@ public class User implements Serializable, UserDetails {
         return authorities;
     }
 
-    public User(String username, String password, String name, String sex, String startDate, Dept dept, String phone, String nativePlace, String address, String graduate, String education, String position, String political, String email, String major, String birthday, Double salary, String punchNum, String lateNum, String earlyNum, String image, List<Role> roles) {
+    public User(String username, String password, String name, String sex, String startDate, Dept dept, String phone, String nativePlace, String address, String graduate, String education, String position, String political, String email, String major, String birthday, String salary, String punchNum, String lateNum, String earlyNum, String image, List<Role> roles) {
         this.username = username;
         this.password = password;
         this.name = name;

@@ -28,6 +28,11 @@ public class News {
     private int addUser;
 
     /**
+     * 新闻图片
+     */
+    private String path;
+
+    /**
      * 发布时间
      */
     private String pubDate;
@@ -35,11 +40,20 @@ public class News {
     public News() {
     }
 
-    public News(String title, String content, int addUser, String pubDate) {
+    public News(String title, String content, int addUser, String pubDate, String path) {
         this.title = title;
         this.content = content;
         this.addUser = addUser;
         this.pubDate = pubDate;
+        this.path = path;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public int getId() {
@@ -89,6 +103,7 @@ public class News {
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", addUser=" + addUser +
+                ", path='" + path + '\'' +
                 ", pubDate='" + pubDate + '\'' +
                 '}';
     }

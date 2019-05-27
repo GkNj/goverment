@@ -28,10 +28,10 @@ public class DeptServiceImpl implements DeptService {
         Stream<DeptVo> deptVoStream = depts.stream().map(i -> {
             DeptVo deptVo = new DeptVo();
             BeanUtils.copyProperties(i, deptVo);
-            if (i.getdId() > 0 ) {
+            if (i.getdId() > 0) {
                 deptVo.setdId(userRepository.getOne(i.getdId()));
             }
-            if ( i.getuId() > 0){
+            if (i.getuId() > 0) {
                 deptVo.setuId(userRepository.getOne(i.getuId()));
             }
             return deptVo;
@@ -68,7 +68,12 @@ public class DeptServiceImpl implements DeptService {
     @Transactional
     @Override
     public int deleteDept(int id) {
-        int i=deptRepository.deleteDeptById(id);
-        return  i;
+        int i = deptRepository.deleteDeptById(id);
+        return i;
+    }
+
+    @Override
+    public Dept findDeptByName(String dept_name) {
+        return deptRepository.findDeptByDeptName(dept_name);
     }
 }

@@ -1,18 +1,14 @@
 <!DOCTYPE html>
-<!--[if IE 8]>
-<html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]>
-<html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en" class="no-js"> <!--<![endif]-->
-<!-- BEGIN HEAD -->
+<html lang="en" class="ie8 no-js">
+<html lang="en" class="ie9 no-js">
+<html lang="en" class="no-js">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 >
 <head>
     <meta charset="utf-8"/>
-    <title>Metronic | Admin Dashboard Template</title>
+    <title>政府协同创新性政务信息平台</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta content="" name="description"/>
     <meta content="" name="author"/>
@@ -27,9 +23,7 @@
     <link href="../media/css/style-responsive.css" rel="stylesheet" type="text/css"/>
     <link href="../media/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
     <link href="../media/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-
     <!-- END GLOBAL MANDATORY STYLES -->
-
     <!-- BEGIN PAGE LEVEL STYLES -->
     <link href="../media/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
     <link href="../media/css/daterangepicker.css" rel="stylesheet" type="text/css"/>
@@ -38,12 +32,12 @@
     <link href="../media/css/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
     <!-- END PAGE LEVEL STYLES -->
     <link rel="shortcut icon" href="../media/image/favicon.ico"/>
-
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript"
+            src="https://webapi.amap.com/maps?v=1.4.14&key=cf82c5f6cacb07998882bb5f27b9c74a"></script>
 </head>
 
-<!-- END HEAD -->
-
-<!-- BEGIN BODY -->
 
 <body class="page-header-fixed">
 
@@ -59,7 +53,7 @@
 
             <!-- BEGIN LOGO -->
 
-            <a class="brand" href="../index.html">
+            <a class="brand" href="index.html">
 
                 <img src="../media/image/logo.png" alt="logo"/>
 
@@ -83,416 +77,34 @@
 
                 <!-- BEGIN NOTIFICATION DROPDOWN -->
 
-                <li class="dropdown" id="header_notification_bar">
 
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <li class="dropdown" id="header_notification_bar" style="margin-top: 13px;position: relative">
 
-                        <i class="icon-warning-sign"></i>
-
-                        <span class="badge">6</span>
-
-                    </a>
-
-                    <ul class="dropdown-menu extended notification">
-
-                        <li>
-
-                            <p>You have 14 new notifications</p>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-                                <span class="label label-success"><i class="icon-plus"></i></span>
-
-                                New user registered.
-
-                                <span class="time">Just now</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-                                <span class="label label-important"><i class="icon-bolt"></i></span>
-
-                                Server #12 overloaded.
-
-                                <span class="time">15 mins</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-                                <span class="label label-warning"><i class="icon-bell"></i></span>
-
-                                Server #2 not respoding.
-
-                                <span class="time">22 mins</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-                                <span class="label label-info"><i class="icon-bullhorn"></i></span>
-
-                                Application error.
-
-                                <span class="time">40 mins</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-                                <span class="label label-important"><i class="icon-bolt"></i></span>
-
-                                Database overloaded 68%.
-
-                                <span class="time">2 hrs</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-                                <span class="label label-important"><i class="icon-bolt"></i></span>
-
-                                2 user IP blocked.
-
-                                <span class="time">5 hrs</span>
-
-                            </a>
-
-                        </li>
-
-                        <li class="external">
-
-                            <a href="#">See all notifications <i class="m-icon-swapright"></i></a>
-
-                        </li>
-
-                    </ul>
+                    <span id="clock" style="color: white;"></span>
 
                 </li>
 
-                <!-- END NOTIFICATION DROPDOWN -->
-
-                <!-- BEGIN INBOX DROPDOWN -->
-
-                <li class="dropdown" id="header_inbox_bar">
-
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-                        <i class="icon-envelope"></i>
-
-                        <span class="badge">5</span>
-
-                    </a>
-
-                    <ul class="dropdown-menu extended inbox">
-
-                        <li>
-
-                            <p>You have 12 new messages</p>
-
-                        </li>
-
-                        <li>
-
-                            <a href="inbox.html?a=view">
-
-                                <span class="photo"><img src="../media/image/avatar2.jpg" alt=""/></span>
-
-                                <span class="subject">
-
-								<span class="from">Lisa Wong</span>
-
-								<span class="time">Just Now</span>
-
-								</span>
-
-                                <span class="message">
-
-								Vivamus sed auctor nibh congue nibh. auctor nibh
-
-								auctor nibh...
-
-								</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="inbox.html?a=view">
-
-                                <span class="photo"><img src="../media/image/avatar3.jpg" alt=""/></span>
-
-                                <span class="subject">
-
-								<span class="from">Richard Doe</span>
-
-								<span class="time">16 mins</span>
-
-								</span>
-
-                                <span class="message">
-
-								Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh
-
-								auctor nibh...
-
-								</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="inbox.html?a=view">
-
-                                <span class="photo"><img src="../media/image/avatar1.jpg" alt=""/></span>
-
-                                <span class="subject">
-
-								<span class="from">Bob Nilson</span>
-
-								<span class="time">2 hrs</span>
-
-								</span>
-
-                                <span class="message">
-
-								Vivamus sed nibh auctor nibh congue nibh. auctor nibh
-
-								auctor nibh...
-
-								</span>
-
-                            </a>
-
-                        </li>
-
-                        <li class="external">
-
-                            <a href="inbox.html">See all messages <i class="m-icon-swapright"></i></a>
-
-                        </li>
-
-                    </ul>
-
-                </li>
-
-                <!-- END INBOX DROPDOWN -->
-
-                <!-- BEGIN TODO DROPDOWN -->
-
-                <li class="dropdown" id="header_task_bar">
-
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-                        <i class="icon-tasks"></i>
-
-                        <span class="badge">5</span>
-
-                    </a>
-
-                    <ul class="dropdown-menu extended tasks">
-
-                        <li>
-
-                            <p>You have 12 pending tasks</p>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-								<span class="task">
-
-								<span class="desc">New release v1.2</span>
-
-								<span class="percent">30%</span>
-
-								</span>
-
-                                <span class="progress progress-success ">
-
-								<span style="width: 30%;" class="bar"></span>
-
-								</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-								<span class="task">
-
-								<span class="desc">Application deployment</span>
-
-								<span class="percent">65%</span>
-
-								</span>
-
-                                <span class="progress progress-danger progress-striped active">
-
-								<span style="width: 65%;" class="bar"></span>
-
-								</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-								<span class="task">
-
-								<span class="desc">Mobile app release</span>
-
-								<span class="percent">98%</span>
-
-								</span>
-
-                                <span class="progress progress-success">
-
-								<span style="width: 98%;" class="bar"></span>
-
-								</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-								<span class="task">
-
-								<span class="desc">Database migration</span>
-
-								<span class="percent">10%</span>
-
-								</span>
-
-                                <span class="progress progress-warning progress-striped">
-
-								<span style="width: 10%;" class="bar"></span>
-
-								</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-								<span class="task">
-
-								<span class="desc">Web server upgrade</span>
-
-								<span class="percent">58%</span>
-
-								</span>
-
-                                <span class="progress progress-info">
-
-								<span style="width: 58%;" class="bar"></span>
-
-								</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-								<span class="task">
-
-								<span class="desc">Mobile development</span>
-
-								<span class="percent">85%</span>
-
-								</span>
-
-                                <span class="progress progress-success">
-
-								<span style="width: 85%;" class="bar"></span>
-
-								</span>
-
-                            </a>
-
-                        </li>
-
-                        <li class="external">
-
-                            <a href="#">See all tasks <i class="m-icon-swapright"></i></a>
-
-                        </li>
-
-                    </ul>
-
-                </li>
-
-                <!-- END TODO DROPDOWN -->
-
-                <!-- BEGIN USER LOGIN DROPDOWN -->
 
                 <li class="dropdown user">
-                    <a  class="dropdown-toggle" data-toggle="dropdown">
-                        <img alt="" style="width: 29px;height:29px;" th:src="${session.SPRING_SECURITY_CONTEXT.authentication.principal.image}==null?@{media/image/avatar1_small.jpg}:${session.SPRING_SECURITY_CONTEXT.authentication.principal.image}"/>
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <img alt="" style="width: 29px;height:29px;"
+                             th:src="${session.SPRING_SECURITY_CONTEXT.authentication.principal.image}==null?@{media/image/avatar1_small.jpg}:${session.SPRING_SECURITY_CONTEXT.authentication.principal.image}"/>
                         <!--<img src="E:/uploadFile/image/xiaohuangren.jpg" alt="">-->
                         <span th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.name}"></span>
                         <i class="icon-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a th:href="@{/findLoginUser}"><i class="icon-user"></i> 我的信息</a></li>
-                        <li><a th:href="@{/administrative/changeImage.html}"><i class="icon-github"></i> 更换头像</a></li>
-                        <li><a th:href="@{/administrative/punch_lock.html}"><i class="icon-calendar"></i> 打卡</a></li>
+                        <li><a th:href="@{/skip}"><i class="icon-lock"></i> 修改密码</a></li>
+                        <li><a th:href="@{/changeImage.html}"><i class="icon-github"></i> 更换头像</a></li>
+                        <li><a th:href="@{/punch_lock.html}"><i class="icon-calendar"></i> 打卡</a></li>
                         <li><a th:href="@{/logout}"><i class="icon-off"></i> 退出</a></li>
                     </ul>
                 </li>
 
-                <!-- END USER LOGIN DROPDOWN -->
 
             </ul>
 
-            <!-- END TOP NAVIGATION MENU -->
 
         </div>
 
@@ -524,25 +136,8 @@
 
             </li>
 
-            <li>
-
-                <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
-
-                <form class="sidebar-search">
-
-                    <div class="input-box">
-                        <a href="javascript:;" class="remove"></a>
-                        <input type="text" placeholder="Search..."/>
-                        <input type="button" class="submit" value=" "/>
-                    </div>
-                </form>
-                <!-- END RESPONSIVE QUICK SEARCH FORM -->
-            </li>
-
-            <!--行政管理-->
-
             <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_HR')" class="active">
-                <a class="active" href="javascript:;">
+                <a href="javascript:;">
                     <i class="icon-sitemap"></i>
                     <span class="title">行政管理</span>
 
@@ -559,20 +154,21 @@
                             <li><a th:href="@{/findUserBySalary}">职工工资管理</a></li>
                         </ul>
                     </li>
-                    <li sec:authorize="hasAnyRole('ROLE_ROOT')" class="active">
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT')">
                         <a href="javascript:;">
                             考勤管理
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="active">
-                                <a href="javascript:;">考勤规则
-                                    <span class="arrow"></span>
-                                </a>
+                            <li><a href="javascript:;">考勤规则
+                                <span class="arrow"></span></a>
                                 <ul class="sub-menu">
-                                    <li class="active"><a th:href="@{/administrative/lock_time.html}">考勤时间</a></li>
-                                    <li><a th:href="@{/administrative/person_ruler.html}">人性化规则</a></li>
+                                    <li><a th:href="@{lock_time.html}">考勤时间</a></li>
+                                    <li><a th:href="@{person_ruler.html}">人性化规则</a></li>
                                 </ul>
+                            </li>
+                            <li><a th:href="@{findAllClock}">考勤情况
+                                <span class="arrow"></span></a>
                             </li>
                         </ul>
                     </li>
@@ -588,11 +184,11 @@
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MON','ROLE_MOI')">
+                    <li>
                         <a th:href="@{/findDocumentTemplate}">
                             公文设计</a>
                     </li>
-                    <li sec:authorize="hasAnyRole('ROLE_ROOT','MOF','ROLE_MUD','ROLE_MOR','ROLE_MON','ROLE_MOL')">
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT','MOF','ROLE_MUD','ROLE_MOR','ROLE_MON','ROLE_MOL','ROLE_PM')">
                         <a th:href="@{/findDocument}">
                             公文的上传和下载</a>
                     </li>
@@ -601,7 +197,7 @@
             <!--档案管理-->
             <li>
                 <a class="active" href="javascript:;">
-                    <i class="icon-sitemap"></i>
+                    <i class="icon-envelope"></i>
                     <span class="title">档案管理</span>
                     <span class="arrow "></span>
                 </a>
@@ -644,12 +240,30 @@
                 </a>
                 <ul class="sub-menu">
                     <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MON','ROLE_MOI')">
-                        <a href="news/release_news.html">
+                        <a href="release_news.html">
                             发布新闻</a>
                     </li>
-                    <li sec:authorize="hasAnyRole('ROLE_ROOT', 'ROLE_HR', 'ROLE_MOF', 'ROLE_MUD', 'ROLE_MUR','ROLE_MUN','ROLE_MOL','ROLE_MOI','ROLE_MFS','ROLE_MUC','ROLE_MCS','ROLE_LS')">
+                    <li>
                         <a th:href="@{/findAllNews}">
                             查看新闻</a>
+                    </li>
+                </ul>
+            </li>
+            <!--图表-->
+            <li sec:authorize="hasAnyRole('ROLE_ROOT')" class="active">
+                <a href="javascript:;">
+                    <i class="icon-file-text"></i>
+                    <span class="title">图表分析</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li >
+                        <a href="echarts_dept.html">
+                            部门情况分析图</a>
+                    </li>
+                    <li>
+                        <a href="echarts_File.html">
+                            档案情况分析图</a>
                     </li>
                 </ul>
             </li>
@@ -744,7 +358,6 @@
                             </label>
 
                             <label>
-
                                 <span>页脚</span>
                                 <select class="footer-option m-wrap small">
                                     <option value="fixed">固定</option>
@@ -760,34 +373,47 @@
 
             </div>
             <!-- END PAGE HEADER-->
-            <!--上班打卡-->
+            <div id="container" style="width: 1100px;height: 300px;overflow: hidden;margin:0;font-family:'微软雅黑'"></div>
 
+            <div class="info">
+                <h4 id='status'></h4><hr>
+                <p id='result'></p><hr>
+            </div>
+            <!--上班打卡-->
+            <div style="position: absolute; width:1px; height: 260px;margin-left:320px;background-color: grey ;"></div>
+            <div style="color: grey;margin-left: 350px">
+                上班时间08:00
+            </div>
+            <strong>
+                <div id="intime" style="color: black;margin-left: 350px">
+                </div>
+            </strong>
+            <div id="clockIn" style="text-align: center;margin-top: 30px;">
+                <button style="background-color: #0b94ea;color:white;width: 200px;height: 200px;border-radius: 50% !important;border: none">
+                    <div><a th:onclick="'clockIn()'" style="color: white;text-decoration: none">上班打卡</a>
+                    </div>
+                    <div id="punch"></div>
+                </button>
+            </div>
+            <!--下班打卡-->
+            <div style="color: grey;margin-left: 350px">
+                下班时间18:00
+            </div>
+            <strong>
+                <div id="outtime" style="color: black;margin-left: 350px">
+                </div>
+            </strong>
+            <div id="clockOut" style="text-align: center;margin-top: 30px; visibility: hidden">
+                <button style="background-color: #0b94ea;color:white;width: 200px;height: 200px;border-radius: 50% !important;border: none">
+                    <div><a href="#" th:onclick="'clockOut()'" style="text-decoration: none;color: white">下班打卡</a>
+                    </div>
+                    <div id="lock"></div>
+                </button>
+            </div>
         </div>
 
         <!-- END PAGE CONTAINER-->
-        <div style="margin-left: 30px">
-            <div>
-                <h3><strong>上班时间</strong></h3>
-                <h4>周一、二、三、四、五 08:00-18:00，休息时间:12:00-14:00<br>
-                    周六、日休息</h4>
-            </div>
-            <div>
-                <h3><strong>可打卡时段</strong></h3>
-                <h4>固定班<br>
-                    【上班】 06:00后可打卡;<br>
-                    【下班】 次日06:00前可打卡</h4>
 
-            </div>
-            <div>
-                <h3><strong>迟到与早退</strong></h3>
-                <h4>
-                    迟到2分钟以内不记迟到<br>
-                    迟到30分钟及以上视为严重迟到<br>
-                    迟到120分钟及以上视为旷工<br>
-                    提前下班视为早退<br>
-                </h4>
-            </div>
-        </div>
     </div>
 
     <!-- END PAGE -->
@@ -864,7 +490,32 @@
     window.onload = function () {
         var punch = document.getElementById("punch");
         var lock = document.getElementById("lock");
+        var index = sessionStorage.getItem("a");
+        var b = sessionStorage.getItem("b");
+        var latetime = sessionStorage.getItem("latetime");
+        var hours = sessionStorage.getItem("hours");
+        var hours2 = sessionStorage.getItem("hours2");
+        var minutes = sessionStorage.getItem("minutes");
+        var minutes2 = sessionStorage.getItem("minutes2");
+        var outlocktime = sessionStorage.getItem("outlocktime");
+        if (index) {
+            document.getElementById("clockIn").style.visibility = "hidden";
+            document.getElementById("clockOut").style.visibility = "visible";
+            if (latetime > 0) {
+                document.getElementById("intime").innerHTML = '打卡时间' + sessionStorage.getItem("intime") + ',' + '迟到' + hours + '小时' + minutes + '分钟';
+            } else {
+                document.getElementById("intime").innerHTML = '打卡时间' + sessionStorage.getItem("intime");
+            }
 
+        }
+        if (b) {
+            document.getElementById("clockOut").style.visibility = "hidden";
+            if (outlocktime > 0) {
+                document.getElementById("outtime").innerHTML = '打卡时间' + sessionStorage.getItem("outtime") + ',' + '早退' + hours2 + '小时' + minutes2 + '分钟';
+            } else {
+                document.getElementById("outtime").innerHTML = '打卡时间' + sessionStorage.getItem("outtime");
+            }
+        }
         setInterval(function () {
             var time = new Date();   // 程序计时的月从0开始取值后+1
             var t = time.getHours() + ":"
@@ -875,10 +526,141 @@
 
     };
 
-    function clockIn() {
+    function showRealTime(clock) {
+        var d = new Date();
+        var year = d.getFullYear();
+        var month = d.getMonth() + 1;
+        var date = d.getDate();
+        var days = new Array("日", "一", "二", "三", "四", "五", "六");
+        var day = d.getDay();
+        var hour = (d.getHours() < 10) ? ("0" + d.getHours()) : d.getHours();
+        var min = (d.getMinutes() < 10) ? ("0" + d.getMinutes()) : d.getMinutes();
+        var sec = (d.getSeconds() < 10) ? ("0" + d.getSeconds()) : d.getSeconds();
+        var now = year + "年 " + month + "月 " + date + "日 星期 " + days[day] + " " + hour + ":" + min + ":" + sec;
+        clock.innerHTML = now;
+    }
 
+    showRealTime(clock);
+    setInterval("showRealTime(clock)", 1000);
+
+    function clockIn() {
+        sessionStorage.setItem("a", false);
+        alert('上班打卡成功');
         document.getElementById("clockIn").style.visibility = "hidden";
+        var punch = document.getElementById("punch");
+        intime = punch.innerHTML;
+        intime1 = punch.innerHTML;
+        intime1 = new Date();
+        /**
+         * 计算迟到时间
+         * @type {number}
+         */
+        var lockdate = intime1.getTime();
+        var latetime = lockdate - new Date(new Date().toLocaleString().split(' ')[0] + ' 08:00:00').getTime();
+        var hours = Math.floor(latetime / (3600 * 1000));
+        var level = latetime % (3600 * 1000);
+        var minutes = Math.floor(level / (60 * 1000));
+        sessionStorage.setItem("intime", intime);
+        sessionStorage.setItem("latetime", latetime);
+        sessionStorage.setItem("hours", hours);
+        sessionStorage.setItem("level", level);
+        sessionStorage.setItem("minutes", minutes);
+        if (latetime > 0) {
+            document.getElementById("intime").innerHTML = '打卡时间' + sessionStorage.getItem("intime") + ',' + '迟到' + hours + '小时' + minutes + '分钟';
+        } else {
+            document.getElementById("intime").innerHTML = '打卡时间' + sessionStorage.getItem("intime");
+        }
         document.getElementById("clockOut").style.visibility = "visible";
+        console.log("到这了")
+        axios.get('http://localhost:8080/clockIn', {
+
+            params: {
+                'latetime': latetime
+            }
+        })
+            .then(function (response) {
+                console.log("...................")
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    function clockOut() {
+        sessionStorage.setItem("b", false);
+        alert('下班打卡成功');
+        var lock = document.getElementById("lock");
+        outtime = lock.innerHTML;
+        outtime1 = lock.innerHTML;
+        outtime1 = new Date();
+        var outlock = outtime1.getTime();
+        var outlocktime = new Date(new Date().toLocaleString().split(' ')[0] + ' 18:00:00').getTime() - outlock;
+        var hours = Math.floor(outlocktime / (3600 * 1000));
+        var level = outlocktime % (3600 * 1000);
+        var minutes = Math.floor(level / (60 * 1000));
+        sessionStorage.setItem("outtime", outtime);
+        sessionStorage.setItem("hours2", hours);
+        sessionStorage.setItem("minutes2", minutes);
+        sessionStorage.setItem("outlocktime", outlocktime);
+        if (outlocktime > 0) {
+            document.getElementById("outtime").innerHTML = '打卡时间' + sessionStorage.getItem("outtime") + ',' + '早退' + hours + '小时' + minutes + '分钟';
+        } else {
+            document.getElementById("outtime").innerHTML = '打卡时间' + sessionStorage.getItem("outtime");
+        }
+        document.getElementById("clockOut").style.visibility = "hidden";
+
+        axios.get('http://localhost:8080/clockOut', {
+            params: {
+                'outlocktime': outlocktime
+            }
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+</script>
+<script type="text/javascript">
+    var map = new AMap.Map('container', {
+        resizeEnable: true
+    });
+    AMap.plugin('AMap.Geolocation', function() {
+        var geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            timeout: 10000,          //超过10秒后停止定位，默认：5s
+            buttonPosition:'RB',    //定位按钮的停靠位置
+            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
+
+        });
+        map.addControl(geolocation);
+        geolocation.getCurrentPosition(function(status,result){
+            if(status=='complete'){
+                onComplete(result)
+            }else{
+                onError(result)
+            }
+        });
+    });
+    //解析定位结果
+    function onComplete(data) {
+        document.getElementById('status').innerHTML='定位成功'
+        var str = [];
+        str.push('定位结果：' + data.position);
+        str.push('定位类别：' + data.location_type);
+        if(data.accuracy){
+            str.push('精度：' + data.accuracy + ' 米');
+        }//如为IP精确定位结果则没有精度信息
+        str.push('是否经过偏移：' + (data.isConverted ? '是' : '否'));
+        document.getElementById('result').innerHTML = str.join('<br>');
+    }
+    //解析定位错误信息
+    function onError(data) {
+        document.getElementById('status').innerHTML='定位失败'
+        document.getElementById('result').innerHTML = '失败原因排查信息:'+data.message;
     }
 </script>
 

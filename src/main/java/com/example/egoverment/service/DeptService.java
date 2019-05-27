@@ -42,4 +42,12 @@ public interface DeptService {
      * @return
      */
     int deleteDept(int id);
+
+    /**
+     *
+     * 根据部门名称查找部门
+     * @param dept_name
+     * @return
+     */
+    Dept findDeptByName(String dept_name);
 }

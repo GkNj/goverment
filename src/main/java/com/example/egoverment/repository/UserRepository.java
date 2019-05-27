@@ -17,8 +17,14 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @param username 登录用户名
      * @return
      */
-    List<User> findUserByUsername(String username);
+    List<User> findUsersByUsername(String username);
 
+    /**
+     * 通过登录名查找用户
+     *
+     * @return
+     */
+    User findUserByUsername(String username);
 
     /**
      * 查早不是部门经理的user
@@ -39,12 +45,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     int deleteUserById(int id);
 
     /**
-     * 通过name查user
+     * 查询每个部门的员工人数
      *
-     * @param name
      * @return
      */
-    User findUserByName(String name);
-//    @Query(value = "select * from user",nativeQuery = true)
-//    List<User> findUserByPosition(String position);
+    @Query(value = "select  d.dept_name as 部门名称 , count(*) as 人数 from user u ,dept d where  d.id =u.d_id group by u.d_id", nativeQuery = true)
+    List findGroupByDept();
 }

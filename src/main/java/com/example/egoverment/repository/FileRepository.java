@@ -2,6 +2,7 @@ package com.example.egoverment.repository;
 
 import com.example.egoverment.entity.UploadFile;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -29,4 +30,11 @@ public interface FileRepository extends JpaRepository<UploadFile, Integer> {
      * @return
      */
     List<UploadFile> findUploadFileByFileType(String fileType);
+
+    /**
+     * 根据档案类型查找
+     * @return
+     */
+    @Query(value = "select file_type as 文档类型 ,count(*) as 文档数 from file group by file_type",nativeQuery = true)
+    List findFileGroupByType();
 }

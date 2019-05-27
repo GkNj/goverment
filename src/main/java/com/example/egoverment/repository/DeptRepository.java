@@ -20,6 +20,8 @@ public interface DeptRepository extends JpaRepository<Dept, Integer> {
      */
     List<Dept> findDeptById(int id);
 
+    Dept findDeptsByUId(int id);
+
     /**
      * 通过更改人id查询部门
      *
@@ -43,4 +45,12 @@ public interface DeptRepository extends JpaRepository<Dept, Integer> {
      * @return
      */
     int deleteDeptById(int id);
+
+    /**
+     * 通过名称获得部门信息
+     *
+     * @param dept_name
+     * @return
+     */
+    Dept findDeptByDeptName(String dept_name);
 }

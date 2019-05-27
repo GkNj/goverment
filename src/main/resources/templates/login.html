@@ -2,16 +2,19 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 >
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>政府创新性政务信息平台用户登录</title>
+    <!--<link th:href="@{media/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>-->
+    <!--<link th:href="@{media/css/bootstrap-responsive.min.css}" rel="stylesheet" type="text/css"/>-->
     <link th:href="@{login/css/login.css}" rel="stylesheet" rev="stylesheet" type="text/css" media="all"/>
     <script type="text/javascript" th:src="@{login/js/jQuery1.7.js}"></script>
     <script type="text/javascript" th:src="@{login/js/jquery-1.8.2.min.js}"></script>
     <script type="text/javascript" th:src="@{login/js/jquery1.42.min.js}"></script>
     <script type="text/javascript" th:src="@{login/js/jquery.SuperSlide.js}"></script>
-
+    <!--<script th:src="@{media/js/bootstrap.min.js}" type="text/javascript"></script>-->
     <!--<script type="text/javascript" th:src="@{login/js/Validform_v5.3.2_min.js}"></script>-->
     <script type="text/javascript">
         $(document).ready(function () {
@@ -113,25 +116,28 @@
             <form th:action="@{/login}" method="post" class="stu_login_error">
                 <div id="username">
                     <label>用户名：</label>
-                    <input type="text" id="stu_username_hide" name="username" value="输入用户名" nullmsg="用户名不能为空！"
-                           datetype="*2" errormsg="用户名不少于两个字符" sucmsg="学号验证通过！"/>
+                    <input type="text" id="stu_username_hide"  placeholder="请输入用户名" name="username"  nullmsg="用户名不能为空！"
+                           datetype="*2" errormsg="用户名不少于两个字符" />
                     <!--ajaxurl="demo/valid.jsp"-->
                 </div>
                 <div id="password">
                     <label>密&nbsp;&nbsp;&nbsp;码：</label>
-                    <input type="password" id="stu_password_hide" name="password" value="输入密码" nullmsg="密码不能为空！"
-                           datatype="*6-16" errormsg="密码范围在6~16位之间！" sucmsg="密码验证通过！"/>
+                    <input type="password"  name="password" placeholder="请输入密码"
+                            errormsg="密码范围在6~16位之间！" />
                 </div>
                 <div id="code">
                     <label>验证码：</label>
-                    <input type="text" id="stu_code_hide" name="kaptcha" value="输入验证码" nullmsg="验证码不能为空！"/>
-                    <img th:src="@{/getKaptchaImage}" style="position: relative;margin-bottom:-15px;"
+                    <input type="text" id="stu_code_hide" name="kaptcha" placeholder="输入验证码" nullmsg="验证码不能为空！"/>
+                    <img th:src="@{/getKaptchaImage}"  style="position: relative;margin-bottom:-15px;"
                          id="captcha" class="captcha  " alt="验证码"/><br/>
                     <a href="javascript:void(0)"  style="color: grey;position:relative;text-decoration: none;margin-left: 200px" id="change" th:onclick="'change()'" class="changeCaptcha">换一张</a>
                 </div>
                 <div id="remember">
                     <input type="checkbox" name="remember-me">
                     <label>记住密码</label>
+                </div>
+                <div>
+                    <span style="color:red;" th:if="${param.error}" th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
                 </div>
                 <div id="login">
                     <button type="submit">登录</button>
@@ -141,16 +147,16 @@
 
     </div>
 </div>
-<div class="bottom">©2019 Leting <a href="javascript:;" target="_blank">关于</a> <span>京ICP证030173号</span> More Templates
+<div class="bottom">©2019 Leting <a href="javascript:;" target="_blank">关于</a> <span>京ICP证030173号</span>
     <a href="http://www.cssmoban.com/" target="_blank" title="政府">政府</a> - Collect from <a
             href="http://www.cssmoban.com/" title="中北大学" target="_blank">中北大学</a><img width="13" height="16"
                                                                                       th:src="@{login/images/copy_rignt_24.png}"/>
 </div>
 <div class="screenbg">
     <ul>
-        <li><a href="javascript:;"><img th:src="@{login/images/0.jpg}"></a></li>
-        <li><a href="javascript:;"><img th:src="@{login/images/1.jpg}"></a></li>
-        <li><a href="javascript:;"><img th:src="@{login/images/2.jpg}"></a></li>
+        <li><a href="javascript:;"><img th:src="@{login/images/china1.jpg}"></a></li>
+        <li><a href="javascript:;"><img th:src="@{login/images/changcheng.jpg}"></a></li>
+        <li><a href="javascript:;"><img th:src="@{login/images/shanghai.jpg}"></a></li>
     </ul>
 </div>
 </body>

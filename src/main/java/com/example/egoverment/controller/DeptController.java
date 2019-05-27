@@ -48,19 +48,42 @@ public class DeptController {
         return list;
     }
 
+    /**
+     * 添加部门
+     *
+     * @param request
+     * @return
+     */
     @RequestMapping("/addDept")
     public String addDept(HttpServletRequest request) {
         String dept_name = request.getParameter("dept_name");
         String uId = request.getParameter("uId");
         String dept_start_time = request.getParameter("dept_start_time");
+        String charge_introduction = request.getParameter("charge_introduction");
+        String charge_role_name = request.getParameter("charge_role_name");
+        String introduction = request.getParameter("introduction");
+        String role_name = request.getParameter("role_name");
+        Role role = new Role();
+        role.setIntroduction(introduction);
+        role.setName(role_name);
+        Role role1 = new Role();
+        role1.setName(charge_role_name);
+        role1.setIntroduction(charge_introduction);
+        roleRepository.save(role);
+        roleRepository.save(role1);
         Dept dept = new Dept();
         dept.setDeptName(dept_name);
         dept.setuId(Integer.parseInt(uId));
         dept.setDeptStartTime(dept_start_time);
         deptService.saveDept(dept);
+        Dept dept1 = deptService.findDeptByName(dept_name);
+        Dept dept2 = new Dept();
+        int id = dept1.getId();
+        dept2.setId(id);
         List<Role> roles = roleRepository.findByIntroductionLike(dept_name);
         User user = userService.findUser(Integer.parseInt(uId));
         user.setPosition(roles.get(0).getName());
+        user.setDept(dept2);
         userService.updateUser(user);
         UserAndRole userAndRole = userAndRoleRepository.findByUserId(Long.valueOf(uId));
         userAndRole.setRoleId(Long.valueOf(roles.get(0).getId()));
@@ -110,7 +133,7 @@ public class DeptController {
         String deptUpdateTime = request.getParameter("deptUpdateTime");
         String uId = request.getParameter("uId");
         String username = request.getParameter("dId");
-        List<User> list = userService.findUserByUsername(username);
+        List<User> list = userService.findUsersByUsername(username);
         int did = list.get(0).getId();
         Dept dept = new Dept();
         dept.setId(Integer.parseInt(id));
@@ -120,9 +143,11 @@ public class DeptController {
         dept.setuId(Integer.parseInt(uId));
         dept.setdId(did);
         deptService.saveDept(dept);
-        List<Role> roles = roleRepository.findByIntroductionLike(deptName);
+        List<Role> roles = roleRepository.findByIntroductionLike(deptName + "经理");
+        System.out.println(deptName + "经理");
         User user = userService.findUser(Integer.parseInt(uId));
         user.setPosition(roles.get(0).getName());
+        user.setDept(dept);
         userService.updateUser(user);
         UserAndRole userAndRole = userAndRoleRepository.findByUserId(Long.valueOf(uId));
         userAndRole.setRoleId(Long.valueOf(roles.get(0).getId()));
@@ -132,7 +157,7 @@ public class DeptController {
     }
 
     @RequestMapping("/deleteDept")
-    public String deleteDept(HttpServletRequest request){
+    public String deleteDept(HttpServletRequest request) {
         String id = request.getParameter("id");
 
         deptService.deleteDept(Integer.parseInt(id));

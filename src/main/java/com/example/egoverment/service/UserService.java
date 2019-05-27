@@ -62,7 +62,7 @@ public interface UserService {
      * @param username
      * @return
      */
-    List<User> findUserByUsername(String username);
+    List<User> findUsersByUsername(String username);
 
     /**
      * 通过id查询User
@@ -71,4 +71,11 @@ public interface UserService {
      * @return
      */
     User findUserById(int id);
+
+    /**
+     * 分组查询每个部门的人数
+     *
+     * @return
+     */
+    List findGroupByDept();
 }

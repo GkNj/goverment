@@ -37,4 +37,10 @@ public interface UploadFileService {
      * @return
      */
     List<UploadFile> findFileById(int id);
+
+    /**
+     * 根据档案类型查找
+     * @return
+     */
+    List findFileGroupByType();
 }

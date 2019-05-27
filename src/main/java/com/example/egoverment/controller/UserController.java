@@ -10,21 +10,23 @@ import com.example.egoverment.repository.RoleRepository;
 import com.example.egoverment.repository.UserRepository;
 import com.example.egoverment.service.serviceImpl.DeptServiceImpl;
 import com.example.egoverment.service.serviceImpl.UserServiceImpl;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
-@RequestMapping()
 public class UserController {
 
     @Autowired
@@ -53,6 +55,18 @@ public class UserController {
         modelMap.addAttribute("list", users);
         System.out.println(users.toString());
         return "administrative/employee_list";
+    }
+
+    /**
+     * 查看考勤情况
+     *
+     * @return
+     */
+    @GetMapping("/findAllClock")
+    public String findAllClock(ModelMap modelMap) {
+        List<User> users = userService.findAllUsers();
+        modelMap.addAttribute("list", users);
+        return "administrative/employee_clock";
     }
 
     /**
@@ -161,11 +175,21 @@ public class UserController {
         String name = request.getParameter("name");
         String phone = request.getParameter("phone");
         User user = userRepository.findUserById(Integer.parseInt(id));
+        List<Dept> dept1 = deptRepository.findDeptById(Integer.parseInt(dId));
+        //查看更改人是否为部门经理
+        Dept dept2 = deptRepository.findDeptsByUId(Integer.parseInt(id));
+        if (!(dept2 == null)) {
+            dept2.setuId(-1);
+            deptService.saveDept(dept2);
+        }
+        String deptName = dept1.get(0).getDeptName();
+        List<Role> roles = roleRepository.findByIntroductionLike(deptName + "职员");
         user.setName(name);
         user.setPhone(phone);
         Dept dept = new Dept();
         dept.setId(Integer.parseInt(dId));
         user.setDept(dept);
+        user.setPosition(roles.get(0).getName());
         userService.updateUser(user);
         return "redirect:/findAllUser";
     }
@@ -251,12 +275,18 @@ public class UserController {
         return "administrative/employee_salary_list";
     }
 
+    /**
+     * 保存工资
+     *
+     * @param request
+     * @return
+     */
     @RequestMapping("/saveSalary")
     public String saveSalary(HttpServletRequest request) {
         String salary = request.getParameter("salary");
         String id = request.getParameter("id");
         User user = userService.findUser(Integer.parseInt(id));
-        user.setSalary(Double.valueOf(salary));
+        user.setSalary(salary);
         userRepository.save(user);
         return "redirect:/findUserBySalary";
     }
@@ -269,11 +299,12 @@ public class UserController {
     @RequestMapping("/clockIn")
     public String clockIn(HttpServletRequest request) {
         String latetime = request.getParameter("latetime");
+        System.out.println(latetime);
         User user = (User) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
         String username = user.getUsername();
-        List<User> user1 = userService.findUserByUsername(username);
+        List<User> user1 = userService.findUsersByUsername(username);
         String punchNum = user1.get(0).getPunchNum();
         if (punchNum == null) {
             punchNum = "1";
@@ -298,7 +329,7 @@ public class UserController {
             }
             userService.updateUser(user1.get(0));
         }
-        return "forward:/administrative/punch_lock.html";
+        return "forward:administrative/punch_lock";
     }
 
     /**
@@ -313,7 +344,7 @@ public class UserController {
                 .getAuthentication()
                 .getPrincipal();
         String username = user.getUsername();
-        List<User> user1 = userService.findUserByUsername(username);
+        List<User> user1 = userService.findUsersByUsername(username);
         if (Integer.parseInt(outlocktime) > 0) {
             String earlyNum = user1.get(0).getEarlyNum();
             if (earlyNum == null) {
@@ -326,6 +357,62 @@ public class UserController {
             }
             userService.updateUser(user1.get(0));
         }
-        return "forward:/administrative/punch_lock.html";
+        return "forward:administrative/punch_lock.html";
+    }
+
+
+    /**
+     * 跳转修改密码的页面
+     *
+     * @return
+     */
+    @RequestMapping("/skip")
+    public String skip() {
+        return "administrative/updatePassword";
+    }
+
+    /**
+     * 修改密码
+     *
+     * @return
+     */
+    @RequestMapping("/updatePassword")
+    public String edit(HttpServletRequest request, ModelMap map) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String password = request.getParameter("password");
+        String id = request.getParameter("id");
+        User user = userService.findUserById(Integer.parseInt(id));
+        String encode = encoder.encode(password.trim());
+        user.setPassword(encode);
+        userService.updateUser(user);
+        System.out.println(user.toString());
+        return "redirect:/index";
+    }
+
+    @RequestMapping("/findGroupByDept")
+    @ResponseBody
+    public List findGroupByDept() {
+
+        /**
+         * x: 财政,财政部,财政部,财政部,财政部
+         * y：1,23,3,4,5,6,8,9
+         */
+
+        //1,财务部,2人事部
+        List list = userService.findGroupByDept();
+
+        //财政,财政部,财政部,财政部,财政部
+        List list1 = new ArrayList();
+        //1,23,3,4,5,6,8,9
+        List list2 = new ArrayList();
+        List list3 = new ArrayList();
+        for (int i = 0; i < list.size(); i++) {
+            Object[] o = (Object[]) list.get(i);
+            list1.add(o[0]);
+            list2.add(o[1]);
+        }
+        list3.add(list1);
+        list3.add(list2);
+        return list3;
     }
 }

@@ -10,20 +10,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -47,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         //允许跨域请求
-        http.cors().disable();
+        http.cors();
         http.csrf().disable();
 
 
@@ -55,15 +44,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //MON新闻部经理 MOL后勤部经理 MOI新闻部职员 MFS财政部职员  MUC城建部职员 MCS 交通部职员 LS后勤部职员
         //定制请求的授权规则
         http.authorizeRequests()
-                .antMatchers("/", "/index", "/findAllNews").hasAnyRole("ROOT", "HR", "MOF", "MUD", "MUR", "MUN", "MOL", "MOI", "MFS", "MUC", "MCS", "LS")
+                .antMatchers("/", "/index", "/findAllNews", "/punch_lock.html", "/news_list.html", "/skip", "/clockOut", "/clockIn").permitAll()
                 .antMatchers("findLoginUser", "findUser", "/user/editorUser", "/administrative/lock_time.html", "/administrative/person_ruler.html").permitAll()
-                .antMatchers("/clockOut", "/clockIn", "/saveSalary", "/findUserBySalary",
-                        "/findByPosition", "/findAllRole", "/checkUsername", "/deleteUser", "/updateUser", "/addUser").hasAnyRole("ROOT", "HR")
+                .antMatchers("/saveSalary", "/findUserBySalary",
+                        "/findByPosition", "/findAllRole", "/checkUsername", "/deleteUser", "/updateUser", "/addUser", "/findAllUser", "/findAllClock").hasAnyRole("ROOT", "HR")
                 .antMatchers("/document/official_document_design.html").hasAnyRole("ROOT", "HR", "MOF", "MUD", "MUR", "MUN", "MOL", "MOI", "MFS", "MUC", "MCS", "LS")
                 .antMatchers("/document/official_document_upload.html").hasAnyRole("ROOT", "HR", "MOF", "MUD", "MUR", "MUN", "MOL", "MOI", "MFS", "MUC", "MCS", "LS")
                 .antMatchers("/pubNews", "/findNewsById", "/updateNews", "/deleteNewsById").hasAnyRole("ROOT", "MON", "MOI")
-                .antMatchers("/findDept").hasAnyRole("ROOT", "HR")
-                .antMatchers("/addDept","/findAllDept","/administrative/person_ruler.html","/administrative/lock_time.html").hasAnyRole("ROOT")
+                .antMatchers("/findDept", "/administrative/dept_list.html", "/administrative/employee_list.html", "/administrative/employee_salary_list.html").hasAnyRole("ROOT", "HR")
+                .antMatchers("/addDept", "/findAllDept", "/administrative/person_ruler.html", "/administrative/lock_time.html").hasAnyRole("ROOT")
         ;
 
 
@@ -75,6 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .failureForwardUrl("/login")
                 .defaultSuccessUrl("/index")
+                .and().rememberMe()
         ;
         //1./login来到登录页
         //2、重定向到、login?error表示登录失败
@@ -84,10 +74,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout().logoutUrl("/logout").logoutSuccessUrl("/login");
 
         //自动登录配置
-        http.rememberMe();
+
 
         //403处理
         http.exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler());
+
 
     }
 

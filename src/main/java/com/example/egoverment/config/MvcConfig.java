@@ -11,10 +11,10 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
 
     public void addViewControllers(ViewControllerRegistry registry){
-        registry.addViewController("/administrative/punch_lock.html");
-        registry.addViewController("/administrative/person_ruler.html");
-        registry.addViewController("/administrative/lock_time.html");
-        registry.addViewController("/news/release_news.html");
+        registry.addViewController("/punch_lock.html");
+        registry.addViewController("/person_ruler.html");
+        registry.addViewController("/lock_time.html");
+        registry.addViewController("/release_news.html");
         registry.addViewController("/news/news_list.html");
         registry.addViewController("/file/exchequer_file_list.html");
         registry.addViewController("/file/city_file_list.html");
@@ -26,6 +26,13 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/document/official_document_list.html");
         registry.addViewController("/document/official_document_upload.html");
         registry.addViewController("/changeImage.html");
+        registry.addViewController("/punch_lock.html");
+        registry.addViewController("/administrative/updatePassword.html");
+        registry.addViewController("/news/page_news_item.html");
+        registry.addViewController("/news_detail.html");
+        registry.addViewController("/echarts_File.html");
+        registry.addViewController("/echarts_dept.html");
+        registry.addViewController("/index.html");
 
 
         registry.addRedirectViewController("/index","templates/index.html");

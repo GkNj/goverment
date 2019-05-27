@@ -6,7 +6,7 @@
 >
 <head>
     <meta charset="utf-8"/>
-    <title>Metronic | Data Tables - Advanced Tables</title>
+    <title>政府协同创新性政务信息平台</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta content="" name="description"/>
     <meta content="" name="author"/>
@@ -31,7 +31,7 @@
         window.onload = function () {
             $.ajax({
                 type: "post",
-                url: "http://localhost:8080/dept/findAllDept", //此次url改为真正需要的url
+                url: "http://localhost:8080/findAllDept", //此次url改为真正需要的url
                 success: function (data, status) {
                     $.each(data, function (index, item) {
                         $("#select").append(  //此处向select中循环绑定数据
@@ -43,7 +43,7 @@
             });
             $.ajax({
                 type: "post",
-                url: "http://localhost:8080/user/findAllRole", //此次url改为真正需要的url
+                url: "http://localhost:8080/findAllRole", //此次url改为真正需要的url
                 success: function (data, status) {
                     $.each(data, function (index, item) {
                         $("#add_position").append(  //此处向select中循环绑定数据
@@ -60,16 +60,16 @@
             var startDate = document.getElementById("show")
             startDate.value = str;
             console.log("create ", startDate.value);
+
+
         };
-
-
 
 
     </script>
 </head>
 
 
-<body class="page-header-fixed">
+<body class="page-header-fixed" >
 
 <!-- BEGIN HEADER -->
 
@@ -107,407 +107,26 @@
 
                 <!-- BEGIN NOTIFICATION DROPDOWN -->
 
-                <li class="dropdown" id="header_notification_bar">
+                <li class="dropdown" id="header_notification_bar" style="margin-top: 13px;position: relative">
 
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-                        <i class="icon-warning-sign"></i>
-
-                        <span class="badge">6</span>
-
-                    </a>
-
-                    <ul class="dropdown-menu extended notification">
-
-                        <li>
-
-                            <p>You have 14 new notifications</p>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-                                <span class="label label-success"><i class="icon-plus"></i></span>
-
-                                New user registered.
-
-                                <span class="time">Just now</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-                                <span class="label label-important"><i class="icon-bolt"></i></span>
-
-                                Server #12 overloaded.
-
-                                <span class="time">15 mins</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-                                <span class="label label-warning"><i class="icon-bell"></i></span>
-
-                                Server #2 not respoding.
-
-                                <span class="time">22 mins</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-                                <span class="label label-info"><i class="icon-bullhorn"></i></span>
-
-                                Application error.
-
-                                <span class="time">40 mins</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-                                <span class="label label-important"><i class="icon-bolt"></i></span>
-
-                                Database overloaded 68%.
-
-                                <span class="time">2 hrs</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-                                <span class="label label-important"><i class="icon-bolt"></i></span>
-
-                                2 user IP blocked.
-
-                                <span class="time">5 hrs</span>
-
-                            </a>
-
-                        </li>
-
-                        <li class="external">
-
-                            <a href="#">See all notifications <i class="m-icon-swapright"></i></a>
-
-                        </li>
-
-                    </ul>
+                    <span id="clock" style="color: white;"></span>
 
                 </li>
 
-                <!-- END NOTIFICATION DROPDOWN -->
-
-                <!-- BEGIN INBOX DROPDOWN -->
-
-                <li class="dropdown" id="header_inbox_bar">
-
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-                        <i class="icon-envelope"></i>
-
-                        <span class="badge">5</span>
-
-                    </a>
-
-                    <ul class="dropdown-menu extended inbox">
-
-                        <li>
-
-                            <p>You have 12 new messages</p>
-
-                        </li>
-
-                        <li>
-
-                            <a href="inbox.html?a=view">
-
-                                <span class="photo"><img src="../static/media/image/avatar2.jpg" alt=""/></span>
-
-                                <span class="subject">
-
-								<span class="from">Lisa Wong</span>
-
-								<span class="time">Just Now</span>
-
-								</span>
-
-                                <span class="message">
-
-								Vivamus sed auctor nibh congue nibh. auctor nibh
-
-								auctor nibh...
-
-								</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="inbox.html?a=view">
-
-                                <span class="photo"><img src="../media/image/avatar3.jpg" alt=""/></span>
-
-                                <span class="subject">
-
-								<span class="from">Richard Doe</span>
-
-								<span class="time">16 mins</span>
-
-								</span>
-
-                                <span class="message">
-
-								Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh
-
-								auctor nibh...
-
-								</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="inbox.html?a=view">
-
-                                <span class="photo"><img src="../media/image/avatar1.jpg" alt=""/></span>
-
-                                <span class="subject">
-
-								<span class="from">Bob Nilson</span>
-
-								<span class="time">2 hrs</span>
-
-								</span>
-
-                                <span class="message">
-
-								Vivamus sed nibh auctor nibh congue nibh. auctor nibh
-
-								auctor nibh...
-
-								</span>
-
-                            </a>
-
-                        </li>
-
-                        <li class="external">
-
-                            <a href="inbox.html">See all messages <i class="m-icon-swapright"></i></a>
-
-                        </li>
-
-                    </ul>
-
-                </li>
-
-                <!-- END INBOX DROPDOWN -->
-
-                <!-- BEGIN TODO DROPDOWN -->
-
-                <li class="dropdown" id="header_task_bar">
-
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-                        <i class="icon-tasks"></i>
-
-                        <span class="badge">5</span>
-
-                    </a>
-
-                    <ul class="dropdown-menu extended tasks">
-
-                        <li>
-
-                            <p>You have 12 pending tasks</p>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-								<span class="task">
-
-								<span class="desc">New release v1.2</span>
-
-								<span class="percent">30%</span>
-
-								</span>
-
-                                <span class="progress progress-success ">
-
-								<span style="width: 30%;" class="bar"></span>
-
-								</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-								<span class="task">
-
-								<span class="desc">Application deployment</span>
-
-								<span class="percent">65%</span>
-
-								</span>
-
-                                <span class="progress progress-danger progress-striped active">
-
-								<span style="width: 65%;" class="bar"></span>
-
-								</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-								<span class="task">
-
-								<span class="desc">Mobile app release</span>
-
-								<span class="percent">98%</span>
-
-								</span>
-
-                                <span class="progress progress-success">
-
-								<span style="width: 98%;" class="bar"></span>
-
-								</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-								<span class="task">
-
-								<span class="desc">Database migration</span>
-
-								<span class="percent">10%</span>
-
-								</span>
-
-                                <span class="progress progress-warning progress-striped">
-
-								<span style="width: 10%;" class="bar"></span>
-
-								</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-								<span class="task">
-
-								<span class="desc">Web server upgrade</span>
-
-								<span class="percent">58%</span>
-
-								</span>
-
-                                <span class="progress progress-info">
-
-								<span style="width: 58%;" class="bar"></span>
-
-								</span>
-
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-								<span class="task">
-
-								<span class="desc">Mobile development</span>
-
-								<span class="percent">85%</span>
-
-								</span>
-
-                                <span class="progress progress-success">
-
-								<span style="width: 85%;" class="bar"></span>
-
-								</span>
-
-                            </a>
-
-                        </li>
-
-                        <li class="external">
-
-                            <a href="#">See all tasks <i class="m-icon-swapright"></i></a>
-
-                        </li>
-
-                    </ul>
-
-                </li>
-
-                <!-- END TODO DROPDOWN -->
-
-                <!-- BEGIN USER LOGIN DROPDOWN -->
 
                 <li class="dropdown user">
-                    <a  class="dropdown-toggle" data-toggle="dropdown">
-                        <img alt="" style="width: 29px;height:29px;" th:src="${session.SPRING_SECURITY_CONTEXT.authentication.principal.image}==null?@{media/image/avatar1_small.jpg}:${session.SPRING_SECURITY_CONTEXT.authentication.principal.image}"/>
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <img alt="" style="width: 29px;height:29px;"
+                             th:src="${session.SPRING_SECURITY_CONTEXT.authentication.principal.image}==null?@{media/image/avatar1_small.jpg}:${session.SPRING_SECURITY_CONTEXT.authentication.principal.image}"/>
                         <!--<img src="E:/uploadFile/image/xiaohuangren.jpg" alt="">-->
                         <span th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.name}"></span>
                         <i class="icon-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a th:href="@{/findLoginUser}"><i class="icon-user"></i> 我的信息</a></li>
-                        <li><a th:href="@{/administrative/changeImage.html}"><i class="icon-github"></i> 更换头像</a></li>
-                        <li><a th:href="@{/administrative/punch_lock.html}"><i class="icon-calendar"></i> 打卡</a></li>
+                        <li><a th:href="@{/skip}"><i class="icon-lock"></i> 修改密码</a></li>
+                        <li><a th:href="@{/changeImage.html}"><i class="icon-github"></i> 更换头像</a></li>
+                        <li><a th:href="@{/punch_lock.html}"><i class="icon-calendar"></i> 打卡</a></li>
                         <li><a th:href="@{/logout}"><i class="icon-off"></i> 退出</a></li>
                     </ul>
                 </li>
@@ -547,20 +166,20 @@
 
             </li>
 
-            <li>
+            <!--<li>-->
 
-                <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+                <!--&lt;!&ndash; BEGIN RESPONSIVE QUICK SEARCH FORM &ndash;&gt;-->
 
-                <form class="sidebar-search">
+                <!--<form class="sidebar-search">-->
 
-                    <div class="input-box">
-                        <a href="javascript:;" class="remove"></a>
-                        <input type="text" placeholder="Search..."/>
-                        <input type="button" class="submit" value=" "/>
-                    </div>
-                </form>
-                <!-- END RESPONSIVE QUICK SEARCH FORM -->
-            </li>
+                    <!--<div class="input-box">-->
+                        <!--<a href="javascript:;" class="remove"></a>-->
+                        <!--<input type="text" placeholder="Search..."/>-->
+                        <!--<input type="button" class="submit" value=" "/>-->
+                    <!--</div>-->
+                <!--</form>-->
+                <!--&lt;!&ndash; END RESPONSIVE QUICK SEARCH FORM &ndash;&gt;-->
+            <!--</li>-->
 
             <!--行政管理-->
 
@@ -577,9 +196,9 @@
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="active" ><a th:href="@{/findAllUser}">职工基本信息管理</a></li>
+                            <li class="active"><a th:href="@{/findAllUser}">职工基本信息管理</a></li>
                             <li sec:authorize="hasAnyRole('ROLE_ROOT')"><a th:href="@{/findDept}">部门信息管理</a></li>
-                            <li ><a th:href="@{/findUserBySalary}">职工工资管理</a></li>
+                            <li><a th:href="@{/findUserBySalary}">职工工资管理</a></li>
                         </ul>
                     </li>
                     <li sec:authorize="hasAnyRole('ROLE_ROOT')">
@@ -591,9 +210,12 @@
                             <li><a href="javascript:;">考勤规则
                                 <span class="arrow"></span></a>
                                 <ul class="sub-menu">
-                                    <li><a th:href="@{administrative/lock_time.html}">考勤时间</a></li>
-                                    <li><a th:href="@{administrative/person_ruler.html}">人性化规则</a></li>
+                                    <li><a th:href="@{lock_time.html}">考勤时间</a></li>
+                                    <li><a th:href="@{person_ruler.html}">人性化规则</a></li>
                                 </ul>
+                            </li>
+                            <li><a th:href="@{findAllClock}">考勤情况
+                                <span class="arrow"></span></a>
                             </li>
                         </ul>
                     </li>
@@ -602,14 +224,14 @@
             </li>
 
             <!--公文管理-->
-            <li sec:authorize="hasAnyRole('ROLE_ROOT', 'ROLE_HR', 'ROLE_MOF', 'ROLE_MUD', 'ROLE_MUR','ROLE_MUN','ROLE_MOL','ROLE_MOI','ROLE_MFS','ROLE_MUC','ROLE_MCS','ROLE_LS')">
+            <li sec:authorize="hasAnyRole('ROLE_ROOT', 'ROLE_HR', 'ROLE_MOF', 'ROLE_MUD', 'ROLE_MUR','ROLE_MUN','ROLE_MOL','ROLE_MOI','ROLE_MFS','ROLE_MUC','ROLE_MCS','ROLE_LS','ROLE_PM')">
                 <a href="javascript:;">
                     <i class="icon-user"></i>
                     <span class="title">公文管理</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MON','ROLE_MOI')">
+                    <li >
                         <a th:href="@{/findDocumentTemplate}">
                             公文设计</a>
                     </li>
@@ -622,7 +244,7 @@
             <!--档案管理-->
             <li>
                 <a class="active" href="javascript:;">
-                    <i class="icon-sitemap"></i>
+                    <i class="icon-envelope"></i>
                     <span class="title">档案管理</span>
                     <span class="arrow "></span>
                 </a>
@@ -636,11 +258,16 @@
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MOF')"><a th:href="@{/findFile(fileType='财政部')}">财政部</a></li>
-                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MUD')"><a th:href="@{/findFile(fileType='城建部')}">城建部</a></li>
-                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MOR')"><a th:href="@{/findFile(fileType='交通部')}">交通部</a></li>
-                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MON')"><a th:href="@{/findFile(fileType='新闻部')}">新闻部</a></li>
-                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MOL')"><a th:href="@{/findFile(fileType='后勤部')}">后勤部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MOF')"><a
+                                    th:href="@{/findFile(fileType='财政部')}">财政部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MUD')"><a
+                                    th:href="@{/findFile(fileType='城建部')}">城建部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MOR')"><a
+                                    th:href="@{/findFile(fileType='交通部')}">交通部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MON')"><a
+                                    th:href="@{/findFile(fileType='新闻部')}">新闻部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MOL')"><a
+                                    th:href="@{/findFile(fileType='后勤部')}">后勤部</a></li>
                         </ul>
                     </li>
                     <li sec:authorize="hasAnyRole('ROLE_ROOT')">
@@ -652,7 +279,7 @@
             </li>
 
             <!--新闻管理-->
-            <li >
+            <li>
                 <a href="javascript:;">
                     <i class="icon-file-text"></i>
                     <span class="title">新闻管理</span>
@@ -660,12 +287,30 @@
                 </a>
                 <ul class="sub-menu">
                     <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MON','ROLE_MOI')">
-                        <a href="news/release_news.html">
+                        <a href="release_news.html">
                             发布新闻</a>
                     </li>
-                    <li sec:authorize="hasAnyRole('ROLE_ROOT', 'ROLE_HR', 'ROLE_MOF', 'ROLE_MUD', 'ROLE_MUR','ROLE_MUN','ROLE_MOL','ROLE_MOI','ROLE_MFS','ROLE_MUC','ROLE_MCS','ROLE_LS')" >
+                    <li>
                         <a th:href="@{/findAllNews}">
                             查看新闻</a>
+                    </li>
+                </ul>
+            </li>
+            <!--图表-->
+            <li sec:authorize="hasAnyRole('ROLE_ROOT')">
+                <a href="javascript:;">
+                    <i class="icon-file-text"></i>
+                    <span class="title">图表分析</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li >
+                        <a href="echarts_dept.html">
+                            部门情况分析图</a>
+                    </li>
+                    <li>
+                        <a href="echarts_File.html">
+                            档案情况分析图</a>
                     </li>
                 </ul>
             </li>
@@ -853,10 +498,11 @@
                                     <td th:text="${user.phone}" class="hidden-480">18334702976</td>
                                     <td>
                                         <a th:onclick="'FindUsers('+${user.id}+')'"
-                                           class="btn mini purple" data-toggle="modal" data-target="#myModal">
+                                           class="btn mini green" data-toggle="modal" data-target="#myModal">
                                             <i class="icon-edit">更改</i>
                                         </a>
-                                        <a th:onclick="'javascript:deleteUser('+${user.id}+')'" class="btn mini black">
+                                        <a th:href="@{deleteUser(id=${user.id})}"
+                                           onclick="if(confirm('确定删除?')==false)return false;" class="btn mini red">
                                             <i class="icon-trash">删除</i>
                                         </a>
                                     </td>
@@ -975,7 +621,15 @@
                                                     <label class="control-label">密码<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <input type="password" name="password" data-required="1"
+                                                        <input type="password" id="password" name="password" data-required="1"
+                                                               class="span8 m-wrap"/>
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label class="control-label">确认密码<span
+                                                            class="required">*</span></label>
+                                                    <div class="controls">
+                                                        <input id="confirmNewPassword" type="password" name="confirmNewPassword" data-required="1"
                                                                class="span8 m-wrap"/>
                                                     </div>
                                                 </div>
@@ -984,7 +638,7 @@
                                                     <label class="control-label">入职时间<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <input value="" id="show" name="startDate" type="text"
+                                                        <input value="" id="show" name="startDate" type="text" readonly
                                                                class="span8 m-wrap"/>
                                                     </div>
                                                 </div>
@@ -993,7 +647,7 @@
                                                     <label class="control-label">联系方式<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <input name="phone" type="text" class="span8 m-wrap"/>
+                                                        <input name="phone" id="phone" type="text" class="span8 m-wrap"/>
                                                     </div>
                                                 </div>
 
@@ -1031,7 +685,7 @@
 
                                             <!-- 模态框底部 -->
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-success">添加</button>
+                                                <button type="submit" class="btn btn-success" onclick="return validate();success()">添加</button>
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                                     关闭
                                                 </button>
@@ -1115,8 +769,8 @@
                 if (response.data == '200') {
                     addUserNameInput.classList.remove("error")
                 } else {
-                    alert(1);
-                    addUserNameInput.placeholder = "名称重复，请重新输入"
+
+                    addUserNameInput.placeholder = "名称重复，请重新输入!"
                     addUserNameInput.value = ""
                     addUserNameInput.classList.add("error")
                 }
@@ -1154,29 +808,45 @@
         })
     }
 
-
-    /**
-     * 删除员工
-     * @param id
-     */
-    function deleteUser(id) {
-        console.log("id is ", id)
-        axios.get('http://localhost:8080/deleteUser', {
-            params: {
-                'id': id
-            }
-        })
-            .then(function (response) {
-                console.log(response);
-                location.reload()
-            })
-            .catch(function (error) {
-
-                console.log(error);
-            });
+    function validate() {
+        confirm("确认删除？");
     }
 
+    function showRealTime(clock) {
+        var d = new Date();
+        var year = d.getFullYear();
+        var month = d.getMonth() + 1;
+        var date = d.getDate();
+        var days = new Array("日", "一", "二", "三", "四", "五", "六");
+        var day = d.getDay();
+        var hour = (d.getHours() < 10) ? ("0" + d.getHours()) : d.getHours();
+        var min = (d.getMinutes() < 10) ? ("0" + d.getMinutes()) : d.getMinutes();
+        var sec = (d.getSeconds() < 10) ? ("0" + d.getSeconds()) : d.getSeconds();
+        var now = year + "年 " + month + "月 " + date + "日 星期 " + days[day] + " " + hour + ":" + min + ":" + sec;
+        clock.innerHTML = now;
+    }
+     showRealTime(clock);
+    setInterval("showRealTime(clock)",1000)
 
+
+
+    function validate() {
+        var word1 = document.getElementById("password").value;
+        var word2 = document.getElementById("confirmNewPassword").value;
+        var phone = document.getElementById('phone').value;
+        if (word1 != word2) {
+            window.alert("两次输入的密码不一致！");
+            confirmNewPassword.focus();
+            return false;
+        }
+        var regex = "^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$";
+        if(!(regex.test(phone))){
+            alert("手机号码有误，请重填");
+            return false;
+        }
+        alert("添加成功！");
+        return true;
+    }
 </script>
 </body>
 

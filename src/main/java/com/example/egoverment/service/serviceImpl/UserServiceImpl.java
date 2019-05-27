@@ -9,7 +9,8 @@ import com.example.egoverment.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -42,8 +43,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByUsername(username).get(0);
-        System.out.println("登陆的信息"+user.toString());
+        User user = userRepository.findUserByUsername(username);
+        if (user==null){
+            throw new InsufficientAuthenticationException("用户名或密码错误");
+        }
+        System.out.println("登陆的信息" + user.toString());
         return user;
     }
 
@@ -84,7 +88,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public String checkUsername(String username) {
         String result = null;
-        List<User> user = userRepository.findUserByUsername(username);
+        List<User> user = userRepository.findUsersByUsername(username);
         if (user.size() == 0) {
             result = "200";
         } else {
@@ -100,12 +104,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<User> findUserByUsername(String username) {
-        return userRepository.findUserByUsername(username);
+    public List<User> findUsersByUsername(String username) {
+        return userRepository.findUsersByUsername(username);
     }
 
     @Override
     public User findUserById(int id) {
         return userRepository.findUserById(id);
+    }
+
+    @Override
+    public List findGroupByDept() {
+        return userRepository.findGroupByDept();
     }
 }

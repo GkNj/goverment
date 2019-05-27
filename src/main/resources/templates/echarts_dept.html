@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en" class="ie8 no-js">
+<html lang="en" class="ie9 no-js">
+<html lang="en" class="no-js">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>政府协同创新性政务信息平台</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <link th:href="@{media/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{media/css/bootstrap-responsive.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{media/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{media/css/style-metro.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{media/css/style.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{media/css/style-responsive.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{media/css/default.css}" rel="stylesheet" type="text/css" id="style_color"/>
+    <link th:href="@{media/css/uniform.default.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{media/css/select2_metro.css}"/>
+    <link rel="stylesheet" th:href="@{media/css/DT_bootstrap.css}"/>
+    <!-- END PAGE LEVEL STYLES -->
+    <link rel="shortcut icon" th:href="@{media/image/favicon.ico}"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+          crossorigin="anonymous">
+
+    <script>
+        function load() {
+            window.setInterval('showRealTime(clock)', 1000);
+        }
+    </script>
+
+</head>
+
+<body class="page-header-fixed" onload="load()">
+
+<!-- BEGIN HEADER -->
+
+<div class="header navbar navbar-inverse navbar-fixed-top">
+
+    <!-- BEGIN TOP NAVIGATION BAR -->
+
+    <div class="navbar-inner">
+
+        <div class="container-fluid">
+
+            <!-- BEGIN LOGO -->
+
+            <a class="brand" href="index.html">
+
+                <img th:src="@{media/image/logo.png}" alt="logo"/>
+
+            </a>
+
+            <!-- END LOGO -->
+
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+
+            <a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+
+                <img th:src="@{media/image/menu-toggler.png}" alt=""/>
+
+            </a>
+
+            <!-- END RESPONSIVE MENU TOGGLER -->
+
+            <!-- BEGIN TOP NAVIGATION MENU -->
+
+            <ul class="nav pull-right">
+
+
+                <li class="dropdown" id="header_notification_bar" style="margin-top: 13px;position: relative">
+
+                    <span id="clock" style="color: white;"></span>
+
+                </li>
+
+
+                <li class="dropdown user">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <img alt="" style="width: 29px;height:29px;"
+                             th:src="${session.SPRING_SECURITY_CONTEXT.authentication.principal.image}==null?@{media/image/avatar1_small.jpg}:${session.SPRING_SECURITY_CONTEXT.authentication.principal.image}"/>
+                        <!--<img src="E:/uploadFile/image/xiaohuangren.jpg" alt="">-->
+                        <span th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.name}"></span>
+                        <i class="icon-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{findLoginUser}"><i class="icon-user"></i> 我的信息</a></li>
+                        <li><a th:href="@{skip}"><i class="icon-lock"></i> 修改密码</a></li>
+                        <li><a th:href="@{changeImage.html}"><i class="icon-github"></i> 更换头像</a></li>
+                        <li><a th:href="@{punch_lock.html}"><i class="icon-calendar"></i> 打卡</a></li>
+                        <li><a th:href="@{/logout}"><i class="icon-off"></i> 退出</a></li>
+                    </ul>
+                </li>
+
+
+            </ul>
+
+
+        </div>
+
+    </div>
+
+    <!-- END TOP NAVIGATION BAR -->
+
+</div>
+
+<!-- END HEADER -->
+<div class="copyrights">Collect from <a href="http://www.cssmoban.com/">网页模板</a></div>
+
+<!-- BEGIN CONTAINER -->
+
+<div class="page-container">
+
+    <!-- BEGIN SIDEBAR -->
+
+    <div class="page-sidebar nav-collapse collapse">
+
+        <!-- BEGIN SIDEBAR MENU -->
+
+        <ul class="page-sidebar-menu">
+
+            <li>
+
+                <div class="sidebar-toggler hidden-phone">
+                </div>
+
+            </li>
+
+
+            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_HR')">
+                <a href="javascript:;">
+                    <i class="icon-sitemap"></i>
+                    <span class="title">行政管理</span>
+
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="javascript:;">人事管理
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a th:href="@{findAllUser}">职工基本信息管理</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT')"><a th:href="@{findDept}">部门信息管理</a></li>
+                            <li><a th:href="@{findUserBySalary}">职工工资管理</a></li>
+                        </ul>
+                    </li>
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT')">
+                        <a href="javascript:;">
+                            考勤管理
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="javascript:;">考勤规则
+                                <span class="arrow"></span></a>
+                                <ul class="sub-menu">
+                                    <li><a th:href="@{lock_time.html}">考勤时间</a></li>
+                                    <li><a th:href="@{person_ruler.html}">人性化规则</a></li>
+                                </ul>
+                            </li>
+                            <li><a th:href="@{findAllClock}">考勤情况
+                                <span class="arrow"></span></a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </li>
+
+            <!--公文管理-->
+            <li sec:authorize="hasAnyRole('ROLE_ROOT', 'ROLE_HR', 'ROLE_MOF', 'ROLE_MUD', 'ROLE_MUR','ROLE_MUN','ROLE_MOL','ROLE_MOI','ROLE_MFS','ROLE_MUC','ROLE_MCS','ROLE_LS','ROLE_PM')">
+                <a href="javascript:;">
+                    <i class="icon-user"></i>
+                    <span class="title">公文管理</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a th:href="@{findDocumentTemplate}">
+                            公文设计</a>
+                    </li>
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT','MOF','ROLE_MUD','ROLE_MOR','ROLE_MON','ROLE_MOL','ROLE_PM')">
+                        <a th:href="@{findDocument}">
+                            公文的上传和下载</a>
+                    </li>
+                </ul>
+            </li>
+            <!--档案管理-->
+            <li>
+                <a class="active" href="javascript:;">
+                    <i class="icon-envelope"></i>
+                    <span class="title">档案管理</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a th:href="@{findLoginUser}">个人档案
+                        </a>
+                    </li>
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT','MOF','ROLE_MUD','ROLE_MOR','ROLE_MON','ROLE_MOL')">
+                        <a href="javascript:;">部门档案
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MOF')"><a
+                                    th:href="@{findFile(fileType='财政部')}">财政部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MUD')"><a
+                                    th:href="@{findFile(fileType='城建部')}">城建部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MOR')"><a
+                                    th:href="@{findFile(fileType='交通部')}">交通部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MON')"><a
+                                    th:href="@{findFile(fileType='新闻部')}">新闻部</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MOL')"><a
+                                    th:href="@{findFile(fileType='后勤部')}">后勤部</a></li>
+                        </ul>
+                    </li>
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT')">
+                        <a th:href="@{findFile(fileType='政府')}">政府档案
+                            <span class="arrow"></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!--新闻管理-->
+            <li>
+                <a href="javascript:;">
+                    <i class="icon-file-text"></i>
+                    <span class="title">新闻管理</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li sec:authorize="hasAnyRole('ROLE_ROOT','ROLE_MON','ROLE_MOI')">
+                        <a href="release_news.html">
+                            发布新闻</a>
+                    </li>
+                    <li>
+                        <a th:href="@{findAllNews}">
+                            查看新闻</a>
+                    </li>
+                </ul>
+            </li>
+            <!--图表-->
+            <li class="active" sec:authorize="hasAnyRole('ROLE_ROOT')">
+                <a href="javascript:;">
+                    <i class="icon-file-text"></i>
+                    <span class="title">图表分析</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="active" >
+                        <a href="echarts_dept.html">
+                            部门情况分析图</a>
+                    </li>
+                    <li>
+                        <a href="echarts_File.html">
+                            档案情况分析图</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <!-- END SIDEBAR MENU -->
+
+    </div>
+
+    <!-- END SIDEBAR -->
+
+    <!-- BEGIN PAGE -->
+
+    <div class="page-content">
+
+        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+        <div id="portlet-config" class="modal hide">
+
+            <div class="modal-header">
+
+                <button data-dismiss="modal" class="close" type="button"></button>
+
+                <h3>Widget Settings</h3>
+
+            </div>
+
+            <div class="modal-body">
+
+                Widget settings form goes here
+
+            </div>
+
+        </div>
+
+        <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid">
+
+                <div class="span12">
+
+                    <!-- BEGIN STYLE CUSTOMIZER -->
+
+                    <div class="color-panel hidden-phone">
+                        <div class="color-mode-icons icon-color"></div>
+                        <div class="color-mode-icons icon-color-close"></div>
+                        <div class="color-mode">
+                            <p>主题色彩</p>
+                            <ul class="inline">
+                                <li class="color-black current color-default" data-style="default"></li>
+                                <li class="color-blue" data-style="blue"></li>
+                                <li class="color-brown" data-style="brown"></li>
+                                <li class="color-purple" data-style="purple"></li>
+                                <li class="color-grey" data-style="grey"></li>
+                                <li class="color-white color-light" data-style="light"></li>
+
+                            </ul>
+
+                            <label>
+
+                                <span>布局</span>
+                                <select class="layout-option m-wrap small">
+                                    <option value="fluid" selected>流体</option>
+                                    <option value="boxed">盒状</option>
+                                </select>
+
+                            </label>
+
+                            <label>
+
+                                <span>头部</span>
+                                <select class="header-option m-wrap small">
+                                    <option value="fixed" selected>固定</option>
+                                    <option value="default">默认</option>
+                                </select>
+                            </label>
+
+                            <label>
+
+                                <span>侧边栏</span>
+                                <select class="sidebar-option m-wrap small">
+                                    <option value="fixed">固定</option>
+                                    <option value="default" selected>默认</option>
+                                </select>
+
+                            </label>
+
+                            <label>
+
+                                <span>页脚</span>
+                                <select class="footer-option m-wrap small">
+                                    <option value="fixed">固定</option>
+                                    <option value="default" selected>默认</option>
+                                </select>
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- END PAGE HEADER-->
+            <div id="chart" style="width: 800px;height: 500px">
+
+            </div>
+        </div>
+
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+
+    <!-- END PAGE -->
+
+</div>
+
+<!-- END CONTAINER -->
+
+<!-- BEGIN FOOTER -->
+
+<div class="footer">
+
+    <div class="footer-inner">
+
+        2019 &copy; gk by nuc.edu.cn from <a href="http://www.nuc.edu.cn/" title="中北大学" target="_blank">中北大学</a>
+
+    </div>
+
+    <div class="footer-tools">
+
+			<span class="go-top">
+
+			<i class="icon-angle-up"></i>
+
+			</span>
+
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.2.1/echarts-en.common.min.js"></script>
+<script th:src="@{media/js/jquery-1.10.1.min.js}" type="text/javascript"></script>
+<script th:src="@{media/js/jquery-migrate-1.2.1.min.js}" type="text/javascript"></script>
+<script th:src="@{media/js/jquery-ui-1.10.1.custom.min.js}" type="text/javascript"></script>
+<script th:src="@{media/js/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{media/js/excanvas.min.js}"></script>
+<script th:src="@{media/js/respond.min.js}"></script>
+<script th:src="@{echarts/js/echarts.js}"></script>
+<script th:src="@{echarts/js/echarts-all.js}"></script>
+<script src="echarts/china.js"></script>
+<script th:src="@{media/js/jquery.slimscroll.min.js}" type="text/javascript"></script>
+<script th:src="@{media/js/jquery.blockui.min.js}" type="text/javascript"></script>
+<script th:src="@{media/js/jquery.cookie.min.js}" type="text/javascript"></script>
+<script th:src="@{media/js/jquery.uniform.min.js}" type="text/javascript"></script>
+<script th:src="@{media/js/jquery.vmap.js}" type="text/javascript"></script>
+<script th:src="@{media/js/jquery.vmap.russia.js}" type="text/javascript"></script>
+<script th:src="@{media/js/jquery.vmap.world.js}" type="text/javascript"></script>
+<script th:src="@{media/js/jquery.vmap.europe.js}" type="text/javascript"></script>
+<script th:src="@{media/js/jquery.vmap.germany.js}" type="text/javascript"></script>
+<script th:src="@{media/js/jquery.vmap.usa.js}" type="text/javascript"></script>
+<script th:src="@{media/js/jquery.vmap.sampledata.js}" type="text/javascript"></script>
+<script th:src="@{media/js/jquery.flot.js}" type="text/javascript"></script>
+<script th:src="@{media/js/jquery.flot.resize.js}" type="text/javascript"></script>
+<script th:src="@{media/js/jquery.pulsate.min.js}" type="text/javascript"></script>
+<script th:src="@{media/js/date.js}" type="text/javascript"></script>
+<script th:src="@{media/js/daterangepicker.js}" type="text/javascript"></script>
+<script th:src="@{media/js/jquery.gritter.js}" type="text/javascript"></script>
+<script th:src="@{media/js/fullcalendar.min.js}" type="text/javascript"></script>
+<script th:src="@{media/js/jquery.easy-pie-chart.js}" type="text/javascript"></script>
+<script th:src="@{media/js/jquery.sparkline.min.js}" type="text/javascript"></script>
+<script th:src="@{media/js/app.js}" type="text/javascript"></script>
+<script th:src="@{media/js/index.js}" type="text/javascript"></script>
+
+
+<script>
+
+
+    function showRealTime(clock) {
+        var d = new Date();
+        var year = d.getFullYear();
+        var month = d.getMonth() + 1;
+        var date = d.getDate();
+        var days = new Array("日", "一", "二", "三", "四", "五", "六");
+        var day = d.getDay();
+        var hour = (d.getHours() < 10) ? ("0" + d.getHours()) : d.getHours();
+        var min = (d.getMinutes() < 10) ? ("0" + d.getMinutes()) : d.getMinutes();
+        var sec = (d.getSeconds() < 10) ? ("0" + d.getSeconds()) : d.getSeconds();
+        var now = year + "年 " + month + "月 " + date + "日 星期 " + days[day] + " " + hour + ":" + min + ":" + sec;
+        clock.innerHTML = now;
+    }
+
+
+    jQuery(document).ready(function () {
+        App.init(); // initlayout and core plugins
+        Index.init();
+        Index.initJQVMAP(); // init index page's custom scripts
+        Index.initCalendar(); // init index page's custom scripts
+        Index.initCharts(); // init index page's custom scripts
+        Index.initChat();
+        Index.initMiniCharts();
+        Index.initDashboardDaterange();
+        Index.initIntro();
+    });
+
+</script>
+
+<script type="text/javascript">
+    var myChart2 = echarts.init(document.getElementById('chart'));
+    var result ;
+    $.ajax({
+        type: "post",
+        url: "http://localhost:8080/findGroupByDept", //此次url改为真正需要的url
+        async: false,
+        success: function (data, status) {
+            console.log("...." + data)
+            result = data;
+        },
+    });
+    console.log(result[0])
+    var option = {
+        title : {
+            text: '部门人数情况分析',
+            x:'left'
+        },
+        color: ['#3398DB'],
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: result[0],
+                axisTick: {
+                    alignWithLabel: true
+                }
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: '直接访问',
+                type: 'bar',
+                barWidth: '60%',
+                data: result[1]
+            }
+        ]
+    }
+
+    myChart2.setOption(option)
+</script>
+
+
+</body>
+
+
+</html>

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -25,6 +26,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 public class UserController {
@@ -80,9 +83,13 @@ public class UserController {
                 .getAuthentication()
                 .getPrincipal();
         String position = user.getPosition();
-        Role role = roleRepository.findRoleByName(position);
-        String introduction = role.getIntroduction();
-        user.setPosition(introduction);
+        Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+        Matcher m = p.matcher(position);
+        if (!(m.find())) {
+            Role role = roleRepository.findRoleByName(position);
+            String introduction = role.getIntroduction();
+            user.setPosition(introduction);
+        }
         map.addAttribute("user", user);
         return "/file/personFile";
     }
@@ -158,6 +165,17 @@ public class UserController {
         user.setPolitical(political);
         user.setMajor(major);
         user.setBirthday(birthday);
+        User user1 = (User) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        user1.setMajor(major);
+        user1.setEmail(email);
+        user1.setPolitical(political);
+        user1.setGraduate(graduate);
+        user1.setAddress(address);
+        user1.setNativePlace(nativePlace);
+        user1.setBirthday(birthday);
+        user1.setEducation(education);
         userService.updateUser(user);
         return "redirect:/findLoginUser";
     }
@@ -249,6 +267,14 @@ public class UserController {
         return list;
     }
 
+    @RequestMapping("/findRoleByManager")
+    @ResponseBody
+    public List<Role> findRoleByManager(@RequestParam("name") String name) {
+        System.out.println(name);
+        List<Role> list = roleRepository.findByIntroductionLike(name+"职");
+        return list;
+    }
+
     /**
      * 查询不是经理的user
      *
@@ -263,6 +289,11 @@ public class UserController {
         listString.add("MUC");
         listString.add("MCS");
         listString.add("LS");
+        listString.add("MES");
+        listString.add("SMH");
+        listString.add("SDT");
+        listString.add("java");
+        listString.add("AS");
         List<User> list = userRepository.findUserByPositionIn(listString);
         return list;
     }

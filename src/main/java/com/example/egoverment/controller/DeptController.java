@@ -48,6 +48,8 @@ public class DeptController {
         return list;
     }
 
+
+
     /**
      * 添加部门
      *
@@ -146,6 +148,7 @@ public class DeptController {
         List<Role> roles = roleRepository.findByIntroductionLike(deptName + "经理");
         System.out.println(deptName + "经理");
         User user = userService.findUser(Integer.parseInt(uId));
+        //将修改之前的部门经理改为该部门的普通员工
         user.setPosition(roles.get(0).getName());
         user.setDept(dept);
         userService.updateUser(user);

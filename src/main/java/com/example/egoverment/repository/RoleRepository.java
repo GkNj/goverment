@@ -27,4 +27,5 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
     @Query(value = "select * from Role where introduction like  CONCAT('%',?1,'%')",nativeQuery = true)
     List<Role> findByIntroductionLike(String name);
 
+
 }

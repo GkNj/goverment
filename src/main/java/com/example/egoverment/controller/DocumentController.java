@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
-@RequestMapping()
 public class DocumentController {
 
     @Autowired
@@ -91,6 +90,7 @@ public class DocumentController {
         document.setDocumentName(documentName);
         document.setExtension(extension);
         document.setPath(String.valueOf(dest));
+        document.setType("document");
         documentService.saveDocument(document);
         if (!dest.getParentFile().exists()) {
             dest.getParentFile().mkdirs();

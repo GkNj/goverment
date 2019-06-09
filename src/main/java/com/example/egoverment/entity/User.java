@@ -348,6 +348,10 @@ public class User implements Serializable, UserDetails {
         this.username = username;
     }
 
+    /**
+     * 包含当前用户的权限信息
+     * @return
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();

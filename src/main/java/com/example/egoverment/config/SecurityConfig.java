@@ -53,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/pubNews", "/findNewsById", "/updateNews", "/deleteNewsById").hasAnyRole("ROOT", "MON", "MOI")
                 .antMatchers("/findDept", "/administrative/dept_list.html", "/administrative/employee_list.html", "/administrative/employee_salary_list.html").hasAnyRole("ROOT", "HR")
                 .antMatchers("/addDept", "/findAllDept", "/administrative/person_ruler.html", "/administrative/lock_time.html").hasAnyRole("ROOT")
+
         ;
 
 

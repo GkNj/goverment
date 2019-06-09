@@ -299,7 +299,7 @@
                 </ul>
             </li>
             <!--图表-->
-            <li sec:authorize="hasAnyRole('ROLE_ROOT')" class="active">
+            <li sec:authorize="hasAnyRole('ROLE_ROOT')">
                 <a href="javascript:;">
                     <i class="icon-file-text"></i>
                     <span class="title">图表分析</span>
@@ -422,29 +422,23 @@
 
                     <!-- BEGIN PAGE TITLE & BREADCRUMB-->
 
-                    <!--<h3 class="page-title">-->
-                        <!--新闻管理-->
-                        <!--<small>查看新闻</small>-->
-                    <!--</h3>-->
+                    <h3 class="page-title">
+                        新闻列表
+                    </h3>
 
-                    <!--<ul class="breadcrumb">-->
+                    <ul class="breadcrumb">
 
-                        <!--<li>-->
-                            <!--<i class="icon-home"></i>-->
-                            <!--<a th:href="@{/index}">主页</a>-->
-                            <!--<i class="icon-angle-right"></i>-->
-                        <!--</li>-->
+                        <li>
+                            <i class="icon-home"></i>
+                            <a th:href="@{/index}">主页</a>
+                            <i class="icon-angle-right"></i>
+                        </li>
 
-                        <!--<li>-->
-                            <!--<a href="#">新闻管理</a>-->
-                            <!--<i class="icon-angle-right"></i>-->
-                        <!--</li>-->
-                        <!--<li><a href="#">查看新闻</a></li>-->
 
                     <!--</ul>-->
 
                     <!-- END PAGE TITLE & BREADCRUMB-->
-
+                    </ul>
                 </div>
 
             </div>

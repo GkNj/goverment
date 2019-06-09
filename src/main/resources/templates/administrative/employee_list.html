@@ -41,16 +41,17 @@
                     });
                 },
             });
-            $.ajax({
-                type: "post",
-                url: "http://localhost:8080/findAllRole", //此次url改为真正需要的url
-                success: function (data, status) {
-                    $.each(data, function (index, item) {
-                        $("#add_position").append(  //此处向select中循环绑定数据
-                            "<option value=" + item.name + ">" + item.introduction + "</option>");
-                    });
-                },
-            });
+            // $.ajax({
+            //     type: "post",
+            //     url: "http://localhost:8080/findAllRole", //此次url改为真正需要的url
+            //     success: function (data, status) {
+            //         $.each(data, function (index, item) {
+            //             $("#add_position").append(  //此处向select中循环绑定数据
+            //                 "<option value=" + item.name + ">" + item.introduction + "</option>");
+            //         });
+            //     },
+            // });
+
             /**
              * 获取当前时间
              * @returns {string}
@@ -69,7 +70,7 @@
 </head>
 
 
-<body class="page-header-fixed" >
+<body class="page-header-fixed">
 
 <!-- BEGIN HEADER -->
 
@@ -168,17 +169,17 @@
 
             <!--<li>-->
 
-                <!--&lt;!&ndash; BEGIN RESPONSIVE QUICK SEARCH FORM &ndash;&gt;-->
+            <!--&lt;!&ndash; BEGIN RESPONSIVE QUICK SEARCH FORM &ndash;&gt;-->
 
-                <!--<form class="sidebar-search">-->
+            <!--<form class="sidebar-search">-->
 
-                    <!--<div class="input-box">-->
-                        <!--<a href="javascript:;" class="remove"></a>-->
-                        <!--<input type="text" placeholder="Search..."/>-->
-                        <!--<input type="button" class="submit" value=" "/>-->
-                    <!--</div>-->
-                <!--</form>-->
-                <!--&lt;!&ndash; END RESPONSIVE QUICK SEARCH FORM &ndash;&gt;-->
+            <!--<div class="input-box">-->
+            <!--<a href="javascript:;" class="remove"></a>-->
+            <!--<input type="text" placeholder="Search..."/>-->
+            <!--<input type="button" class="submit" value=" "/>-->
+            <!--</div>-->
+            <!--</form>-->
+            <!--&lt;!&ndash; END RESPONSIVE QUICK SEARCH FORM &ndash;&gt;-->
             <!--</li>-->
 
             <!--行政管理-->
@@ -231,7 +232,7 @@
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li >
+                    <li>
                         <a th:href="@{/findDocumentTemplate}">
                             公文设计</a>
                     </li>
@@ -304,7 +305,7 @@
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li >
+                    <li>
                         <a href="echarts_dept.html">
                             部门情况分析图</a>
                     </li>
@@ -563,7 +564,8 @@
                                                     <label class="control-label">所属部门<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <select class="span8 m-wrap" name="dId" id="select">
+                                                        <select class="span8 m-wrap" name="dId" id="select"
+                                                               >
                                                         </select>
                                                     </div>
                                                 </div>
@@ -621,7 +623,9 @@
                                                     <label class="control-label">密码<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <input type="password" id="password" name="password" data-required="1"
+                                                        <input type="password" id="password"
+                                                               onblur="CheckPassWord(this.value)" name="password"
+                                                               data-required="1"
                                                                class="span8 m-wrap"/>
                                                     </div>
                                                 </div>
@@ -629,7 +633,8 @@
                                                     <label class="control-label">确认密码<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <input id="confirmNewPassword" type="password" name="confirmNewPassword" data-required="1"
+                                                        <input id="confirmNewPassword" type="password"
+                                                               name="confirmNewPassword" data-required="1"
                                                                class="span8 m-wrap"/>
                                                     </div>
                                                 </div>
@@ -647,7 +652,8 @@
                                                     <label class="control-label">联系方式<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <input name="phone" id="phone" type="text" class="span8 m-wrap"/>
+                                                        <input name="phone" id="phone" type="text"
+                                                               class="span8 m-wrap"/>
                                                     </div>
                                                 </div>
 
@@ -655,7 +661,7 @@
                                                     <label class="control-label">所属部门<span
                                                             class="required">*</span></label>
                                                     <div class="controls">
-                                                        <select class="span8 m-wrap" name="did" id="selectt">
+                                                        <select class="span8 m-wrap" name="did" id="selectt"  onchange="findTwo()">
                                                             <option value="id">--请选择--</option>
                                                         </select>
                                                     </div>
@@ -685,7 +691,9 @@
 
                                             <!-- 模态框底部 -->
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-success" onclick="return validate();success()">添加</button>
+                                                <button type="submit" class="btn btn-success"
+                                                        onclick="return validate();success()">添加
+                                                </button>
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                                     关闭
                                                 </button>
@@ -742,9 +750,7 @@
 <script type="text/javascript" src="../media/js/DT_bootstrap.js"></script>
 <script src="../media/js/app.js"></script>
 <script src="../media/js/table-advanced.js"></script>
-<!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"-->
-<!--integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"-->
-<!--crossorigin="anonymous">-->
+
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
     jQuery(document).ready(function () {
@@ -754,6 +760,19 @@
 </script>
 
 <script th:inline="javascript">
+
+
+    function CheckPassWord(password) {
+        var addInput = document.getElementById("password");
+        var p = password;
+        if (p.length < 6) {
+            addInput.placeholder = "密码长度小于6，请重新输入密码";
+            addInput.value = ""
+            addInput.classList.add("error")
+        } else {
+            addInput.classList.remove("error")
+        }
+    }
 
     function checkUsername(username) {
         var addUserNameInput = document.getElementById("add_username")
@@ -769,7 +788,6 @@
                 if (response.data == '200') {
                     addUserNameInput.classList.remove("error")
                 } else {
-
                     addUserNameInput.placeholder = "名称重复，请重新输入!"
                     addUserNameInput.value = ""
                     addUserNameInput.classList.add("error")
@@ -781,6 +799,26 @@
             });
     }
 
+    function findTwo() {
+        var myselect=document.getElementById("selectt")
+        var index=myselect.selectedIndex
+        // var value =document.getElementById("selectt").value;
+        var name =document.getElementById("selectt").options[index].text;
+        console.log("..."+name)
+        console.log("..."+index)
+        $.ajax({
+            type: "post",
+            url: "http://localhost:8080/findRoleByManager",
+            data:{name:name},//此次url改为真正需要的url
+            success: function (data, status) {
+                $("#add_position").empty();
+                $.each(data, function (index, item) {
+                    $("#add_position").append(  //此处向select中循环绑定数据
+                        "<option value=" + item.name + ">" + item.introduction + "</option>");
+                });
+            },
+        });
+    }
     function FindUsers(id) {
         axios.get('http://localhost:8080/findUser?id=' + id, {}).then(function (response) {
             var data = response.data;
@@ -825,9 +863,9 @@
         var now = year + "年 " + month + "月 " + date + "日 星期 " + days[day] + " " + hour + ":" + min + ":" + sec;
         clock.innerHTML = now;
     }
-     showRealTime(clock);
-    setInterval("showRealTime(clock)",1000)
 
+    showRealTime(clock);
+    setInterval("showRealTime(clock)", 1000)
 
 
     function validate() {
@@ -840,7 +878,7 @@
             return false;
         }
         var regex = "^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$";
-        if(!(regex.test(phone))){
+        if (!(regex.test(phone))) {
             alert("手机号码有误，请重填");
             return false;
         }

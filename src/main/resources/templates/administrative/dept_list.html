@@ -41,6 +41,7 @@
                 url: "http://localhost:8080/findByPosition", //此次url改为真正需要的url
                 success: function (data, status) {
                     console.log("职工为" + data)
+                    console.log( data.name)
                     $.each(data, function (index, item) {
                         $("#select").append(  //此处向select中循环绑定数据
                             "<option value=" + item.id + ">" + item.name + "</option>");
@@ -554,14 +555,6 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <!--<div class="control-group">-->
-                                                <!--<label class="control-label">部门负责人<span-->
-                                                <!--class="required">*</span></label>-->
-                                                <!--<div class="controls">-->
-                                                <!--<input name="uId" value="" id="uId" type="text"-->
-                                                <!--class="span8 m-wrap"/>-->
-                                                <!--</div>-->
-                                                <!--</div>-->
 
                                                 <div class="control-group">
                                                     <label class="control-label">成立时间<span

@@ -90,12 +90,11 @@ $(function() {
                 url:'http://localhost:8080/uploadImage',
                 dataType:'json',  
                 type: "POST",  
-                data: {"file":data.toString()},
+                data: {"file":data},
          }).then(
              function (data) {
-                 console.log(data)
-                 console.log("........................")
                  alert("上传成功！")
+                 window.location.href="http://localhost:8080/changeImage.html"
                  // location.reload("locahost:")
              }
         );
